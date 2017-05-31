@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <script src="cmlib/lib/codemirror.js"></script>
+        <link rel="stylesheet" href="cmlib/lib/codemirror.css">
+        <script src="cmlib/mode/YEP/YEP.js"></script>
+
+    </head>
+
+    <body>
+        <h1>CodeMirror</h1>
+        <div id="codeMirrorHolder"></div>
+
+        <script>
+            var myCodeMirror = CodeMirror(document.getElementById("codeMirrorHolder"), {
+                value: 
+                "<setup action>\n" +
+                "  clear battle log\n" +
+                "  display action\n" +
+                "  immortal: targets, true\n" +
+                "  perform start\n" +
+                "  wait for movement\n" +
+                "  cast animation\n" +
+                "  wait for animation\n" +
+                "</setup action>\n" +
+                "\n" +
+                "<whole action>\n" +
+                "  perform action\n" +
+                "  motion wait: user\n" +
+                "  action animation\n" +
+                "  wait for animation\n" +
+                "  action effect\n" +
+                "  death break\n" +
+                "</whole action>\n" +
+                "\n" +
+                "<target action>\n" +
+                "  perform action\n" +
+                "  motion wait: user\n" +
+                "  action animation\n" +
+                "  wait for animation\n" +
+                "  action effect\n" +
+                "  death break\n" +
+                "</target action>\n" +
+                "\n" +
+                "<follow action>\n" +
+                "\n" +
+                "</follow action>\n" +
+                "\n" +
+                "<finish action>\n" +
+                "  imortal: targets, false\n" +
+                "  wait for new line\n" +
+                "  clear battle log\n" +
+                "  perform finish\n" +
+                "  wait for movement\n" +
+                "  wait for effect\n" +
+                "  action common event\n" +
+                "</finish action>\n",
+                mode: "YEP",
+                lineNumbers: true,
+                tabSize: 2,
+
+            });
+
+
+        </script>
+    </body>
+</html>
