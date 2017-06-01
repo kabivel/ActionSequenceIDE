@@ -17,7 +17,7 @@
     </head>
 
     <body style="margin: 0px; font-size: 12px;">
-        <div id="siteContainer" style="height: 100vh; width: 100vw; overflow: hidden;">
+        <div id="siteContainer" style="height: calc(100vh - 20px); width: calc(100vw - 20px); overflow: hidden; padding: 10px;">
             <h1>Action Sequence IDE</h1>
             <h2>by SergeofBIBEK</h2>
             <label>Theme: 
@@ -26,7 +26,7 @@
                     <option value="serge-dark">Dark</option>
                 </select>
             </label>
-            <div id="codeMirrorHolder" style="height: 77vh;"></div>
+            <div id="codeMirrorHolder" style="height: 77vh; border: 1px solid black;"></div>
         </div>
 
         <script>
