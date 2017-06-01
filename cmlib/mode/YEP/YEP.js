@@ -17,14 +17,7 @@ var targets = /|user|target|targets|actors|existing actors|all actors|dead actor
 
 var actions = [
 
-    /^(\s*)ACTION EFFECT: target(\s*)$/i, //sct
-    /^(\s*)ANIMATION WAIT: X(\s*)$/i,
-
-    /^(\s*)IMMORTAL: targets, true/false(\s*)$/i,
-    /^(\s*)MOTION WAIT: target(\s*)$/i, //sct
-
-    /^(\s*)WAIT: frames(\s*)$/i,
-
+    /^(\s*)IMMORTAL: targets, true|false(\s*)$/i,
     /^(\s*)ADD stat BUFF: target, (turns), (show)"(\s*)$/i,
     /^(\s*)ADD stat DEBUFF: target, (turns), (show)(\s*)$/i,
     /^(\s*)ADD STATE X: target, (show)(\s*)$/i,
@@ -38,14 +31,14 @@ var actions = [
     /^(\s*)BGS: MEMORIZE(\s*)$/i,
     /^(\s*)BGS: MEMORY(\s*)$/i,
     /^(\s*)BGS: filename, (volume), (pitch), (pan)(\s*)$/i,
-    /^(\s*)CHANGE SWITCH X: on/off/toggle/switch z(\s*)$/i,
-    /^(\s*)CHANGE SWITCH X..Y: on/off/toggle/switch z(\s*)$/i,
-    /^(\s*)CHANGE SWITCH X TO Y: on/off/toggle/switch z(\s*)$/i,
+    /^(\s*)CHANGE SWITCH X: on|off|toggle|switch z(\s*)$/i,
+    /^(\s*)CHANGE SWITCH X..Y: on|off|toggle|switch z(\s*)$/i,
+    /^(\s*)CHANGE SWITCH X TO Y: on|off|toggle|switch z(\s*)$/i,
     /^(\s*)CHANGE VARIABLE X = Y(\s*)$/i,
     /^(\s*)CHANGE VARIABLE X += Y(\s*)$/i,
     /^(\s*)CHANGE VARIABLE X -= Y(\s*)$/i,
     /^(\s*)CHANGE VARIABLE X *= Y(\s*)$/i,
-    /^(\s*)CHANGE VARIABLE X /= Y(\s*)$/i,
+    /^(\s*)CHANGE VARIABLE X \/= Y(\s*)$/i,
     /^(\s*)CHANGE VARIABLE X %= Y(\s*)$/i,
     /^(\s*)COLLAPSE: target, (force)(\s*)$/i,
     /^(\s*)COMMON EVENT: X(\s*)$/i,
@@ -76,7 +69,6 @@ var actions = [
     /^(\s*)MP -VARIABLE X: target, (show)(\s*)$/i,
     /^(\s*)MP +VARIABLE X%: target, (show)(\s*)$/i,
     /^(\s*)MP -VARIABLE X%: target, (show)(\s*)$/i,
-
     /^(\s*)REMOVE stat BUFF: target, (show)(\s*)$/i,
     /^(\s*)REMOVE stat DEBUFF: target, (show)(\s*)$/i,
     /^(\s*)REMOVE STATE X: target (show)(\s*)$/i,
@@ -117,8 +109,6 @@ var actions = [
     /^(\s*)ATTACK ANIMATION: target(\s*)$/i,
     /^(\s*)ENEMY EFFECT: target, effect-type(\s*)$/i,
     /^(\s*)FACE target: args(\s*)$/i,
-    /^(\s*)FADE OUT: (frames)(\s*)$/i,
-    /^(\s*)FADE IN: (frames)(\s*)$/i,
     /^(\s*)FLASH SCREEN: args(\s*)$/i,
     /^(\s*)FLOAT target: (height), (frames)(\s*)$/i,
     /^(\s*)FLOAT target: (height%), (frames)(\s*)$/i,
@@ -132,15 +122,14 @@ var actions = [
     /^(\s*)SHOW BATTLE HUD(\s*)$/i,
     /^(\s*)SHAKE SCREEN: (power), (speed), (frames)(\s*)$/i,
     /^(\s*)TINT SCREEN: args(\s*)$/i,
-
     /^(\s*)CAMERA FOCUS: target, (location), (frames)(\s*)$/i,
     /^(\s*)CAMERA OFFSET: DIRECTION, DISTANCE(\s*)$/i,
-
-    /^(\s*)RESET CAMERA: (frames)(\s*)$/i,
-    /^(\s*)RESET ZOOM: (frames)(\s*)$/i,
-
     /^(\s*)ZOOM: x%, (frames)(\s*)$/i,
     /^(\s*)ZOOM: x.y, (frames)(\s*)$/i,
+
+
+
+
 
 
 ];
