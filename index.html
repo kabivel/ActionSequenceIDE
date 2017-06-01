@@ -11,18 +11,8 @@
         <link rel="stylesheet" href="cmlib/addon/scroll/simplescrollbars.css">
         <script src="cmlib/addon/selection/active-line.js"></script>
         <script src="cmlib/mode/simplemode/simplemode.js"></script>
+        <link rel="stylesheet" href="cmlib/theme/serge-light.css">
 
-        <style>
-            .cm-matchhighlight 
-            {
-                background-color: lightgreen;
-            }
-            .CodeMirror-activeline-background 
-            {
-                background-color: rgba(0, 0, 0, 0.2);
-            }
-
-        </style>
     </head>
 
     <body>
@@ -66,7 +56,7 @@
                 "</follow action>\n" +
                 "\n" +
                 "<finish action>\n" +
-                "  imortal: targets, false\n" +
+                "  immortal: targets, false\n" +
                 "  wait for new line\n" +
                 "  clear battle log\n" +
                 "  perform finish\n" +
@@ -80,6 +70,7 @@
                 highlightSelectionMatches: true,
                 scrollbarStyle: "simple",
                 styleActiveLine: true,
+                theme: "serge-light",
 
             });
 
