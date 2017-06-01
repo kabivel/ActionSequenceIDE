@@ -12,13 +12,22 @@
         <script src="cmlib/addon/selection/active-line.js"></script>
         <script src="cmlib/mode/simplemode/simplemode.js"></script>
         <link rel="stylesheet" href="cmlib/theme/serge-light.css">
+        <link rel="stylesheet" href="cmlib/theme/serge-dark.css">
 
     </head>
 
-    <body>
-        <h1>Action Sequence IDE</h1>
-        <h2>by SergeofBIBEK</h2>
-        <div id="codeMirrorHolder"></div>
+    <body style="margin: 0px; font-size: 12px;">
+        <div id="siteContainer" style="height: 100vh; width: 100vw; overflow: hidden;">
+            <h1>Action Sequence IDE</h1>
+            <h2>by SergeofBIBEK</h2>
+            <label>Theme: 
+                <select id="themeSelector" onchange="changeTheme()">
+                    <option value="serge-light">Light</option>
+                    <option value="serge-dark">Dark</option>
+                </select>
+            </label>
+            <div id="codeMirrorHolder" style="height: 77vh;"></div>
+        </div>
 
         <script>
             var myCodeMirror = CodeMirror(document.getElementById("codeMirrorHolder"), {
@@ -73,6 +82,11 @@
                 theme: "serge-light",
 
             });
+
+            function changeTheme()
+            {
+                myCodeMirror.setOption("theme", document.getElementById("themeSelector").value);
+            }
 
             //myCodeMirror.showHint();
 
