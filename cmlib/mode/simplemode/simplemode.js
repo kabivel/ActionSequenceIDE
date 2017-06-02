@@ -64,7 +64,7 @@ CodeMirror.defineSimpleMode("simplemode", {
 
         //command: target
         {
-            regex: /(\s*)(ACTION ANIMATION|ACTION EFFECT|ATTACK ANIMATION)(:\s+)(user|target|targets|actors|existing actors|all actors|dead actors|actors not user|enemies|existing enemies|all enemies|dead enemies|enemies not user|friends|all friends|dead friends|friends not user|opponents|all opponents|dead opponents|all alive|all members|all dead|all not user|focus|not focus|(?:(?:actor|character|enemy|friend|opponent)\s+\d+))(\s*)$/i,
+            regex: /(\s*)(ACTION ANIMATION|PERFORM ACTION|ACTION EFFECT|ATTACK ANIMATION)(:\s+)(user|target|targets|actors|existing actors|all actors|dead actors|actors not user|enemies|existing enemies|all enemies|dead enemies|enemies not user|friends|all friends|dead friends|friends not user|opponents|all opponents|dead opponents|all alive|all members|all dead|all not user|focus|not focus|(?:(?:actor|character|enemy|friend|opponent)\s+\d+))(\s*)$/i,
             token: [null, "string", "opperator", "atom", null],
             sol: true,
         },
