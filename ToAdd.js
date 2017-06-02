@@ -1,73 +1,61 @@
 [
     "Yanfly Plugins",
     [
-        /ATB CHARGE: target, X/,
-        /ATB CHARGE: target, X%/,
-        /ATB CHARGE: targets, +X/,
-        /ATB CHARGE: targets, +X%/,
-        /ATB GAUGE: target, X/,
-        /ATB GAUGE: target, X%/,
-        /ATB GAUGE: targets, +X/,
-        /ATB GAUGE: targets, +X%/,
+        
         /ATB INTERRUPT: target/,
-        /ATB SPEED: target, X/,
-        /ATB SPEED: target, X%/,
-        /ATB SPEED: targets, +X/,
-        /ATB SPEED: targets, +X%/,
+        
         /CTB ORDER: target, +X/,
         /CTB ORDER: target, -X/,
-        /CTB SPEED: target, X/,
-        /CTB SPEED: target, X%/,
-        /CTB SPEED: targets, +X/,
-        /CTB SPEED: targets, +X%/,
-        /BYPASS DAMAGE CAP/,
+        
         /DAMAGE CAP: x/,
         /HEALING CAP: x/,
+        
         /DAMAGE RATE: x%/,
         /DAMAGE RATE: x.y/,
         /DAMAGE RATE: VARIABLE x/,
+        
         /FLAT DAMAGE: +x/,
         /FLAT DAMAGE: -x/,
         /FLAT DAMAGE: VARIABLE x/,
+        
         /FLAT GLOBAL: +x/,
         /FLAT GLOBAL: -x/,
         /FLAT GLOBAL: VARIABLE x/,
+        
         /FLAT HEAL: +x/,
         /FLAT HEAL: -x/,
         /FLAT HEAL: VARIABLE x/,
+        
         /GLOBAL RATE: x%/,
         /GLOBAL RATE: x.y/,
         /GLOBAL RATE: VARIABLE x/,
+        
         /HEAL RATE: x%/,
         /HEAL RATE: x.y/,
         /HEAL RATE: VARIABLE x/,
-        /RESET DAMAGE CAP/,
-        /RESET DAMAGE MODIFIERS/,
+        
         /ARMOR PENETRATION: X/,
         /ARMOR PENETRATION: X%/,
         /ARMOR REDUCTION: X/,
         /ARMOR REDUCTION: X%/,
-        /RESET ARMOR PENETRATION/,
-        /RESET ARMOR REDUCTION/,
+        
         /CRITICAL MULTIPLIER: x%/,
         /CRITICAL MULTIPLIER: x.y/,
         /CRITICAL MULTIPLIER: VARIABLE x/,
+        
         /FLAT CRITICAL: +x/,
         /FLAT CRITICAL: -x/,
         /FLAT CRITICAL: VARIABLE x/,
-        /FORCE CRITICAL/,
-        /FORCE NO CRITICAL/,
-        /NORMAL CRITICAL/,
+        
         /ADD ELEMENT: X/,
         /ADD ELEMENT: X, X, X/,
         /ADD ELEMENT: NAME/,
         /ADD ELEMENT: NAME, NAME, NAME/,
-        /CLEAR ELEMENT/,
         /FORCE ELEMENT: X/,
         /FORCE ELEMENT: X, X, X/,
         /FORCE ELEMENT: NAME/,
         /FORCE ELEMENT: NAME, NAME, NAME/,
-        /NULL ELEMENT/,
+        
         /BATTLEBACK id ADD: folder, filename/,
         /BATTLEBACK id ADD: folder, filename, hue/,
         /BATTLEBACK id REMOVE/,
@@ -84,9 +72,11 @@
         /BATTLEBACK id SCROLL SPEED Y: +n/,
         /BATTLEBACK id SCROLL SPEED Y: -n/,
         /BATTLEBACK id RESET SCROLL SPEED/,
+        
         /GLOBAL COOLDOWN: targets, +X/,
         /GLOBAL COOLDOWN: targets, -X/,
         /GLOBAL COOLDOWN: targets, X/,
+        
         /SKILL X COOLDOWN: targets, +Y/,
         /SKILL X COOLDOWN: targets, -Y/,
         /SKILL X COOLDOWN: targets, Y/,
