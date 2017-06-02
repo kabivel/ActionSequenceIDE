@@ -23,7 +23,7 @@
 .cm-s-serge-light span.cm-keyword { color: #FF00FF; }
 .cm-s-serge-light span.cm-string { color: #009900; }
 
-.cm-s-serge-light span.cm-variable { color: #017252; }
+.cm-s-serge-light span.cm-variable { color: #01a252; }
 .cm-s-serge-light span.cm-variable-2 { color: #00a5f4; }
 .cm-s-serge-light span.cm-def { color: #e8bbd0; }
 .cm-s-serge-light span.cm-bracket { color: #d6d5d4; }
@@ -31,7 +31,7 @@
 .cm-s-serge-light span.cm-link { color: #a16a94; }
 .cm-s-serge-light span.cm-error { background: #FFCCCC; color: #FF0000; }
 
-.cm-s-serge-light .CodeMirror-activeline-background { background: rgba(0, 0, 0, 0.3); }
+.cm-s-serge-light .CodeMirror-activeline-background { background: rgba(0, 0, 0, 0.3);; }
 .cm-s-serge-light .cm-matchhighlight { background-color: #FFFF00; }
 .cm-s-serge-light .CodeMirror-activeline { font-weight: bold;}
 .cm-s-serge-light .CodeMirror-matchingbracket { text-decoration: underline; color: black !important; }
