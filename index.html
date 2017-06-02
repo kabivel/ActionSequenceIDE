@@ -1,15 +1,36 @@
 <html>
     <head>
-        <script src="cmlib/lib/codemirror.js"></script>
+
+        <title>Action Sequence Editor</title>
+
         <link rel="stylesheet" href="cmlib/lib/codemirror.css">
+        <link rel="stylesheet" href="cmlib/addon/hint/show-hint.css">
+        <link rel="stylesheet" href="cmlib/addon/scroll/simplescrollbars.css">
+        <link rel="stylesheet" href="cmlib/addon/search/matchesonscrollbar.css">
+        <link rel="stylesheet" href="cmlib/addon/dialog/dialog.css">
+        <link rel="stylesheet" href="cmlib/addon/fold/foldgutter.css">
+        <script src="cmlib/lib/codemirror.js"></script>
         <script src="cmlib/addon/mode/simple.js"></script>
         <script src="cmlib/addon/hint/show-hint.js"></script>
-        <link rel="stylesheet" href="cmlib/addon/hint/show-hint.css">
         <script src="cmlib/addon/hint/anyword-hint.js"></script>
         <script src="cmlib/addon/search/match-highlighter.js"></script>
         <script src="cmlib/addon/scroll/simplescrollbars.js"></script>
-        <link rel="stylesheet" href="cmlib/addon/scroll/simplescrollbars.css">
         <script src="cmlib/addon/selection/active-line.js"></script>
+        <script src="cmlib/addon/edit/closebrackets.js"></script>
+        <script src="cmlib/addon/fold/foldcode.js"></script>
+        <script src="cmlib/addon/fold/foldgutter.js"></script>
+        <script src="cmlib/addon/fold/brace-fold.js"></script>
+        <script src="cmlib/addon/fold/xml-fold.js"></script>
+        <script src="cmlib/addon/fold/indent-fold.js"></script>
+        <script src="cmlib/addon/dialog/dialog.js"></script>
+        <script src="cmlib/addon/search/searchcursor.js"></script>
+        <script src="cmlib/addon/search/search.js"></script>
+        <script src="cmlib/addon/search/matchesonscrollbar.js"></script>
+
+        <script src="cmlib/addon/scroll/annotatescrollbar.js"></script>
+
+
+
         <script src="cmlib/mode/simplemode/simplemode.js"></script>
         <link rel="stylesheet" href="main.css">
         <link rel="stylesheet" href="cmlib/theme/serge-light.css">
@@ -125,7 +146,7 @@
             <div id="codeMirrorHolder" style="height: 77vh; border: 1px solid black;"></div>
             <div id="supportTheDeveloper">
                 <p style="text-align: center;">Support The Developer?</p>
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                     <input type="hidden" name="cmd" value="_s-xclick">
                     <input type="hidden" name="hosted_button_id" value="PVGPVVPNV8F3Y">
                     <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
@@ -185,14 +206,28 @@
                 scrollbarStyle: "simple",
                 styleActiveLine: true,
                 theme: "serge-light",
+                autoCloseBrackets: true,
+                gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+                foldGutter: {
+                    rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.xml, CodeMirror.fold.indent)
+                },
 
             });
+
+            //editor.foldCode(CodeMirror.Pos(1, 0), CodeMirror.fold.brace);
+
 
             function changeTheme()
             {
                 editor.setOption("theme", document.getElementById("themeSelector").value);
             }
 
+            editor.on("inputRead", function(event){
+                editor.showHint({
+                    hint: CodeMirror.hint.anyword,
+                    completeSingle: false,
+                });
+            });
             //editor.showHint();
 
 
