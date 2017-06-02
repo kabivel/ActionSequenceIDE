@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="cmlib/addon/search/matchesonscrollbar.css">
         <link rel="stylesheet" href="cmlib/addon/dialog/dialog.css">
         <link rel="stylesheet" href="cmlib/addon/fold/foldgutter.css">
+        <link rel="stylesheet" href="cmlib/addon/display/fullscreen.css">
         <script src="cmlib/lib/codemirror.js"></script>
         <script src="cmlib/addon/mode/simple.js"></script>
         <script src="cmlib/addon/hint/show-hint.js"></script>
@@ -26,8 +27,8 @@
         <script src="cmlib/addon/search/searchcursor.js"></script>
         <script src="cmlib/addon/search/search.js"></script>
         <script src="cmlib/addon/search/matchesonscrollbar.js"></script>
-
         <script src="cmlib/addon/scroll/annotatescrollbar.js"></script>
+        <script src="cmlib/addon/display/fullscreen.js"></script>
 
 
 
@@ -143,6 +144,7 @@
                     <option value="zenburn">zenburn</option>
                 </select>
             </label>
+            <input type="button" value="Fullscreen" onclick="toggleFullscreen();">
             <div id="codeMirrorHolder" style="height: 77vh; border: 1px solid black;"></div>
             <div id="supportTheDeveloper">
                 <p style="text-align: center;">Support The Developer?</p>
@@ -211,12 +213,25 @@
                 foldGutter: {
                     rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.xml, CodeMirror.fold.indent)
                 },
+                extraKeys: {
+                    "F11": function(cm) {
+                        cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                    },
+                    "Esc": function(cm) {
+                        if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                    }
+                }
 
             });
 
             //editor.foldCode(CodeMirror.Pos(1, 0), CodeMirror.fold.brace);
 
 
+            function toggleFullscreen()
+            {
+                editor.setOption("fullScreen", !editor.getOption("fullScreen"));
+            }
+            
             function changeTheme()
             {
                 editor.setOption("theme", document.getElementById("themeSelector").value);
