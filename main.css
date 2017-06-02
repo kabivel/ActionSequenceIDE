@@ -1,6 +1,15 @@
 #supportTheDeveloper
 {
-    position: fixed;
+    position: absolute;
     top: 0px;
     right: 0px;
+}
+
+.CodeMirror-activeline-background 
+{
+    background: rgba(0, 0, 0, 0.3); 
+}
+.cm-matchhighlight 
+{ 
+    background-color: #FFFF00; 
 }

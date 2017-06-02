@@ -31,7 +31,7 @@
 .cm-s-serge-light span.cm-link { color: #a16a94; }
 .cm-s-serge-light span.cm-error { background: #FFCCCC; color: #FF0000; }
 
-.cm-s-serge-light .CodeMirror-activeline-background { background: rgba(0, 0, 0, 0.3);; }
+.cm-s-serge-light .CodeMirror-activeline-background { background: rgba(0, 0, 0, 0.3); }
 .cm-s-serge-light .cm-matchhighlight { background-color: #FFFF00; }
 .cm-s-serge-light .CodeMirror-activeline { font-weight: bold;}
 .cm-s-serge-light .CodeMirror-matchingbracket { text-decoration: underline; color: black !important; }
