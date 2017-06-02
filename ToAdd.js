@@ -1,5 +1,5 @@
-{
-    "Yanfly Plugins"
+[
+    "Yanfly Plugins",
     [
         /ATB CHARGE: target, X/,
         /ATB CHARGE: target, X%/,
@@ -93,6 +93,11 @@
         /SKILL TYPE X COOLDOWN: targets, +Y/,
         /SKILL TYPE X COOLDOWN: targets, -Y/,
         /SKILL TYPE X COOLDOWN: targets, Y/,
+    ],
 
-    ]
-}
+    "SumRndmDde Plugins",
+    [
+        /TIMED ATTACK/i,
+        /TIMED ATTACK: x/i
+    ],
+]
