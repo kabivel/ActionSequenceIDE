@@ -1,4 +1,5 @@
 {
+    "Yanfly Plugins"
     [
         /ATB CHARGE: target, X/,
         /ATB CHARGE: target, X%/,
