@@ -215,14 +215,14 @@ CodeMirror.defineSimpleMode("simplemode", {
         // add buff
         {
             regex:  /(\s*)(ADD)([ ])(hp|mp|atk|def|mat|mdf|agi|luk)([ ])(BUFF|DEBUFF)(:[ ])(subject|first|user|target|targets|actors|existing actors|alive actors|actors all|party|all actors|dead actor|dead actors|actors not user|actors not subject|enemies|existing enemies|alive enemies|troop|troops|enemies all|all enemies|dead enemies|dead enemy|enemies not user|enemies not subject|troop not user|troop not subject|friend|allies|friends|all friends|all allies|dead friend|dead allies|dead friends|allies not user|friends not user|opponent|rivals|foes|opponents|all opponents|all rivals|all foes|dead opponent|dead rivals|dead foes|dead opponents|all alive|all members|all dead|all not user|focus|participants|not focus|nonparticipants|(?:(?:actor|char|chara|character|enemy|friend|ally|opponent|foe|rival)[ ]\d+))(?:(,[ ])(\d+)|)(?:(,[ ])(show)|)(\s*)$/i,
-            token: [null, "string", null, "atom", null, "string", "opperator", "atom", "opperator", "number", "opperator", "keyword", null],
+            token: [null, "string", null, "variable", null, "string", "opperator", "atom", "opperator", "number", "opperator", "keyword", null],
             sol: true,
             pop: true,
         },
         //remove buff
         {
             regex:  /(\s*)(REMOVE)([ ])(hp|mp|atk|def|mat|mdf|agi|luk)([ ])(BUFF|DEBUFF)(:[ ])(subject|first|user|target|targets|actors|existing actors|alive actors|actors all|party|all actors|dead actor|dead actors|actors not user|actors not subject|enemies|existing enemies|alive enemies|troop|troops|enemies all|all enemies|dead enemies|dead enemy|enemies not user|enemies not subject|troop not user|troop not subject|friend|allies|friends|all friends|all allies|dead friend|dead allies|dead friends|allies not user|friends not user|opponent|rivals|foes|opponents|all opponents|all rivals|all foes|dead opponent|dead rivals|dead foes|dead opponents|all alive|all members|all dead|all not user|focus|participants|not focus|nonparticipants|(?:(?:actor|char|chara|character|enemy|friend|ally|opponent|foe|rival)[ ]\d+))(?:(,[ ])(show)|)(\s*)$/i,
-            token: [null, "string", null, "atom", null, "string", "opperator", "atom", "opperator", "keyword", null],
+            token: [null, "string", null, "variable", null, "string", "opperator", "atom", "opperator", "keyword", null],
             sol: true,
             pop: true,
         },
@@ -313,14 +313,14 @@ CodeMirror.defineSimpleMode("simplemode", {
         //flash screen color
         {
             regex: /(\s*)(FLASH SCREEN)(:[ ])(WHITE|RED|ORANGE|YELLOW|GREEN|BLUE|PURPLE|MAGENTA|BLACK)(?:(,[ ])(\d+)|)(\s*)$/i,
-            token: [null, "string", "opperator", "atom", "opperator", "number", null],
+            token: [null, "string", "opperator", "variable", "opperator", "number", null],
             sol: true,
             pop: true,
         },
         //tint screen color
         {
             regex: /(\s*)(TINT SCREEN)(:[ ])(NORMAL|DARK|SEPIA|SUNSET|NIGHT)(?:(,[ ])(\d+)|)(\s*)$/i,
-            token: [null, "string", "opperator", "atom", "opperator", "number", null],
+            token: [null, "string", "opperator", "variable", "opperator", "number", null],
             sol: true,
             pop: true,
         },
@@ -369,63 +369,63 @@ CodeMirror.defineSimpleMode("simplemode", {
         
         {
             regex: /(\s*)(FACE)([ ])(subject|first|user|target|targets|actors|existing actors|alive actors|actors all|party|all actors|dead actor|dead actors|actors not user|actors not subject|enemies|existing enemies|alive enemies|troop|troops|enemies all|all enemies|dead enemies|dead enemy|enemies not user|enemies not subject|troop not user|troop not subject|friend|allies|friends|all friends|all allies|dead friend|dead allies|dead friends|allies not user|friends not user|opponent|rivals|foes|opponents|all opponents|all rivals|all foes|dead opponent|dead rivals|dead foes|dead opponents|all alive|all members|all dead|all not user|focus|participants|not focus|nonparticipants|(?:(?:actor|char|chara|character|enemy|friend|ally|opponent|foe|rival)[ ]\d+))(:[ ])(AWAY FROM)([ ])(subject|first|user|target|targets|actors|existing actors|alive actors|actors all|party|all actors|dead actor|dead actors|actors not user|actors not subject|enemies|existing enemies|alive enemies|troop|troops|enemies all|all enemies|dead enemies|dead enemy|enemies not user|enemies not subject|troop not user|troop not subject|friend|allies|friends|all friends|all allies|dead friend|dead allies|dead friends|allies not user|friends not user|opponent|rivals|foes|opponents|all opponents|all rivals|all foes|dead opponent|dead rivals|dead foes|dead opponents|all alive|all members|all dead|all not user|focus|participants|not focus|nonparticipants|(?:(?:actor|char|chara|character|enemy|friend|ally|opponent|foe|rival)[ ]\d+))(\s*)$/i,
-            token: [null, "string", null, "atom", "opperator", "atom", null, "atom", null],
+            token: [null, "string", null, "atom", "opperator", "variable", null, "atom", null],
             sol: true,
             pop: true,
         },
         
         {
             regex: /(\s*)(FACE)([ ])(subject|first|user|target|targets|actors|existing actors|alive actors|actors all|party|all actors|dead actor|dead actors|actors not user|actors not subject|enemies|existing enemies|alive enemies|troop|troops|enemies all|all enemies|dead enemies|dead enemy|enemies not user|enemies not subject|troop not user|troop not subject|friend|allies|friends|all friends|all allies|dead friend|dead allies|dead friends|allies not user|friends not user|opponent|rivals|foes|opponents|all opponents|all rivals|all foes|dead opponent|dead rivals|dead foes|dead opponents|all alive|all members|all dead|all not user|focus|participants|not focus|nonparticipants|(?:(?:actor|char|chara|character|enemy|friend|ally|opponent|foe|rival)[ ]\d+))(:[ ])(POINT|AWAY FROM POINT)(,[ ])(\d+)(,[ ])(\d+)(\s*)$/i,
-            token: [null, "string", null, "atom", "opperator", "atom", "opperator", "number", "opperator", "number", null],
+            token: [null, "string", null, "atom", "opperator", "variable", "opperator", "number", "opperator", "number", null],
             sol: true,
             pop: true,
         },
         
         {
             regex: /(\s*)(MOVE)([ ])(subject|first|user|target|targets|actors|existing actors|alive actors|actors all|party|all actors|dead actor|dead actors|actors not user|actors not subject|enemies|existing enemies|alive enemies|troop|troops|enemies all|all enemies|dead enemies|dead enemy|enemies not user|enemies not subject|troop not user|troop not subject|friend|allies|friends|all friends|all allies|dead friend|dead allies|dead friends|allies not user|friends not user|opponent|rivals|foes|opponents|all opponents|all rivals|all foes|dead opponent|dead rivals|dead foes|dead opponents|all alive|all members|all dead|all not user|focus|participants|not focus|nonparticipants|(?:(?:actor|char|chara|character|enemy|friend|ally|opponent|foe|rival)[ ]\d+))(:[ ])(HOME|RETURN)(?:(,[ ])(\d+)|)(\s*)$/i,
-            token: [null, "string", null, "atom", "opperator", "atom", "opperator", "number", null],
+            token: [null, "string", null, "atom", "opperator", "variable", "opperator", "number", null],
             sol: true,
             pop: true,
         },
         
         {
             regex: /(\s*)(MOVE)([ ])(subject|first|user|target|targets|actors|existing actors|alive actors|actors all|party|all actors|dead actor|dead actors|actors not user|actors not subject|enemies|existing enemies|alive enemies|troop|troops|enemies all|all enemies|dead enemies|dead enemy|enemies not user|enemies not subject|troop not user|troop not subject|friend|allies|friends|all friends|all allies|dead friend|dead allies|dead friends|allies not user|friends not user|opponent|rivals|foes|opponents|all opponents|all rivals|all foes|dead opponent|dead rivals|dead foes|dead opponents|all alive|all members|all dead|all not user|focus|participants|not focus|nonparticipants|(?:(?:actor|char|chara|character|enemy|friend|ally|opponent|foe|rival)[ ]\d+))(:[ ])(FORWARD|BACKWARD)(?:(,[ ])(\d+)|)(?:(,[ ])(\d+)|)(\s*)$/i,
-            token: [null, "string", null, "atom", "opperator", "atom", "opperator", "number", "opperator", "number", null],
+            token: [null, "string", null, "atom", "opperator", "variable", "opperator", "number", "opperator", "number", null],
             sol: true,
             pop: true,
         },
         
         {
             regex: /(\s*)(MOVE)([ ])(subject|first|user|target|targets|actors|existing actors|alive actors|actors all|party|all actors|dead actor|dead actors|actors not user|actors not subject|enemies|existing enemies|alive enemies|troop|troops|enemies all|all enemies|dead enemies|dead enemy|enemies not user|enemies not subject|troop not user|troop not subject|friend|allies|friends|all friends|all allies|dead friend|dead allies|dead friends|allies not user|friends not user|opponent|rivals|foes|opponents|all opponents|all rivals|all foes|dead opponent|dead rivals|dead foes|dead opponents|all alive|all members|all dead|all not user|focus|participants|not focus|nonparticipants|(?:(?:actor|char|chara|character|enemy|friend|ally|opponent|foe|rival)[ ]\d+))(:[ ])(subject|first|user|target|targets|actors|existing actors|alive actors|actors all|party|all actors|dead actor|dead actors|actors not user|actors not subject|enemies|existing enemies|alive enemies|troop|troops|enemies all|all enemies|dead enemies|dead enemy|enemies not user|enemies not subject|troop not user|troop not subject|friend|allies|friends|all friends|all allies|dead friend|dead allies|dead friends|allies not user|friends not user|opponent|rivals|foes|opponents|all opponents|all rivals|all foes|dead opponent|dead rivals|dead foes|dead opponents|all alive|all members|all dead|all not user|focus|participants|not focus|nonparticipants|(?:(?:actor|char|chara|character|enemy|friend|ally|opponent|foe|rival)[ ]\d+))(,[ ])(BASE|CENTER|HEAD|FRONT BASE|FRONT CENTER|FRONT HEAD|BACK BASE|BACK CENTER|BACK HEAD)(?:(,[ ])(\d+)|)(\s*)$/i,
-            token: [null, "string", null, "atom", "opperator", "atom", "opperator", "atom", "opperator", "number", null],
+            token: [null, "string", null, "atom", "opperator", "atom", "opperator", "variable", "opperator", "number", null],
             sol: true,
             pop: true,
         },
         
         {
             regex:  /(\s*)(MOVE)([ ])(subject|first|user|target|targets|actors|existing actors|alive actors|actors all|party|all actors|dead actor|dead actors|actors not user|actors not subject|enemies|existing enemies|alive enemies|troop|troops|enemies all|all enemies|dead enemies|dead enemy|enemies not user|enemies not subject|troop not user|troop not subject|friend|allies|friends|all friends|all allies|dead friend|dead allies|dead friends|allies not user|friends not user|opponent|rivals|foes|opponents|all opponents|all rivals|all foes|dead opponent|dead rivals|dead foes|dead opponents|all alive|all members|all dead|all not user|focus|participants|not focus|nonparticipants|(?:(?:actor|char|chara|character|enemy|friend|ally|opponent|foe|rival)[ ]\d+))(:[ ])(POINT)(,[ ])(\d+)(,[ ])(\d+)(?:(,[ ])(\d+)|)(\s*)$/i,
-            token: [null, "string", null, "atom", "opperator", "atom", "opperator", "number", "opperator", "number", "opperator", "number", null],
+            token: [null, "string", null, "atom", "opperator", "variable", "opperator", "number", "opperator", "number", "opperator", "number", null],
             sol: true,
             pop: true,
         },
         
         {
             regex: /(\s*)(CAMERA FOCUS|CAMERA SCREEN)(:[ ])(subject|first|user|target|targets|actors|existing actors|alive actors|actors all|party|all actors|dead actor|dead actors|actors not user|actors not subject|enemies|existing enemies|alive enemies|troop|troops|enemies all|all enemies|dead enemies|dead enemy|enemies not user|enemies not subject|troop not user|troop not subject|friend|allies|friends|all friends|all allies|dead friend|dead allies|dead friends|allies not user|friends not user|opponent|rivals|foes|opponents|all opponents|all rivals|all foes|dead opponent|dead rivals|dead foes|dead opponents|all alive|all members|all dead|all not user|focus|participants|not focus|nonparticipants|(?:(?:actor|char|chara|character|enemy|friend|ally|opponent|foe|rival)[ ]\d+))(?:(,[ ])(FRONT BASE|BASE|BACK BASE|FRONT CENTER|CENTER|BACK CENTER|FRONT HEAD|HEAD|BACK HEAD)|)(?:(,[ ])(\d+)|)(\s*)$/i,
-            token: [null, "string", "opperator", "atom", "opperator", "atom", "opperator", "number", null],
+            token: [null, "string", "opperator", "atom", "opperator", "variable", "opperator", "number", null],
             sol: true,
             pop: true,
         },
         
         {
             regex: /(\s*)(CAMERA OFFSET)(:[ ])(LEFT|RIGHT|UP|DOWN)(,[ ])(.+)(\s*)$/i,
-            token: [null, "string", "opperator", "atom", "opperator", "variable-2", null],
+            token: [null, "string", "opperator", "variable", "opperator", "variable-2", null],
             sol: true,
             pop: true,
         },
         
         {
             regex: /(\s*)(CAMERA PAN)(:[ ])(LEFT|RIGHT|UP|DOWN)(,[ ])(\d+)(?:(,[ ])(\d+)|)(\s*)$/i,
-            token: [null, "string", "opperator", "atom", "opperator", "number", "opperator", "number", null],
+            token: [null, "string", "opperator", "variable", "opperator", "number", "opperator", "number", null],
             sol: true,
             pop: true,
         },
@@ -439,7 +439,7 @@ CodeMirror.defineSimpleMode("simplemode", {
         
         {
             regex: /(\s*)(CAMERA SCREEN)(:[ ])(POINT)(,[ ])(\d+)(,[ ])(\d+)(?:(,[ ])(\d+)|)(\s*)$/i,
-            token: [null, "string", "opperator", "atom", "opperator", "number", "opperator", "number", "opperator", "number", null],
+            token: [null, "string", "opperator", "variable", "opperator", "number", "opperator", "number", "opperator", "number", null],
             sol: true,
             pop: true,
         },
