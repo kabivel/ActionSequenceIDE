@@ -120,7 +120,7 @@
     </head>
 
     <body style="margin: 0px; font-size: 12px;">
-        <div id="siteContainer" style="height: calc(100vh - 20px); width: calc(100vw - 20px); overflow: hidden; padding: 10px;">
+        <div id="siteContainer" style="padding: 10px;">
             <h1 style="text-align: center;">Action Sequence Editor</h1>
             <h2 style="text-align: center;">by SergeofBIBEK</h2>
             <input id="signInButton" class="authButtons" type="button" value="Sign In" onclick="signInButton();" style-"display: none;">
@@ -182,6 +182,7 @@
                 </select>
             </label>
             <input type="button" value="Fullscreen" onclick="toggleFullscreen();">
+            <input type="button" value="Preview" onclick="previewHandler();">
             <span id="signedInButtons" style="display: none;">
                 <input type="button" value="New" onclick="newHandler();">
                 <input type="button" value="Save" class="authItem" onclick="saveHandler();">
@@ -203,11 +204,13 @@
             </div>
             <div id="firebaseui-auth-container" style="display: none;"><input type="button" value="Cancel" style="position: absolute; top:15px; right: 25px; font-size: 25px;" onclick="document.getElementById('firebaseui-auth-container').style.display = 'none';"> </div>
             <div id="shareModal" style="display: none;"><input type="button" value="Close" style="position: absolute; top:15px; right: 25px; font-size: 25px;" onclick="document.getElementById('shareModal').style.display = 'none';"><div id="shareContent"></div> </div>
-            <div id="previewHolder" style="display: none;"></div>
+            <div id="previewHolder" style="display: none;" ondrag="console.log(event);"><p id="description">Drag, Resize, Snap</p><input id="closePreview" type="button" value="Close Preview" onclick="closePreview();"></div>
+            <div id="ghostpane" style="display: none;"></div>
         </div>
         <script src="main.js"></script>
-        
-        
+        <script src="move.js"></script>
+
+
         <script type="text/javascript" src="js/libs/pixi.js"></script>
         <script type="text/javascript" src="js/libs/pixi-tilemap.js"></script>
         <script type="text/javascript" src="js/libs/pixi-picture.js"></script>

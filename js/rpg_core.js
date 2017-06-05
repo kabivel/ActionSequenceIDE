@@ -2223,8 +2223,8 @@ Graphics._centerElement = function(element) {
     element.style.left = 0;
     element.style.right = 0;
     element.style.bottom = 0;
-    element.style.width = width + 'px';
-    element.style.height = height + 'px';
+    element.style.width = "100%";
+    element.style.height = "100%";
 };
 
 /**

@@ -276,3 +276,33 @@ function shareHandler()
     }
 
 }
+
+var firstClick = true;
+
+function previewHandler()
+{
+    if (firstClick)
+    {
+        document.getElementById("previewHolder").removeAttribute("style");
+        document.getElementById("ghostpane").removeAttribute("style");
+        SceneManager.run(Scene_Boot);
+        firstClick = false;
+    }
+    else
+    {
+        document.getElementById("previewHolder").removeAttribute("style");
+        document.getElementById("ghostpane").removeAttribute("style");
+        SceneManager.goto(Scene_Map);
+    }
+
+    window.scrollTo(0, document.getElementById("previewHolder").offsetTop - 50);
+}
+
+function closePreview()
+{
+    setTimeout(function(){
+        SceneManager.goto(Scene_Pause);
+        document.getElementById("previewHolder").style.display = "none";
+        document.getElementById("ghostpane").style.display = "none";
+    }, 1000);
+}

@@ -164,3 +164,23 @@ BattleManager.SergeofBIBEKPreview = function()
 
     return true;
 }
+
+function Scene_Pause() {
+    this.initialize.apply(this, arguments);
+}
+
+Scene_Pause.prototype = Object.create(Scene_MenuBase.prototype);
+Scene_Pause.prototype.constructor = Scene_Pause;
+
+Scene_Pause.prototype.initialize = function() {
+    Scene_MenuBase.prototype.initialize.call(this);
+};
+
+Scene_Pause.prototype.create = function() {
+    Scene_MenuBase.prototype.create.call(this);
+    AudioManager.stopAll();
+};
+
+Scene_Pause.prototype.terminate = function() {
+    Scene_MenuBase.prototype.terminate.call(this);
+};
