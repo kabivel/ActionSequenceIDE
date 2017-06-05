@@ -123,7 +123,7 @@
         <div id="siteContainer" style="padding: 10px;">
             <h1 style="text-align: center;">Action Sequence Editor</h1>
             <h2 style="text-align: center;">by SergeofBIBEK</h2>
-            <input id="signInButton" class="authButtons" type="button" value="Sign In" onclick="signInButton();" style-"display: none;">
+            <input id="signInButton" class="authButtons" type="button" value="Sign In" onclick="signInButton();" style="display: none;">
             <input id="signOutButton" class="authButtons" type="button" value="Sign Out" onclick="signOutButton();" style="display: none;">
             <p id="userName" style="position: absolute; top: 40px"></p>
             <p id="projectName" style="position: absolute; top: 60px">New Sequence</p>
@@ -183,11 +183,11 @@
             </label>
             <input type="button" value="Fullscreen" onclick="toggleFullscreen();">
             <input type="button" value="Preview" onclick="previewHandler();">
+            <input type="button" value="Share" onclick="shareHandler();">
             <span id="signedInButtons" style="display: none;">
                 <input type="button" value="New" onclick="newHandler();">
                 <input type="button" value="Save" class="authItem" onclick="saveHandler();">
                 <input type="button" value="Save As" class="authItem" onclick="saveAsHandler();">
-                <input type="button" value="Share" onclick="shareHandler();">
                 <label>Sequences: <select id="sequenceSelector"><option>Loading...</option></select></label>
                 <input type="button" value="Load" onclick="loadHandler();">
                 <input type="button" value="Delete" onclick="deleteHandler();">
