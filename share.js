@@ -119,3 +119,8 @@ function adjustVolume()
 {
     
 }
+
+function updateSkillSettings()
+{
+    
+}
