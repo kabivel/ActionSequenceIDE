@@ -208,6 +208,29 @@ function signedInHandler()
         changeTheme();
     });
 
+    firebase.database().ref(currentUser.uid).child("volume").once('value', function(volume){
+        if (volume.val())
+        {
+            if (volume.val().bgm != null)
+            {
+                document.getElementById("bgmVol").value = volume.val().bgm;
+            }
+            if (volume.val().bgs != null)
+            {
+                document.getElementById("bgsVol").value = volume.val().bgs;
+            }
+            if (volume.val().se != null)
+            {
+                document.getElementById("seVol").value = volume.val().se;
+            }
+            if (volume.val().me != null)
+            {
+                document.getElementById("meVol").value = volume.val().me;
+            }
+            adjustVolume();
+        }
+    });
+
     firebase.database().ref(currentUser.uid).child("sequences").on('value', function(sequences){
         var htmlString = "";
         sequences.forEach(function(sequence){
@@ -295,7 +318,9 @@ function previewHandler()
         SceneManager.goto(Scene_Map);
     }
 
-    window.scrollTo(0, document.getElementById("previewHolder").offsetTop - 50);
+    document.getElementById("openPreviewButton").style.display = "none";
+    document.getElementById("closePreviewButton").removeAttribute("style");
+
 }
 
 function closePreview()
@@ -304,5 +329,27 @@ function closePreview()
         SceneManager.goto(Scene_Pause);
         document.getElementById("previewHolder").style.display = "none";
         document.getElementById("ghostpane").style.display = "none";
+        document.getElementById("closePreviewButton").style.display = "none";
+        document.getElementById("openPreviewButton").removeAttribute("style");
     }, 1000);
+}
+
+function volumeHandler()
+{
+    firebase.database().ref(currentUser.uid).child("volume").update({
+        bgm: document.getElementById("bgmVol").value,
+        bgs: document.getElementById("bgsVol").value,
+        se: document.getElementById("seVol").value,
+        me: document.getElementById("meVol").value,
+    });
+
+    adjustVolume();
+}
+
+function adjustVolume()
+{
+    ConfigManager.bgmVolume = parseInt(document.getElementById("bgmVol").value);
+    ConfigManager.bgsVolume = parseInt(document.getElementById("bgsVol").value);
+    ConfigManager.seVolume = parseInt(document.getElementById("seVol").value);
+    ConfigManager.meVolume = parseInt(document.getElementById("meVol").value);
 }
