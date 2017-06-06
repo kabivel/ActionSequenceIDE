@@ -107,6 +107,10 @@ function saveHandler()
     {
         firebase.database().ref(currentUser.uid + "/sequences/" + currentProject).update({
             code: editor.getValue(),
+            scope: document.getElementById("skillScope").value,
+            damageType: document.getElementById("skillDamageType").value,
+            animation: document.getElementById("skillAnimation").value,
+            castAnimation: document.getElementById("skillCastAnimation").value,
         });
         setDirty(false);
     }
@@ -122,6 +126,10 @@ function saveAsHandler()
         currentProject = firebase.database().ref(currentUser.uid + "/sequences").push({
             name: result,
             code: editor.getValue(),
+            scope: document.getElementById("skillScope").value,
+            damageType: document.getElementById("skillDamageType").value,
+            animation: document.getElementById("skillAnimation").value,
+            castAnimation: document.getElementById("skillCastAnimation").value,
         });
         setCurrentProject(currentProject.key);
         setDirty(false);
@@ -291,6 +299,10 @@ function shareHandler()
         publicKey = firebase.database().ref("public/").push({
             name: publicName,
             code: editor.getValue(),
+            scope: document.getElementById("skillScope").value,
+            damageType: document.getElementById("skillDamageType").value,
+            animation: document.getElementById("skillAnimation").value,
+            castAnimation: document.getElementById("skillCastAnimation").value,
         });
         publicURL = window.location.origin + "/share.html?sequence=" + publicKey.key;
 
@@ -364,6 +376,8 @@ function updateSkillSettings()
     skill.damage.type = parseInt(document.getElementById("skillDamageType").value);
     skill.animationId = parseInt(document.getElementById("skillAnimation").value);
     skill.castAnimation = parseInt(document.getElementById("skillCastAnimation").value);
+    
+    setDirty(true);
 }
 
 function setSkillOptions()

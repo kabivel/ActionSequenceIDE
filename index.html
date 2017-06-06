@@ -224,7 +224,7 @@
                     <label class="dropdown-item">Scope
                         <select onchange="updateSkillSettings();" id="skillScope">
                             <option value="0">None</option>
-                            <option value="1">1 Enemy</option>
+                            <option value="1" selected>1 Enemy</option>
                             <option value="2">All Enemies</option>
                             <option value="3">1 Random Enemy</option>
                             <option value="4">2 Random Enemies</option>
@@ -240,7 +240,7 @@
                     <label class="dropdown-item">Damage Type
                         <select onchange="updateSkillSettings();" id="skillDamageType">
                             <option value="0">None</option>
-                            <option value="1">HP Damage</option>
+                            <option value="1" selected>HP Damage</option>
                             <option value="2">MP Damage</option>
                             <option value="3">HP Recover</option>
                             <option value="4">MP Recover</option>
@@ -249,10 +249,10 @@
                         </select>
                     </label>
                     <label class="dropdown-item">Animation ID
-                        <input onchange="updateSkillSettings();" id="skillAnimation" type="number">
+                        <input value="-1" onchange="updateSkillSettings();" id="skillAnimation" type="number">
                     </label>
                     <label class="dropdown-item">Cast Animation ID
-                        <input onchange="updateSkillSettings();" id="skillCastAnimation" type="number">
+                        <input value="52" onchange="updateSkillSettings();" id="skillCastAnimation" type="number">
                     </label>
                 </div>
             </div>
