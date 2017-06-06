@@ -115,7 +115,7 @@ function closePreview()
     }, 1000);
 }
 
-adjustVolume()
+function adjustVolume()
 {
     
 }
