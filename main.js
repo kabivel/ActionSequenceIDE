@@ -336,12 +336,15 @@ function closePreview()
 
 function volumeHandler()
 {
-    firebase.database().ref(currentUser.uid).child("volume").update({
-        bgm: document.getElementById("bgmVol").value,
-        bgs: document.getElementById("bgsVol").value,
-        se: document.getElementById("seVol").value,
-        me: document.getElementById("meVol").value,
-    });
+    if (currentUser.signInStatus)
+    {
+        firebase.database().ref(currentUser.uid).child("volume").update({
+            bgm: document.getElementById("bgmVol").value,
+            bgs: document.getElementById("bgsVol").value,
+            se: document.getElementById("seVol").value,
+            me: document.getElementById("meVol").value,
+        });
+    }
 
     adjustVolume();
 }
