@@ -624,9 +624,20 @@ Bitmap.load = function(url) {
     if(!Decrypter.checkImgIgnore(url) && Decrypter.hasEncryptedImages) {
         Decrypter.decryptImg(url, bitmap);
     } else {
-        bitmap._image.src = url;
-        bitmap._image.onload = Bitmap.prototype._onLoad.bind(bitmap);
-        bitmap._image.onerror = Bitmap.prototype._onError.bind(bitmap);
+
+        var testURL = new Image();
+        testURL.onload = function(){
+            bitmap._image.src = url;
+            bitmap._image.onload = Bitmap.prototype._onLoad.bind(bitmap);
+            bitmap._image.onerror = Bitmap.prototype._onError.bind(bitmap);
+        };
+        testURL.onerror = function(){
+            bitmap._image.crossOrigin = "anonymous";
+            bitmap._image.src = externalAssetPath + url;
+            bitmap._image.onload = Bitmap.prototype._onLoad.bind(bitmap);
+            bitmap._image.onerror = Bitmap.prototype._onError.bind(bitmap);
+        };
+        testURL.src = url;
     }
 
     return bitmap;
@@ -819,10 +830,10 @@ Object.defineProperty(Bitmap.prototype, 'paintOpacity', {
         return this._paintOpacity;
     },
     set: function(value) {
-      if (this._paintOpacity !== value) {
-          this._paintOpacity = value;
-          this._context.globalAlpha = this._paintOpacity / 255;
-      }
+        if (this._paintOpacity !== value) {
+            this._paintOpacity = value;
+            this._context.globalAlpha = this._paintOpacity / 255;
+        }
     },
     configurable: true
 });
@@ -861,7 +872,7 @@ Bitmap.prototype.blt = function(source, sx, sy, sw, sh, dx, dy, dw, dh) {
     dw = dw || sw;
     dh = dh || sh;
     if (sx >= 0 && sy >= 0 && sw > 0 && sh > 0 && dw > 0 && dh > 0 &&
-            sx + sw <= source.width && sy + sh <= source.height) {
+        sx + sw <= source.width && sy + sh <= source.height) {
         this._context.globalCompositeOperation = 'source-over';
         this._context.drawImage(source._canvas, sx, sy, sw, sh, dx, dy, dw, dh);
         this._setDirty();
@@ -988,7 +999,7 @@ Bitmap.prototype.fillAll = function(color) {
  * @param {Boolean} vertical Whether it draws a vertical gradient
  */
 Bitmap.prototype.gradientFillRect = function(x, y, width, height, color1,
-                                             color2, vertical) {
+                                              color2, vertical) {
     var context = this._context;
     var grad;
     if (vertical) {
@@ -1228,7 +1239,7 @@ Bitmap.prototype.addLoadListener = function(listner) {
  */
 Bitmap.prototype._makeFontNameText = function() {
     return (this.fontItalic ? 'Italic ' : '') +
-            this.fontSize + 'px ' + this.fontFace;
+        this.fontSize + 'px ' + this.fontFace;
 };
 
 /**
@@ -1320,7 +1331,7 @@ var waitForLoading = false;
 var register = false;
 
 function handleiOSTouch(ev) {
-        if (Graphics._video.paused && Graphics.isVideoPlaying())Graphics._video.play();
+    if (Graphics._video.paused && Graphics.isVideoPlaying())Graphics._video.play();
 }
 
 /**
@@ -2104,16 +2115,16 @@ Graphics._createRenderer = function() {
     var options = { view: this._canvas };
     try {
         switch (this._rendererType) {
-        case 'canvas':
-            this._renderer = new PIXI.CanvasRenderer(width, height, options);
-            break;
-        case 'webgl':
-            this._renderer = new PIXI.WebGLRenderer(width, height, options);
-            break;
-        default:
-            this._renderer = PIXI.autoDetectRenderer(width, height, options);
-            break;
-        }
+            case 'canvas':
+                this._renderer = new PIXI.CanvasRenderer(width, height, options);
+                break;
+            case 'webgl':
+                this._renderer = new PIXI.WebGLRenderer(width, height, options);
+                break;
+            default:
+                this._renderer = PIXI.autoDetectRenderer(width, height, options);
+                break;
+                                  }
     } catch (e) {
         this._renderer = null;
     }
@@ -2353,19 +2364,19 @@ Graphics._onWindowResize = function() {
 Graphics._onKeyDown = function(event) {
     if (!event.ctrlKey && !event.altKey) {
         switch (event.keyCode) {
-        case 113:   // F2
-            event.preventDefault();
-            this._switchFPSMeter();
-            break;
-        case 114:   // F3
-            event.preventDefault();
-            this._switchStretchMode();
-            break;
-        case 115:   // F4
-            event.preventDefault();
-            this._switchFullScreen();
-            break;
-        }
+            case 113:   // F2
+                event.preventDefault();
+                this._switchFPSMeter();
+                break;
+            case 114:   // F3
+                event.preventDefault();
+                this._switchStretchMode();
+                break;
+            case 115:   // F4
+                event.preventDefault();
+                this._switchFullScreen();
+                break;
+                             }
     }
 };
 
@@ -2760,15 +2771,15 @@ Input._onKeyDown = function(event) {
  */
 Input._shouldPreventDefault = function(keyCode) {
     switch (keyCode) {
-    case 8:     // backspace
-    case 33:    // pageup
-    case 34:    // pagedown
-    case 37:    // left arrow
-    case 38:    // up arrow
-    case 39:    // right arrow
-    case 40:    // down arrow
-        return true;
-    }
+        case 8:     // backspace
+        case 33:    // pageup
+        case 34:    // pagedown
+        case 37:    // left arrow
+        case 38:    // up arrow
+        case 39:    // right arrow
+        case 40:    // down arrow
+            return true;
+                   }
     return false;
 };
 
@@ -3595,7 +3606,7 @@ Sprite.prototype.move = function(x, y) {
 Sprite.prototype.setFrame = function(x, y, width, height) {
     var frame = this._frame;
     if (x !== frame.x || y !== frame.y ||
-            width !== frame.width || height !== frame.height) {
+        width !== frame.width || height !== frame.height) {
         frame.x = x;
         frame.y = y;
         frame.width = width;
@@ -4406,7 +4417,7 @@ Tilemap.prototype._paintTiles = function(startX, startY, x, y) {
 
     var lastLowerTiles = this._readLastTiles(0, lx, ly);
     if (!lowerTiles.equals(lastLowerTiles) ||
-            (Tilemap.isTileA1(tileId0) && this._frameUpdated)) {
+        (Tilemap.isTileA1(tileId0) && this._frameUpdated)) {
         this._lowerBitmap.clearRect(dx, dy, this._tileWidth, this._tileHeight);
         for (var i = 0; i < lowerTiles.length; i++) {
             var lowerTileId = lowerTiles[i];
@@ -4852,7 +4863,7 @@ Tilemap.isWallTopTile = function(tileId) {
 
 Tilemap.isWallSideTile = function(tileId) {
     return (this.isTileA3(tileId) || this.isTileA4(tileId)) &&
-            this.getAutotileKind(tileId) % 16 >= 8;
+        this.getAutotileKind(tileId) % 16 >= 8;
 };
 
 Tilemap.isWallTile = function(tileId) {
@@ -4861,7 +4872,7 @@ Tilemap.isWallTile = function(tileId) {
 
 Tilemap.isFloorTypeAutotile = function(tileId) {
     return (this.isTileA1(tileId) && !this.isWaterfallTile(tileId)) ||
-            this.isTileA2(tileId) || this.isWallTopTile(tileId);
+        this.isTileA2(tileId) || this.isWallTopTile(tileId);
 };
 
 Tilemap.isWallTypeAutotile = function(tileId) {
@@ -6850,16 +6861,16 @@ Weather.prototype._removeSprite = function() {
  */
 Weather.prototype._updateSprite = function(sprite) {
     switch (this.type) {
-    case 'rain':
-        this._updateRainSprite(sprite);
-        break;
-    case 'storm':
-        this._updateStormSprite(sprite);
-        break;
-    case 'snow':
-        this._updateSnowSprite(sprite);
-        break;
-    }
+        case 'rain':
+            this._updateRainSprite(sprite);
+            break;
+        case 'storm':
+            this._updateStormSprite(sprite);
+            break;
+        case 'snow':
+            this._updateSnowSprite(sprite);
+            break;
+                     }
     if (sprite.opacity < 40) {
         this._rebornSprite(sprite);
     }
@@ -7268,14 +7279,14 @@ WebAudio._createMasterGainNode = function() {
  */
 WebAudio._setupEventHandlers = function() {
     document.addEventListener("touchend", function() {
-            var context = WebAudio._context;
-            if (context && context.state === "suspended" && typeof context.resume === "function") {
-                context.resume().then(function() {
-                    WebAudio._onTouchStart();
-                })
-            } else {
+        var context = WebAudio._context;
+        if (context && context.state === "suspended" && typeof context.resume === "function") {
+            context.resume().then(function() {
                 WebAudio._onTouchStart();
-            }
+            })
+        } else {
+            WebAudio._onTouchStart();
+        }
     });
     document.addEventListener('touchstart', this._onTouchStart.bind(this));
     document.addEventListener('visibilitychange', this._onVisibilityChange.bind(this));

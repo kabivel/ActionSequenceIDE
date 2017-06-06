@@ -150,7 +150,24 @@ function loadHandler()
     {
         firebase.database().ref(currentUser.uid).child("sequences").child(key).once('value', function(sequence){
             editor.setValue(sequence.val().code);
+            if (sequence.val().scope != null)
+            {
+                document.getElementById("skillScope").value = sequence.val().scope;
+            }
+            if (sequence.val().damageType != null)
+            {
+                document.getElementById("skillDamageType").value = sequence.val().damageType;
+            }
+            if (sequence.val().animation != null)
+            {
+                document.getElementById("skillAnimation").value = sequence.val().animation;
+            }
+            if (sequence.val().castAnimation != null)
+            {
+                document.getElementById("skillCastAnimation").value = sequence.val().castAnimation;
+            }
             setCurrentProject(key);
+            updateSkillSettings(false);
         });
     }
 }
@@ -369,15 +386,25 @@ function adjustVolume()
     ConfigManager.meVolume = parseInt(document.getElementById("meVol").value);
 }
 
-function updateSkillSettings()
+function updateSkillSettings(dirty)
 {
-    var skill = $dataSkills[11];
-    skill.scope = parseInt(document.getElementById("skillScope").value);
-    skill.damage.type = parseInt(document.getElementById("skillDamageType").value);
-    skill.animationId = parseInt(document.getElementById("skillAnimation").value);
-    skill.castAnimation = parseInt(document.getElementById("skillCastAnimation").value);
-    
-    setDirty(true);
+    try
+    {
+        var skill = $dataSkills[11];
+        skill.scope = parseInt(document.getElementById("skillScope").value);
+        skill.damage.type = parseInt(document.getElementById("skillDamageType").value);
+        skill.animationId = parseInt(document.getElementById("skillAnimation").value);
+        skill.castAnimation = parseInt(document.getElementById("skillCastAnimation").value);
+    }
+    catch(e)
+    {
+
+    }
+
+    if (dirty)
+    {
+        setDirty(true);
+    }
 }
 
 function setSkillOptions()
@@ -389,3 +416,5 @@ function setSkillOptions()
     document.getElementById("skillCastAnimation").value = skill.castAnimation;
     document.getElementById("skillDropdown").removeAttribute("style");
 }
+
+var externalAssetPath = "http://actionsequence.cf/";

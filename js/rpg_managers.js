@@ -217,7 +217,7 @@ DataManager.setupNewGame = function() {
     this.selectSavefileForNewGame();
     $gameParty.setupStartingMembers();
     $gamePlayer.reserveTransfer($dataSystem.startMapId,
-        $dataSystem.startX, $dataSystem.startY);
+                                $dataSystem.startX, $dataSystem.startY);
     Graphics.frameCount = 0;
 };
 
@@ -629,17 +629,17 @@ StorageManager.backupExists = function(savefileId) {
 };
 
 StorageManager.cleanBackup = function(savefileId) {
-	if (this.backupExists(savefileId)) {
-		if (this.isLocalMode()) {
-			var fs = require('fs');
+    if (this.backupExists(savefileId)) {
+        if (this.isLocalMode()) {
+            var fs = require('fs');
             var dirPath = this.localFileDirectoryPath();
             var filePath = this.localFilePath(savefileId);
             fs.unlinkSync(filePath + ".bak");
-		} else {
-		    var key = this.webStorageKey(savefileId);
-			localStorage.removeItem(key + "bak");
-		}
-	}
+        } else {
+            var key = this.webStorageKey(savefileId);
+            localStorage.removeItem(key + "bak");
+        }
+    }
 };
 
 StorageManager.restoreBackup = function(savefileId) {
@@ -850,7 +850,8 @@ ImageManager.loadTitle2 = function(filename, hue) {
 ImageManager.loadBitmap = function(folder, filename, hue, smooth) {
     if (filename) {
         var path = folder + encodeURIComponent(filename) + '.png';
-        var bitmap = this.loadNormalBitmap(path, hue || 0);
+
+            var bitmap = this.loadNormalBitmap(path, hue || 0);
         bitmap.smooth = smooth;
         return bitmap;
     } else {
@@ -1298,7 +1299,7 @@ AudioManager.audioFileExt = function() {
 AudioManager.shouldUseHtml5Audio = function() {
     // The only case where we wanted html5audio was android/ no encrypt
     // Atsuma-ru asked to force webaudio there too, so just return false for ALL    // return Utils.isAndroidChrome() && !Decrypter.hasEncryptedAudio;
- return false;
+    return false;
 };
 
 AudioManager.checkErrors = function() {
@@ -1736,17 +1737,17 @@ SceneManager.onError = function(e) {
 SceneManager.onKeyDown = function(event) {
     if (!event.ctrlKey && !event.altKey) {
         switch (event.keyCode) {
-        case 116:   // F5
-            if (Utils.isNwjs()) {
-                location.reload();
-            }
-            break;
-        case 119:   // F8
-            if (Utils.isNwjs() && Utils.isOptionValid('test')) {
-                require('nw.gui').Window.get().showDevTools();
-            }
-            break;
-        }
+            case 116:   // F5
+                if (Utils.isNwjs()) {
+                    location.reload();
+                }
+                break;
+            case 119:   // F8
+                if (Utils.isNwjs() && Utils.isOptionValid('test')) {
+                    require('nw.gui').Window.get().showDevTools();
+                }
+                break;
+                             }
     }
 };
 
@@ -2038,22 +2039,22 @@ BattleManager.makeEscapeRatio = function() {
 BattleManager.update = function() {
     if (!this.isBusy() && !this.updateEvent()) {
         switch (this._phase) {
-        case 'start':
-            this.startInput();
-            break;
-        case 'turn':
-            this.updateTurn();
-            break;
-        case 'action':
-            this.updateAction();
-            break;
-        case 'turnEnd':
-            this.updateTurnEnd();
-            break;
-        case 'battleEnd':
-            this.updateBattleEnd();
-            break;
-        }
+            case 'start':
+                this.startInput();
+                break;
+            case 'turn':
+                this.updateTurn();
+                break;
+            case 'action':
+                this.updateAction();
+                break;
+            case 'turnEnd':
+                this.updateTurnEnd();
+                break;
+            case 'battleEnd':
+                this.updateBattleEnd();
+                break;
+                           }
     }
 };
 
@@ -2068,7 +2069,7 @@ BattleManager.updateEvent = function() {
             } else {
                 return this.updateEventMain();
             }
-    }
+                       }
     return this.checkAbort2();
 };
 
@@ -2347,7 +2348,7 @@ BattleManager.invokeCounterAttack = function(subject, target) {
 };
 
 BattleManager.invokeMagicReflection = function(subject, target) {
-	this._action._reflectionTarget = target;
+    this._action._reflectionTarget = target;
     this._logWindow.displayReflection(target);
     this._action.apply(subject);
     this._logWindow.displayActionResults(target, subject);

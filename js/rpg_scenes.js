@@ -385,7 +385,7 @@ Scene_Map.prototype.onMapLoaded = function() {
 
 Scene_Map.prototype.start = function() {
     adjustVolume();
-    updateSkillSettings();
+    updateSkillSettings(false);
     Scene_Base.prototype.start.call(this);
     SceneManager.clearStack();
     if (this._transfer) {

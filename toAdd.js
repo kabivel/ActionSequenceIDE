@@ -6,5 +6,6 @@
     
     "use your own animations",
     
+    "drag to move text",
     
 ]
