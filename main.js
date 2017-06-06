@@ -356,3 +356,22 @@ function adjustVolume()
     ConfigManager.seVolume = parseInt(document.getElementById("seVol").value);
     ConfigManager.meVolume = parseInt(document.getElementById("meVol").value);
 }
+
+function updateSkillSettings()
+{
+    var skill = $dataSkills[11];
+    skill.scope = parseInt(document.getElementById("skillScope").value);
+    skill.damage.type = parseInt(document.getElementById("skillDamageType").value);
+    skill.animationId = parseInt(document.getElementById("skillAnimation").value);
+    skill.castAnimation = parseInt(document.getElementById("skillCastAnimation").value);
+}
+
+function setSkillOptions()
+{
+    var skill = $dataSkills[11];
+    document.getElementById("skillScope").value = skill.scope;
+    document.getElementById("skillDamageType").value = skill.damage.type;
+    document.getElementById("skillAnimation").value = skill.animationId;
+    document.getElementById("skillCastAnimation").value = skill.castAnimation;
+    document.getElementById("skillDropdown").removeAttribute("style");
+}
