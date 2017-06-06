@@ -114,3 +114,8 @@ function closePreview()
         document.getElementById("ghostpane").style.display = "none";
     }, 1000);
 }
+
+adjustVolume()
+{
+    
+}
