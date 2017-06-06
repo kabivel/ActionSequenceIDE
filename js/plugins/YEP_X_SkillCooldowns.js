@@ -674,6 +674,7 @@ if (Imported.YEP_BattleEngineCore) {
 Yanfly.SCD.BattleManager_processActionSequence =
   BattleManager.processActionSequence;
   BattleManager.processActionSequence = function(actionName, actionArgs) {
+      try{
     // GLOBAL COOLDOWN
     if (actionName === 'GLOBAL COOLDOWN') {
       return this.actionGlobalCooldown(actionArgs);
@@ -690,6 +691,11 @@ Yanfly.SCD.BattleManager_processActionSequence =
     if (actionName.match(/STYPE[ ](\d+)[ ]COOLDOWN/i)) {
       return this.actionSTypeCooldown(parseInt(RegExp.$1), actionArgs);
     }
+      }
+      catch(e)
+          {
+              return true;
+          }
     return Yanfly.SCD.BattleManager_processActionSequence.call(this,
       actionName, actionArgs);
   };

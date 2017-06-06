@@ -3,11 +3,17 @@ var SergeofBIBEK_Preview_BattleManager_processActionSequence =
     BattleManager.processActionSequence;
 BattleManager.processActionSequence = function(actionName, actionArgs)
 {
+    try{
 
     if (actionName.match(/GET[ ]PREVIEW/i))
     {
         return this.SergeofBIBEKPreview();
     }
+    }
+    catch(e)
+        {
+            return true;
+        }
 
     return SergeofBIBEK_Preview_BattleManager_processActionSequence.call(this, actionName, actionArgs);
 };

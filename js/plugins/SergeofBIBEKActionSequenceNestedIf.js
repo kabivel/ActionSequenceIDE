@@ -123,11 +123,17 @@ if(Imported.YEP_BattleEngineCore)
     var SergeofBIBEK_ASNestedIf_BattleManager_processActionSequence = BattleManager.processActionSequence;
     BattleManager.processActionSequence = function(actionName, actionArgs)
     {
+        try{
         // Action Sequence If Start
         if (actionName.match(/^\s*IF .*/i) || actionName.match(/^\s*ELSE IF .*/i))
         {
             return this.SergeofBIBEKIf();
         }
+        }
+        catch(e)
+            {
+                return true;
+            }
 
         //Call the original
         return SergeofBIBEK_ASNestedIf_BattleManager_processActionSequence.call(this, actionName, actionArgs);

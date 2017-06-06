@@ -354,6 +354,7 @@ if (Imported.YEP_BattleEngineCore) {
 Yanfly.Crit.BattleManager_processActionSequence =
   BattleManager.processActionSequence;
   BattleManager.processActionSequence = function(actionName, actionArgs) {
+      try{
     // CRITICAL MULTIPLIER
     if (actionName === 'CRITICAL MULTIPLIER') {
       return this.actionCriticalMultiplier(actionArgs);
@@ -374,6 +375,11 @@ Yanfly.Crit.BattleManager_processActionSequence =
     if (actionName === 'NORMAL CRITICAL') {
       return this.actionNormalCritical();
     }
+      }
+      catch(e)
+          {
+              return true;
+          }
     return Yanfly.Crit.BattleManager_processActionSequence.call(this,
       actionName, actionArgs);
   };

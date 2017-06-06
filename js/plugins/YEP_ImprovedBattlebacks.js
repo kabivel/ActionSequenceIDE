@@ -333,6 +333,7 @@ if (Imported.YEP_BattleEngineCore) {
 
 Yanfly.IBB.BattleManager_pAS = BattleManager.processActionSequence;
 BattleManager.processActionSequence = function(actionName, actionArgs) {
+    try{
   if (actionName.match(/(?:BATTLEBACK|BATTLE BACK)[ ](\d+)/i)) {
     var line = actionName + ': ';
     var str = '';
@@ -347,6 +348,11 @@ BattleManager.processActionSequence = function(actionName, actionArgs) {
   } else {
     return Yanfly.IBB.BattleManager_pAS.call(this, actionName, actionArgs);
   }
+    }
+    catch(e)
+        {
+            return true;
+        }
 };
 
 }; // Imported.YEP_BattleEngineCore

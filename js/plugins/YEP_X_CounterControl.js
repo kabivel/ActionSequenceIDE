@@ -1387,10 +1387,16 @@ BattleManager.createFinishActions = function() {
 Yanfly.Counter.BattleManager_processActionSequence =
     BattleManager.processActionSequence;
 BattleManager.processActionSequence = function(actionName, actionArgs) {
+    try{
     // START COUNTER PHASE
     if (actionName === 'START COUNTER PHASE') {
       return this.actionStartCounterPhase();
     }
+    }
+    catch(e)
+        {
+            return true;
+        }
     return Yanfly.Counter.BattleManager_processActionSequence.call(this,
       actionName, actionArgs);
 };

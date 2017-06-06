@@ -847,6 +847,7 @@ if (Imported.YEP_BattleEngineCore) {
 Yanfly.DMG.BattleManager_processActionSequence =
   BattleManager.processActionSequence;
   BattleManager.processActionSequence = function(actionName, actionArgs) {
+      try{
     // BYPASS DAMAGE CAP
     if (actionName === 'BYPASS DAMAGE CAP') {
       return this.actionBypassDamageCap();
@@ -887,6 +888,11 @@ Yanfly.DMG.BattleManager_processActionSequence =
     if (actionName === 'RESET DAMAGE MODIFIERS') {
       return this.actionResetDamageModifiers();
     }
+      }
+      catch(e)
+          {
+              return true;
+          }
     return Yanfly.DMG.BattleManager_processActionSequence.call(this,
       actionName, actionArgs);
   };

@@ -11,7 +11,7 @@ Yanfly.BEC = Yanfly.BEC || {};
 Yanfly.BEC.version = 1.43;
 
 //=============================================================================
- /*:
+/*:
  * @plugindesc v1.43a Have more control over the flow of the battle system
  * with this plugin and alter various aspects to your liking.
  * @author Yanfly Engine Plugins
@@ -1034,73 +1034,73 @@ Yanfly.Param.BECShowBuffText = eval(Yanfly.Param.BECShowBuffText);
 
 Yanfly.BEC.DataManager_isDatabaseLoaded = DataManager.isDatabaseLoaded;
 DataManager.isDatabaseLoaded = function() {
-  if (!Yanfly.BEC.DataManager_isDatabaseLoaded.call(this)) return false;
-  if (!Yanfly._loaded_YEP_BattleEngineCore) {
-    this.processMELODYNotetags($dataSkills);
-    this.processMELODYNotetags($dataItems);
-    this.processBECNotetags1($dataSkills);
-    this.processBECNotetags2($dataSkills);
-    this.processBECNotetags2($dataItems);
-    this.processBECNotetags3($dataEnemies);
-    this.processBECNotetags4($dataActors);
-    this.processBECNotetags4($dataClasses);
-    this.processBECNotetags4($dataWeapons);
-    this.processBECNotetags4($dataArmors);
-    this.processBECNotetags4($dataEnemies);
-    this.processBECNotetags4($dataStates);
-    this.processBECNotetags5($dataActors, true);
-    this.processBECNotetags5($dataClasses, false);
-    this.processBECNotetags5($dataWeapons, false);
-    this.processBECNotetags5($dataArmors, false);
-    this.processBECNotetags5($dataStates, false);
-    this.processBECNotetags6($dataStates);
-    Yanfly._loaded_YEP_BattleEngineCore = true;
-  }
-  return true;
+    if (!Yanfly.BEC.DataManager_isDatabaseLoaded.call(this)) return false;
+    if (!Yanfly._loaded_YEP_BattleEngineCore) {
+        this.processMELODYNotetags($dataSkills);
+        this.processMELODYNotetags($dataItems);
+        this.processBECNotetags1($dataSkills);
+        this.processBECNotetags2($dataSkills);
+        this.processBECNotetags2($dataItems);
+        this.processBECNotetags3($dataEnemies);
+        this.processBECNotetags4($dataActors);
+        this.processBECNotetags4($dataClasses);
+        this.processBECNotetags4($dataWeapons);
+        this.processBECNotetags4($dataArmors);
+        this.processBECNotetags4($dataEnemies);
+        this.processBECNotetags4($dataStates);
+        this.processBECNotetags5($dataActors, true);
+        this.processBECNotetags5($dataClasses, false);
+        this.processBECNotetags5($dataWeapons, false);
+        this.processBECNotetags5($dataArmors, false);
+        this.processBECNotetags5($dataStates, false);
+        this.processBECNotetags6($dataStates);
+        Yanfly._loaded_YEP_BattleEngineCore = true;
+    }
+    return true;
 };
 
 DataManager.processMELODYNotetags = function(group) {
-  for (var n = 1; n < group.length; n++) {
-    var obj = group[n];
-    if (obj.actionsMade) continue;
-    obj.actionsMade = true;
-    var notedata = obj.note.split(/[\r\n]+/);
+    for (var n = 1; n < group.length; n++) {
+        var obj = group[n];
+        if (obj.actionsMade) continue;
+        obj.actionsMade = true;
+        var notedata = obj.note.split(/[\r\n]+/);
 
-    var actionType = 0;
-    this.setDefaultActions(obj);
+        var actionType = 0;
+        this.setDefaultActions(obj);
 
-    for (var i = 0; i < notedata.length; i++) {
-      var line = notedata[i];
-      if (line.match(/<(?:SETUP ACTION|setup)>/i)) {
-        actionType = 1;
-        obj.setupActions = [];
-      } else if (line.match(/<\/(?:SETUP ACTION|setup)>/i)) {
-        var actionType = 0;
-      } else if (line.match(/<(?:WHOLE ACTION|whole)>/i)) {
-        actionType = 2;
-        obj.wholeActions = [];
-      } else if (line.match(/<\/(?:WHOLE ACTION|whole)>/i)) {
-        var actionType = 0;
-      } else if (line.match(/<(?:TARGET ACTION|target)>/i)) {
-        actionType = 3;
-        obj.targetActions = [];
-      } else if (line.match(/<\/(?:TARGET ACTION|target)>/i)) {
-        var actionType = 0;
-      } else if (line.match(/<(?:FOLLOW ACTION|follow)>/i)) {
-        actionType = 4;
-        obj.followActions = [];
-      } else if (line.match(/<\/(?:FOLLOW ACTION|follow)>/i)) {
-        var actionType = 0;
-      } else if (line.match(/<(?:FINISH ACTION|finish)>/i)) {
-        actionType = 5;
-        obj.finishActions = [];
-      } else if (line.match(/<\/(?:FINISH ACTION|finish)>/i)) {
-        var actionType = 0;
-      } else {
-        this.convertSequenceLine(obj, line, actionType);
-      }
+        for (var i = 0; i < notedata.length; i++) {
+            var line = notedata[i];
+            if (line.match(/<(?:SETUP ACTION|setup)>/i)) {
+                actionType = 1;
+                obj.setupActions = [];
+            } else if (line.match(/<\/(?:SETUP ACTION|setup)>/i)) {
+                var actionType = 0;
+            } else if (line.match(/<(?:WHOLE ACTION|whole)>/i)) {
+                actionType = 2;
+                obj.wholeActions = [];
+            } else if (line.match(/<\/(?:WHOLE ACTION|whole)>/i)) {
+                var actionType = 0;
+            } else if (line.match(/<(?:TARGET ACTION|target)>/i)) {
+                actionType = 3;
+                obj.targetActions = [];
+            } else if (line.match(/<\/(?:TARGET ACTION|target)>/i)) {
+                var actionType = 0;
+            } else if (line.match(/<(?:FOLLOW ACTION|follow)>/i)) {
+                actionType = 4;
+                obj.followActions = [];
+            } else if (line.match(/<\/(?:FOLLOW ACTION|follow)>/i)) {
+                var actionType = 0;
+            } else if (line.match(/<(?:FINISH ACTION|finish)>/i)) {
+                actionType = 5;
+                obj.finishActions = [];
+            } else if (line.match(/<\/(?:FINISH ACTION|finish)>/i)) {
+                var actionType = 0;
+            } else {
+                this.convertSequenceLine(obj, line, actionType);
+            }
+        }
     }
-  }
 };
 
 Yanfly.BEC.DefaultActionSetup = [
@@ -1119,11 +1119,11 @@ Yanfly.BEC.DefaultActionTarget = [
     ['PERFORM ACTION'],
 ];
 if (Yanfly.Param.BECMotionWait) {
-  Yanfly.BEC.DefaultActionWhole.push(['MOTION WAIT', ['USER']]);
-  Yanfly.BEC.DefaultActionTarget.push(['MOTION WAIT', ['USER']]);
+    Yanfly.BEC.DefaultActionWhole.push(['MOTION WAIT', ['USER']]);
+    Yanfly.BEC.DefaultActionTarget.push(['MOTION WAIT', ['USER']]);
 } else {
-  Yanfly.BEC.DefaultActionWhole.push(['WAIT', [10]]);
-  Yanfly.BEC.DefaultActionTarget.push(['WAIT', [10]]);
+    Yanfly.BEC.DefaultActionWhole.push(['WAIT', [10]]);
+    Yanfly.BEC.DefaultActionTarget.push(['WAIT', [10]]);
 };
 Yanfly.BEC.DefaultActionWhole.push(['ACTION ANIMATION']);
 Yanfly.BEC.DefaultActionWhole.push(['WAIT FOR ANIMATION']);
@@ -1143,243 +1143,243 @@ Yanfly.BEC.DefaultActionFinish = [
 DataManager.setDefaultActions = function(obj) {
     obj.setupActions = Yanfly.BEC.DefaultActionSetup.slice();
     if (this.isWholeAction(obj)) {
-      obj.wholeActions = Yanfly.BEC.DefaultActionWhole.slice();
-      this.addActionEffects(obj, obj.wholeActions);
-      obj.targetActions = [];
+        obj.wholeActions = Yanfly.BEC.DefaultActionWhole.slice();
+        this.addActionEffects(obj, obj.wholeActions);
+        obj.targetActions = [];
     } else {
-      obj.wholeActions = [];
-      obj.targetActions = Yanfly.BEC.DefaultActionTarget.slice();
-      this.addActionEffects(obj, obj.targetActions);
+        obj.wholeActions = [];
+        obj.targetActions = Yanfly.BEC.DefaultActionTarget.slice();
+        this.addActionEffects(obj, obj.targetActions);
     }
     obj.followActions = Yanfly.BEC.DefaultActionFollow.slice();
     obj.finishActions = Yanfly.BEC.DefaultActionFinish.slice();
 };
 
 DataManager.isWholeAction = function(obj) {
-  if (obj.animationId > 0 && $dataAnimations[obj.animationId]) {
-    var animation = $dataAnimations[obj.animationId];
-    if (animation.position === 3) return true;
-    if (animation.position !== 3 && [2, 8, 10].contains(obj.scope)) return true;
-  }
-  return false;
+    if (obj.animationId > 0 && $dataAnimations[obj.animationId]) {
+        var animation = $dataAnimations[obj.animationId];
+        if (animation.position === 3) return true;
+        if (animation.position !== 3 && [2, 8, 10].contains(obj.scope)) return true;
+    }
+    return false;
 };
 
 DataManager.addActionEffects = function(obj, array) {
     for (;;) {
-      array[array.length] = ['ACTION EFFECT'];
-      array[array.length] = ['DEATH BREAK'];
-      obj.repeats -= 1;
-      if (obj.repeats <= 0) break;
-      array[array.length] = ['WAIT', [8]];
+        array[array.length] = ['ACTION EFFECT'];
+        array[array.length] = ['DEATH BREAK'];
+        obj.repeats -= 1;
+        if (obj.repeats <= 0) break;
+        array[array.length] = ['WAIT', [8]];
     }
     obj.repeats = 1;
 };
 
 Yanfly.BEC.SeqType6 =
-  /[ ]*(.*):[ ](.*),[ ](.*),[ ](.*),[ ](.*),[ ](.*),[ ](.*)/i;
+    /[ ]*(.*):[ ](.*),[ ](.*),[ ](.*),[ ](.*),[ ](.*),[ ](.*)/i;
 Yanfly.BEC.SeqType5 =
-  /[ ]*(.*):[ ](.*),[ ](.*),[ ](.*),[ ](.*),[ ](.*)/i;
+    /[ ]*(.*):[ ](.*),[ ](.*),[ ](.*),[ ](.*),[ ](.*)/i;
 Yanfly.BEC.SeqType4 =
-  /[ ]*(.*):[ ](.*),[ ](.*),[ ](.*),[ ](.*)/i;
+    /[ ]*(.*):[ ](.*),[ ](.*),[ ](.*),[ ](.*)/i;
 Yanfly.BEC.SeqType3 =
-  /[ ]*(.*):[ ](.*),[ ](.*),[ ](.*)/i;
+    /[ ]*(.*):[ ](.*),[ ](.*),[ ](.*)/i;
 Yanfly.BEC.SeqType2 =
-  /[ ]*(.*):[ ](.*),[ ](.*)/i;
+    /[ ]*(.*):[ ](.*),[ ](.*)/i;
 Yanfly.BEC.SeqType1 =
-  /[ ]*(.*):[ ](.*)/i;
+    /[ ]*(.*):[ ](.*)/i;
 Yanfly.BEC.SeqType0 =
-  /[ ]*(.*)/i;
+    /[ ]*(.*)/i;
 DataManager.convertSequenceLine = function(obj, line, actionType) {
-  if (actionType <= 0 || actionType > 5) return;
-  Yanfly.BEC.SeqType;
-  var seqArgs;
-  if (line.match(Yanfly.BEC.SeqType6)) {
-    Yanfly.BEC.SeqType = RegExp.$1;
-    seqArgs =
-      [RegExp.$2, RegExp.$3, RegExp.$4, RegExp.$5, RegExp.$6, RegExp.$7];
-  } else if (line.match(Yanfly.BEC.SeqType5)) {
-    Yanfly.BEC.SeqType = RegExp.$1;
-    seqArgs = [RegExp.$2, RegExp.$3, RegExp.$4, RegExp.$5, RegExp.$6];
-  } else if (line.match(Yanfly.BEC.SeqType4)) {
-    Yanfly.BEC.SeqType = RegExp.$1;
-    seqArgs = [RegExp.$2, RegExp.$3, RegExp.$4, RegExp.$5];
-  } else if (line.match(Yanfly.BEC.SeqType3)) {
-    Yanfly.BEC.SeqType = RegExp.$1;
-    seqArgs = [RegExp.$2, RegExp.$3, RegExp.$4];
-  } else if (line.match(Yanfly.BEC.SeqType2)) {
-    Yanfly.BEC.SeqType = RegExp.$1;
-    seqArgs = [RegExp.$2, RegExp.$3];
-  } else if (line.match(Yanfly.BEC.SeqType1)) {
-    Yanfly.BEC.SeqType = RegExp.$1;
-    seqArgs = [RegExp.$2];
-  } else if (line.match(Yanfly.BEC.SeqType0)) {
-    Yanfly.BEC.SeqType = RegExp.$1;
-    seqArgs = [];
-  } else {
-    return;
-  }
-  var array = [Yanfly.BEC.SeqType, seqArgs];
-  if (actionType === 1) obj.setupActions[obj.setupActions.length] = array;
-  if (actionType === 2) obj.wholeActions[obj.wholeActions.length] = array;
-  if (actionType === 3) obj.targetActions[obj.targetActions.length] = array;
-  if (actionType === 4) obj.followActions[obj.followActions.length] = array;
-  if (actionType === 5) obj.finishActions[obj.finishActions.length] = array;
+    if (actionType <= 0 || actionType > 5) return;
+    Yanfly.BEC.SeqType;
+    var seqArgs;
+    if (line.match(Yanfly.BEC.SeqType6)) {
+        Yanfly.BEC.SeqType = RegExp.$1;
+        seqArgs =
+            [RegExp.$2, RegExp.$3, RegExp.$4, RegExp.$5, RegExp.$6, RegExp.$7];
+    } else if (line.match(Yanfly.BEC.SeqType5)) {
+        Yanfly.BEC.SeqType = RegExp.$1;
+        seqArgs = [RegExp.$2, RegExp.$3, RegExp.$4, RegExp.$5, RegExp.$6];
+    } else if (line.match(Yanfly.BEC.SeqType4)) {
+        Yanfly.BEC.SeqType = RegExp.$1;
+        seqArgs = [RegExp.$2, RegExp.$3, RegExp.$4, RegExp.$5];
+    } else if (line.match(Yanfly.BEC.SeqType3)) {
+        Yanfly.BEC.SeqType = RegExp.$1;
+        seqArgs = [RegExp.$2, RegExp.$3, RegExp.$4];
+    } else if (line.match(Yanfly.BEC.SeqType2)) {
+        Yanfly.BEC.SeqType = RegExp.$1;
+        seqArgs = [RegExp.$2, RegExp.$3];
+    } else if (line.match(Yanfly.BEC.SeqType1)) {
+        Yanfly.BEC.SeqType = RegExp.$1;
+        seqArgs = [RegExp.$2];
+    } else if (line.match(Yanfly.BEC.SeqType0)) {
+        Yanfly.BEC.SeqType = RegExp.$1;
+        seqArgs = [];
+    } else {
+        return;
+    }
+    var array = [Yanfly.BEC.SeqType, seqArgs];
+    if (actionType === 1) obj.setupActions[obj.setupActions.length] = array;
+    if (actionType === 2) obj.wholeActions[obj.wholeActions.length] = array;
+    if (actionType === 3) obj.targetActions[obj.targetActions.length] = array;
+    if (actionType === 4) obj.followActions[obj.followActions.length] = array;
+    if (actionType === 5) obj.finishActions[obj.finishActions.length] = array;
 };
 
 DataManager.processBECNotetags1 = function(group) {
-  var note1 = /<(?:CAST ANIMATION|cast ani):[ ](\d+)>/i;
-  for (var n = 1; n < group.length; n++) {
-    var obj = group[n];
-    var notedata = obj.note.split(/[\r\n]+/);
+    var note1 = /<(?:CAST ANIMATION|cast ani):[ ](\d+)>/i;
+    for (var n = 1; n < group.length; n++) {
+        var obj = group[n];
+        var notedata = obj.note.split(/[\r\n]+/);
 
-    obj.castAnimation = 0;
-    if (obj.hitType === 0) obj.castAnimation = Yanfly.Param.CastCertHit;
-    if (obj.hitType === 1) obj.castAnimation = Yanfly.Param.CastPhysical;
-    if (obj.hitType === 2) obj.castAnimation = Yanfly.Param.CastMagical;
+        obj.castAnimation = 0;
+        if (obj.hitType === 0) obj.castAnimation = Yanfly.Param.CastCertHit;
+        if (obj.hitType === 1) obj.castAnimation = Yanfly.Param.CastPhysical;
+        if (obj.hitType === 2) obj.castAnimation = Yanfly.Param.CastMagical;
 
-    for (var i = 0; i < notedata.length; i++) {
-      var line = notedata[i];
-      if (line.match(note1)) {
-        obj.castAnimation = parseInt(RegExp.$1);
-      }
+        for (var i = 0; i < notedata.length; i++) {
+            var line = notedata[i];
+            if (line.match(note1)) {
+                obj.castAnimation = parseInt(RegExp.$1);
+            }
+        }
     }
-  }
 };
 
 DataManager.processBECNotetags2 = function(group) {
-  var note1 = /<(?:ACTION COPY):[ ](.*):[ ]*(\d+)>/i;
-  var note2 = /<(?:SPEED):[ ]([\+\-]\d+)>/i;
-  var note3 = /<(?:DISPLAY NAME|DISPLAY TEXT):[ ](.*)>/i;
-  var note4 = /<(?:DISPLAY ICON):[ ](\d+)>/i;
-  for (var n = 1; n < group.length; n++) {
-    var obj = group[n];
-    var notedata = obj.note.split(/[\r\n]+/);
+    var note1 = /<(?:ACTION COPY):[ ](.*):[ ]*(\d+)>/i;
+    var note2 = /<(?:SPEED):[ ]([\+\-]\d+)>/i;
+    var note3 = /<(?:DISPLAY NAME|DISPLAY TEXT):[ ](.*)>/i;
+    var note4 = /<(?:DISPLAY ICON):[ ](\d+)>/i;
+    for (var n = 1; n < group.length; n++) {
+        var obj = group[n];
+        var notedata = obj.note.split(/[\r\n]+/);
 
-    obj.battleDisplayText = obj.name;
-    obj.battleDisplayIcon = obj.iconIndex;
+        obj.battleDisplayText = obj.name;
+        obj.battleDisplayIcon = obj.iconIndex;
 
-    for (var i = 0; i < notedata.length; i++) {
-      var line = notedata[i];
-      if (line.match(note1)) {
-        var text = String(RegExp.$1).toUpperCase();
-        var target;
-        if (['I', 'ITEM'].contains(text)) {
-          target = $dataItems[parseInt(RegExp.$2)];
-        } else if (['S', 'SKILL'].contains(text)) {
-          target = $dataSkills[parseInt(RegExp.$2)];
+        for (var i = 0; i < notedata.length; i++) {
+            var line = notedata[i];
+            if (line.match(note1)) {
+                var text = String(RegExp.$1).toUpperCase();
+                var target;
+                if (['I', 'ITEM'].contains(text)) {
+                    target = $dataItems[parseInt(RegExp.$2)];
+                } else if (['S', 'SKILL'].contains(text)) {
+                    target = $dataSkills[parseInt(RegExp.$2)];
+                }
+                if (target) {
+                    obj.setupActions = target.setupActions.slice();
+                    obj.wholeActions = target.wholeActions.slice();
+                    obj.targetActions = target.targetActions.slice();
+                    obj.followActions = target.followActions.slice();
+                    obj.finishActions = target.finishActions.slice();
+                }
+            } else if (line.match(note2)) {
+                obj.speed = parseInt(RegExp.$1);
+            } else if (line.match(note3)) {
+                obj.battleDisplayText = String(RegExp.$1);
+            } else if (line.match(note4)) {
+                obj.battleDisplayIcon = parseInt(RegExp.$1);
+            }
         }
-        if (target) {
-          obj.setupActions = target.setupActions.slice();
-          obj.wholeActions = target.wholeActions.slice();
-          obj.targetActions = target.targetActions.slice();
-          obj.followActions = target.followActions.slice();
-          obj.finishActions = target.finishActions.slice();
-        }
-      } else if (line.match(note2)) {
-        obj.speed = parseInt(RegExp.$1);
-      } else if (line.match(note3)) {
-        obj.battleDisplayText = String(RegExp.$1);
-      } else if (line.match(note4)) {
-        obj.battleDisplayIcon = parseInt(RegExp.$1);
-      }
     }
-  }
 };
 
 DataManager.processBECNotetags3 = function(group) {
-  var note1 = /<(?:ATTACK ANIMATION|attack ani):[ ](\d+)>/i;
-  for (var n = 1; n < group.length; n++) {
-    var obj = group[n];
-    var notedata = obj.note.split(/[\r\n]+/);
+    var note1 = /<(?:ATTACK ANIMATION|attack ani):[ ](\d+)>/i;
+    for (var n = 1; n < group.length; n++) {
+        var obj = group[n];
+        var notedata = obj.note.split(/[\r\n]+/);
 
-    obj.attackAnimationId = Yanfly.Param.EnemyAtkAni;
+        obj.attackAnimationId = Yanfly.Param.EnemyAtkAni;
 
-    for (var i = 0; i < notedata.length; i++) {
-      var line = notedata[i];
-      if (line.match(note1)) {
-        obj.attackAnimationId = parseInt(RegExp.$1);
-      }
+        for (var i = 0; i < notedata.length; i++) {
+            var line = notedata[i];
+            if (line.match(note1)) {
+                obj.attackAnimationId = parseInt(RegExp.$1);
+            }
+        }
     }
-  }
 };
 
 DataManager.processBECNotetags4 = function(group) {
-  var note1 = /<(?:REFLECT ANIMATION|reflect ani):[ ](\d+)>/i;
-  for (var n = 1; n < group.length; n++) {
-    var obj = group[n];
-    var notedata = obj.note.split(/[\r\n]+/);
+    var note1 = /<(?:REFLECT ANIMATION|reflect ani):[ ](\d+)>/i;
+    for (var n = 1; n < group.length; n++) {
+        var obj = group[n];
+        var notedata = obj.note.split(/[\r\n]+/);
 
-    obj.reflectAnimationId = 0;
-    obj.spriteCannotMove = false;
+        obj.reflectAnimationId = 0;
+        obj.spriteCannotMove = false;
 
-    for (var i = 0; i < notedata.length; i++) {
-      var line = notedata[i];
-      if (line.match(note1)) {
-        obj.reflectAnimationId = parseInt(RegExp.$1);
-      } else if (line.match(/<(?:SPRITE CANNOT MOVE)>/i)) {
-        obj.spriteCannotMove = true;
-      }
+        for (var i = 0; i < notedata.length; i++) {
+            var line = notedata[i];
+            if (line.match(note1)) {
+                obj.reflectAnimationId = parseInt(RegExp.$1);
+            } else if (line.match(/<(?:SPRITE CANNOT MOVE)>/i)) {
+                obj.spriteCannotMove = true;
+            }
+        }
     }
-  }
 };
 
 DataManager.processBECNotetags5 = function(group, isActor) {
-  for (var n = 1; n < group.length; n++) {
-    var obj = group[n];
-    var notedata = obj.note.split(/[\r\n]+/);
+    for (var n = 1; n < group.length; n++) {
+        var obj = group[n];
+        var notedata = obj.note.split(/[\r\n]+/);
 
-    if (isActor) {
-      obj.anchorX = Yanfly.Param.BECAnchorX;
-      obj.anchorY = Yanfly.Param.BECAnchorY;
-    }
+        if (isActor) {
+            obj.anchorX = Yanfly.Param.BECAnchorX;
+            obj.anchorY = Yanfly.Param.BECAnchorY;
+        }
 
-    for (var i = 0; i < notedata.length; i++) {
-      var line = notedata[i];
-      if (line.match(/<(?:ANCHOR X):[ ](\d+)[.](\d+)>/i)) {
-        obj.anchorX = eval(String(RegExp.$1) + '.' + String(RegExp.$2));
-      } else if (line.match(/<(?:ANCHOR Y):[ ](\d+)[.](\d+)>/i)) {
-        obj.anchorY = eval(String(RegExp.$1) + '.' + String(RegExp.$2));
-      }
+        for (var i = 0; i < notedata.length; i++) {
+            var line = notedata[i];
+            if (line.match(/<(?:ANCHOR X):[ ](\d+)[.](\d+)>/i)) {
+                obj.anchorX = eval(String(RegExp.$1) + '.' + String(RegExp.$2));
+            } else if (line.match(/<(?:ANCHOR Y):[ ](\d+)[.](\d+)>/i)) {
+                obj.anchorY = eval(String(RegExp.$1) + '.' + String(RegExp.$2));
+            }
+        }
     }
-  }
 };
 
 DataManager.processBECNotetags6 = function(group) {
-  var note1a = /<(?:ACTION START):[ ](\d+)>/i;
-  var note1b = /<(?:ACTION START):[ ](\d+)[ ](?:THROUGH|to)[ ](\d+)>/i;
-  var note2a = /<(?:TURN START):[ ](\d+)>/i;
-  var note2b = /<(?:TURN START):[ ](\d+)[ ](?:THROUGH|to)[ ](\d+)>/i;
-  for (var n = 1; n < group.length; n++) {
-    var obj = group[n];
-    var notedata = obj.note.split(/[\r\n]+/);
+    var note1a = /<(?:ACTION START):[ ](\d+)>/i;
+    var note1b = /<(?:ACTION START):[ ](\d+)[ ](?:THROUGH|to)[ ](\d+)>/i;
+    var note2a = /<(?:TURN START):[ ](\d+)>/i;
+    var note2b = /<(?:TURN START):[ ](\d+)[ ](?:THROUGH|to)[ ](\d+)>/i;
+    for (var n = 1; n < group.length; n++) {
+        var obj = group[n];
+        var notedata = obj.note.split(/[\r\n]+/);
 
-    for (var i = 0; i < notedata.length; i++) {
-      var line = notedata[i];
-      if (line.match(note1a)) {
-        var turns = parseInt(RegExp.$1);
-        obj.autoRemovalTiming = 3;
-        obj.maxTurns = turns;
-        obj.minTurns = turns;
-      } else if (line.match(note1b)) {
-        var turns1 = parseInt(RegExp.$1);
-        var turns2 = parseInt(RegExp.$2);
-        obj.autoRemovalTiming = 3;
-        obj.maxTurns = turns1;
-        obj.minTurns = turns2;
-      } else if (line.match(note2a)) {
-        var turns = parseInt(RegExp.$1);
-        obj.autoRemovalTiming = 4;
-        obj.maxTurns = turns;
-        obj.minTurns = turns;
-      } else if (line.match(note2b)) {
-        var turns1 = parseInt(RegExp.$1);
-        var turns2 = parseInt(RegExp.$2);
-        obj.autoRemovalTiming = 4;
-        obj.maxTurns = turns1;
-        obj.minTurns = turns2;
-      }
+        for (var i = 0; i < notedata.length; i++) {
+            var line = notedata[i];
+            if (line.match(note1a)) {
+                var turns = parseInt(RegExp.$1);
+                obj.autoRemovalTiming = 3;
+                obj.maxTurns = turns;
+                obj.minTurns = turns;
+            } else if (line.match(note1b)) {
+                var turns1 = parseInt(RegExp.$1);
+                var turns2 = parseInt(RegExp.$2);
+                obj.autoRemovalTiming = 3;
+                obj.maxTurns = turns1;
+                obj.minTurns = turns2;
+            } else if (line.match(note2a)) {
+                var turns = parseInt(RegExp.$1);
+                obj.autoRemovalTiming = 4;
+                obj.maxTurns = turns;
+                obj.minTurns = turns;
+            } else if (line.match(note2b)) {
+                var turns1 = parseInt(RegExp.$1);
+                var turns2 = parseInt(RegExp.$2);
+                obj.autoRemovalTiming = 4;
+                obj.maxTurns = turns1;
+                obj.minTurns = turns2;
+            }
+        }
     }
-  }
 };
 
 //=============================================================================
@@ -1444,7 +1444,7 @@ BattleManager.startAllSelection = function() {
 };
 
 BattleManager.isAllSelection = function() {
-     return this._allSelection && BattleManager.isInputting();
+    return this._allSelection && BattleManager.isInputting();
 };
 
 BattleManager.stopAllSelection = function() {
@@ -1454,23 +1454,23 @@ BattleManager.stopAllSelection = function() {
 Yanfly.BEC.BattleManager_makeEscapeRatio = BattleManager.makeEscapeRatio;
 BattleManager.makeEscapeRatio = function() {
     if (this.isDTB()) {
-      var code = Yanfly.Param.BECEscRatio;
-      try {
-        this._escapeRatio = eval(code);
-      } catch (e) {
-        this._escapeRatio = 0;
-        Yanfly.Util.displayError(e, code, 'ESCAPE RATIO FORMULA ERROR');
-      }
-      var code = Yanfly.Param.BECEscFail;
-      try {
-        this._escapeFailBoost = eval(code);
-      } catch (e) {
-        this._escapeFailBoost = 0;
-        Yanfly.Util.displayError(e, code, 'ESCAPE FAIL BOOST FORMULA ERROR');
-      }
+        var code = Yanfly.Param.BECEscRatio;
+        try {
+            this._escapeRatio = eval(code);
+        } catch (e) {
+            this._escapeRatio = 0;
+            Yanfly.Util.displayError(e, code, 'ESCAPE RATIO FORMULA ERROR');
+        }
+        var code = Yanfly.Param.BECEscFail;
+        try {
+            this._escapeFailBoost = eval(code);
+        } catch (e) {
+            this._escapeFailBoost = 0;
+            Yanfly.Util.displayError(e, code, 'ESCAPE FAIL BOOST FORMULA ERROR');
+        }
     } else {
-      this._escapeFailBoost = 0.1;
-      Yanfly.BEC.BattleManager_makeEscapeRatio.call(this);
+        this._escapeFailBoost = 0.1;
+        Yanfly.BEC.BattleManager_makeEscapeRatio.call(this);
     }
 };
 
@@ -1492,9 +1492,9 @@ BattleManager.timeBasedBuffs = function() {
 
 BattleManager.displayStartMessages = function() {
     if (Yanfly.Param.BECEmergeText) {
-      $gameTroop.enemyNames().forEach(function(name) {
-          $gameMessage.add(TextManager.emerge.format(name));
-      });
+        $gameTroop.enemyNames().forEach(function(name) {
+            $gameMessage.add(TextManager.emerge.format(name));
+        });
     }
     if (this._preemptive && Yanfly.Param.BECPreEmpText) {
         $gameMessage.add(TextManager.preemptive.format($gameParty.name()));
@@ -1504,24 +1504,24 @@ BattleManager.displayStartMessages = function() {
 };
 
 BattleManager.registerSprite = function(battler, sprite) {
-  if (!this._registeredSprites) this._registeredSprites = {};
-  if (battler.isActor()) var id = 100000 + battler.actorId();
-  if (battler.isEnemy()) var id = 200000 + battler.index();
-  this._registeredSprites[id] = sprite;
+    if (!this._registeredSprites) this._registeredSprites = {};
+    if (battler.isActor()) var id = 100000 + battler.actorId();
+    if (battler.isEnemy()) var id = 200000 + battler.index();
+    this._registeredSprites[id] = sprite;
 };
 
 BattleManager.getSprite = function(battler) {
-  if (!this._registeredSprites) this._registeredSprites = {};
-  if (battler.isActor()) var id = 100000 + battler.actorId();
-  if (battler.isEnemy()) var id = 200000 + battler.index();
-  return this._registeredSprites[id];
+    if (!this._registeredSprites) this._registeredSprites = {};
+    if (battler.isActor()) var id = 100000 + battler.actorId();
+    if (battler.isEnemy()) var id = 200000 + battler.index();
+    return this._registeredSprites[id];
 };
 
 BattleManager.setSpritePriority = function() {
     if ($gameSystem.isSideView()) {
-      this._spritePriority = Yanfly.Param.BECSideSpPrio;
+        this._spritePriority = Yanfly.Param.BECSideSpPrio;
     } else {
-      this._spritePriority = Yanfly.Param.BECFrontSprite;
+        this._spritePriority = Yanfly.Param.BECFrontSprite;
     }
     if (this._spritePriority === false) this._spritePriority = 0;
     if (this._spritePriority === true) this._spritePriority = 1;
@@ -1606,8 +1606,8 @@ BattleManager.processAbort = function() {
 };
 
 BattleManager.refreshAllMembers = function() {
-  $gameParty.refreshMembers();
-  $gameTroop.refreshMembers();
+    $gameParty.refreshMembers();
+    $gameTroop.refreshMembers();
 };
 
 BattleManager.startTurn = function() {
@@ -1628,10 +1628,10 @@ Yanfly.BEC.BattleManager_endTurn = BattleManager.endTurn;
 BattleManager.endTurn = function() {
     if (this.isTurnBased() && this._spriteset.isPopupPlaying()) return;
     if (this.isTurnBased() && this._enteredEndPhase) {
-      this._phase = 'turnEnd';
-      this._preemptive = false;
-      this._surprise = false;
-      return;
+        this._phase = 'turnEnd';
+        this._preemptive = false;
+        this._surprise = false;
+        return;
     }
     this._enteredEndPhase = true;
     Yanfly.BEC.BattleManager_endTurn.call(this);
@@ -1645,8 +1645,8 @@ BattleManager.getNextSubject = function() {
     for (;;) {
         var battlerArray = [];
         for (var i = 0; i < this._actionBattlers.length; ++i) {
-          var obj = this._actionBattlers[i];
-          if (!this._performedBattlers.contains(obj)) battlerArray.push(obj);
+            var obj = this._actionBattlers[i];
+            if (!this._performedBattlers.contains(obj)) battlerArray.push(obj);
         }
         this._actionBattlers = battlerArray;
         var battler = this._actionBattlers.shift();
@@ -1661,70 +1661,70 @@ BattleManager.getNextSubject = function() {
 BattleManager.update = function() {
     if (!this.isBusy() && !this.updateEvent()) {
         switch (this._phase) {
-        case 'start':
-            this.startInput();
-            break;
-        case 'turn':
-            this.updateTurn();
-            break;
-        case 'action':
-            this.updateAction();
-            break;
-        case 'phaseChange':
-            this.updatePhase();
-            break;
-        case 'actionList':
-            this.updateActionList()
-            break;
-        case 'actionTargetList':
-            this.updateActionTargetList()
-            break;
-        case 'turnEnd':
-            this.updateTurnEnd();
-            break;
-        case 'battleEnd':
-            this.updateBattleEnd();
-            break;
-        }
+            case 'start':
+                this.startInput();
+                break;
+            case 'turn':
+                this.updateTurn();
+                break;
+            case 'action':
+                this.updateAction();
+                break;
+            case 'phaseChange':
+                this.updatePhase();
+                break;
+            case 'actionList':
+                this.updateActionList()
+                break;
+            case 'actionTargetList':
+                this.updateActionTargetList()
+                break;
+            case 'turnEnd':
+                this.updateTurnEnd();
+                break;
+            case 'battleEnd':
+                this.updateBattleEnd();
+                break;
+                           }
     }
 };
 
 BattleManager.updateEvent = function() {
     if (this._processingForcedAction) return false;
     switch (this._phase) {
-    case 'start':
-    case 'turn':
-    case 'turnEnd':
-    case 'actionList':
-    case 'actionTargetList':
-      if (this.isActionForced()) {
-        this.processForcedAction();
-        return true;
-      } else {
-        return this.updateEventMain();
-      }
-    }
+        case 'start':
+        case 'turn':
+        case 'turnEnd':
+        case 'actionList':
+        case 'actionTargetList':
+            if (this.isActionForced()) {
+                this.processForcedAction();
+                return true;
+            } else {
+                return this.updateEventMain();
+            }
+                       }
     return this.checkAbort();
 };
 
 BattleManager.queueForceAction = function(user, skillId, target) {
     if (target === undefined) {
-      var targetIndex = 0;
+        var targetIndex = 0;
     } else if (typeof target === 'number') {
-      var targetIndex = target;
+        var targetIndex = target;
     } else {
-      var targetIndex = target.index();
+        var targetIndex = target.index();
     }
     var param = [
-      user.isEnemy() ? 0 : 1,
-      user.isActor() ? user.actorId() : user.index(),
-      skillId,
-      targetIndex
+        user.isEnemy() ? 0 : 1,
+        user.isActor() ? user.actorId() : user.index(),
+        skillId,
+        targetIndex
     ];
     var command = {
-      code: 339,
-      indent: 0,
-      parameters: param
+        code: 339,
+        indent: 0,
+        parameters: param
     }
     $gameTemp.forceActionQueue(command);
     this.clearResults();
@@ -1732,25 +1732,25 @@ BattleManager.queueForceAction = function(user, skillId, target) {
 };
 
 BattleManager.addText = function(text, wait) {
-  if (!SceneManager._scene._logWindow) return;
-  wait = wait || 0;
-  SceneManager._scene._logWindow.addText(text);
-  if (wait <= 0) return;
-  var last = this._actionList[this._actionList.length - 1];
-  if (last && last[0] === 'WAIT') return;
-  this._actionList.push(['WAIT', [wait]]);
+    if (!SceneManager._scene._logWindow) return;
+    wait = wait || 0;
+    SceneManager._scene._logWindow.addText(text);
+    if (wait <= 0) return;
+    var last = this._actionList[this._actionList.length - 1];
+    if (last && last[0] === 'WAIT') return;
+    this._actionList.push(['WAIT', [wait]]);
 };
 
 BattleManager.clearResults = function() {
-  var group = this.allBattleMembers();
-  var length = group.length;
-  for (var i = 0; i < length; ++i) {
-    var member = group[i];
-    if (member) member.clearResult();
-  }
-  this._allTargets = [];
-  this._targets = [];
-  this._target = undefined;
+    var group = this.allBattleMembers();
+    var length = group.length;
+    for (var i = 0; i < length; ++i) {
+        var member = group[i];
+        if (member) member.clearResult();
+    }
+    this._allTargets = [];
+    this._targets = [];
+    this._target = undefined;
 };
 
 Yanfly.BEC.BattleManager_forceAction = BattleManager.forceAction;
@@ -1778,28 +1778,28 @@ BattleManager.savePreForceActionSettings = function() {
 
 BattleManager.setPreForceActionSettings = function() {
     return {
-      subject: this._subject,
-      action: JsonEx.makeDeepCopy(this._action),
-      actionList: JsonEx.makeDeepCopy(this._actionList),
-      targets: this._targets.slice(),
-      allTargets: this._allTargets.slice(),
-      indTargets: this._individualTargets.slice(),
-      phaseSteps: JsonEx.makeDeepCopy(this._phaseSteps),
-      returnPhase: this._returnPhase,
-      phase: this._phase,
-      conditionFlags: JsonEx.makeDeepCopy(this._conditionFlags),
-      trueFlags: JsonEx.makeDeepCopy(this._trueFlags)
+        subject: this._subject,
+        action: JsonEx.makeDeepCopy(this._action),
+        actionList: JsonEx.makeDeepCopy(this._actionList),
+        targets: this._targets.slice(),
+        allTargets: this._allTargets.slice(),
+        indTargets: this._individualTargets.slice(),
+        phaseSteps: JsonEx.makeDeepCopy(this._phaseSteps),
+        returnPhase: this._returnPhase,
+        phase: this._phase,
+        conditionFlags: JsonEx.makeDeepCopy(this._conditionFlags),
+        trueFlags: JsonEx.makeDeepCopy(this._trueFlags)
     }
 };
 
 BattleManager.loadPreForceActionSettings = function() {
     var settings = this._forceActionQueue[0];
     if (settings) {
-      this._forceActionQueue.shift();
-      this.resetPreForceActionSettings(settings);
-      return this._subject && this._subject.isAppeared();
+        this._forceActionQueue.shift();
+        this.resetPreForceActionSettings(settings);
+        return this._subject && this._subject.isAppeared();
     } else {
-      return false;
+        return false;
     }    
 };
 
@@ -1821,8 +1821,8 @@ Yanfly.BEC.BattleManager_processForcedAction =
     BattleManager.processForcedAction;
 BattleManager.processForcedAction = function() {
     if (this._actionForcedBattler) {
-      this._preForcePhase = this._phase;
-      this._processingForcedAction = true;
+        this._preForcePhase = this._phase;
+        this._processingForcedAction = true;
     }
     Yanfly.BEC.BattleManager_processForcedAction.call(this);
 };
@@ -1831,8 +1831,8 @@ BattleManager.setTargets = function(array) {
     this._targets = [];
     var max = array.length;
     for (var i = 0; i < max; ++i) {
-      var target = array[i];
-      if (target) this._targets.push(target);
+        var target = array[i];
+        if (target) this._targets.push(target);
     }
 };
 
@@ -1842,27 +1842,27 @@ BattleManager.updateAction = function() {
         this.invokeAction(this._subject, target);
     } else {
         if (this._returnPhase === 'target') {
-          this.setTargets([this._individualTargets[0]]);
-          this._phase = 'actionTargetList';
+            this.setTargets([this._individualTargets[0]]);
+            this._phase = 'actionTargetList';
         } else {
-          this.setTargets(this._allTargets.slice());
-          this._phase = 'actionList';
+            this.setTargets(this._allTargets.slice());
+            this._phase = 'actionList';
         }
     }
 };
 
 BattleManager.invokeAction = function(subject, target) {
-  if (!Yanfly.Param.BECOptSpeed)  this._logWindow.push('pushBaseLine');
-  var normal = true;
-  if (Math.random() < this._action.itemMrf(target)) {
-    this.invokeMagicReflection(subject, target);
-  } else if (Math.random() < this._action.itemCnt(target)) {
-    this.invokeCounterAttack(subject, target);
-  } else {
-    this.invokeNormalAction(subject, target);
-  }
-  if (subject) subject.setLastTarget(target);
-  if (!Yanfly.Param.BECOptSpeed) this._logWindow.push('popBaseLine');
+    if (!Yanfly.Param.BECOptSpeed)  this._logWindow.push('pushBaseLine');
+    var normal = true;
+    if (Math.random() < this._action.itemMrf(target)) {
+        this.invokeMagicReflection(subject, target);
+    } else if (Math.random() < this._action.itemCnt(target)) {
+        this.invokeCounterAttack(subject, target);
+    } else {
+        this.invokeNormalAction(subject, target);
+    }
+    if (subject) subject.setLastTarget(target);
+    if (!Yanfly.Param.BECOptSpeed) this._logWindow.push('popBaseLine');
 };
 
 BattleManager.invokeCounterAttack = function(subject, target) {
@@ -1885,25 +1885,25 @@ BattleManager.updatePhase = function() {
     var phase = this._phaseSteps.shift();
     if (phase) this.createPhaseChanges();
     switch (phase) {
-    case 'setup':
-      this.createSetupActions();
-      break;
-    case 'whole':
-      this.createWholeActions();
-      break;
-    case 'target':
-      this.createTargetActions();
-      break;
-    case 'follow':
-      this.createFollowActions();
-      break;
-    case 'finish':
-      this.createFinishActions();
-      break;
-    default:
-      this.endAction();
-      break;
-    }
+        case 'setup':
+            this.createSetupActions();
+            break;
+        case 'whole':
+            this.createWholeActions();
+            break;
+        case 'target':
+            this.createTargetActions();
+            break;
+        case 'follow':
+            this.createFollowActions();
+            break;
+        case 'finish':
+            this.createFinishActions();
+            break;
+        default:
+            this.endAction();
+            break;
+                 }
 };
 
 BattleManager.createPhaseChanges = function() {
@@ -1944,11 +1944,11 @@ BattleManager.createFinishActions = function() {
 Yanfly.BEC.BattleManager_endAction = BattleManager.endAction;
 BattleManager.endAction = function() {
     if (this._subject) {
-      this._subject.onAllActionsEnd();
+        this._subject.onAllActionsEnd();
     }
     if (this._processingForcedAction) {
-      this._subject.removeCurrentAction();
-      this._phase = this._preForcePhase;
+        this._subject.removeCurrentAction();
+        this._phase = this._preForcePhase;
     }
     this._processingForcedAction = false;
     if (this.loadPreForceActionSettings()) return;
@@ -1957,67 +1957,67 @@ BattleManager.endAction = function() {
 
 BattleManager.updateActionList = function() {
     for (;;) {
-      this._actSeq = this._actionList.shift();
-      if (this._actSeq) {
-        if (!this.actionConditionsMet(this._actSeq)) continue;
-        var seqName = this._actSeq[0].toUpperCase();
-        if (!this.processActionSequenceCheck(seqName, this._actSeq[1])) {
-          break;
+        this._actSeq = this._actionList.shift();
+        if (this._actSeq) {
+            if (!this.actionConditionsMet(this._actSeq)) continue;
+            var seqName = this._actSeq[0].toUpperCase();
+            if (!this.processActionSequenceCheck(seqName, this._actSeq[1])) {
+                break;
+            }
+        } else {
+            this._phase = 'phaseChange';
+            break;
         }
-      } else {
-        this._phase = 'phaseChange';
-        break;
-      }
     }
 };
 
 BattleManager.updateActionTargetList = function() {
     for (;;) {
-      this._actSeq = this._actionList.shift();
-      if (this._actSeq) {
-        if (!this.actionConditionsMet(this._actSeq)) continue;
-        var seqName = this._actSeq[0].toUpperCase();
-        if (!this.processActionSequenceCheck(seqName, this._actSeq[1])) {
-          break;
-        }
-      } else if (this._individualTargets.length > 0) {
-        this._individualTargets.shift();
-        if (this._individualTargets.length > 0) {
-          this.setTargets([this._individualTargets[0]]);
-          this._actionList = this._action.item().targetActions.slice();
+        this._actSeq = this._actionList.shift();
+        if (this._actSeq) {
+            if (!this.actionConditionsMet(this._actSeq)) continue;
+            var seqName = this._actSeq[0].toUpperCase();
+            if (!this.processActionSequenceCheck(seqName, this._actSeq[1])) {
+                break;
+            }
+        } else if (this._individualTargets.length > 0) {
+            this._individualTargets.shift();
+            if (this._individualTargets.length > 0) {
+                this.setTargets([this._individualTargets[0]]);
+                this._actionList = this._action.item().targetActions.slice();
+            } else {
+                this._phase = 'phaseChange';
+                break;
+            }
         } else {
-          this._phase = 'phaseChange';
-          break;
+            this._phase = 'phaseChange';
+            break;
         }
-      } else {
-        this._phase = 'phaseChange';
-        break;
-      }
     }
 };
 
 BattleManager.updateActionTargetList = function() {
     for (;;) {
-      this._actSeq = this._actionList.shift();
-      if (this._actSeq) {
-        if (!this.actionConditionsMet(this._actSeq)) continue;
-        var seqName = this._actSeq[0].toUpperCase();
-        if (!this.processActionSequenceCheck(seqName, this._actSeq[1])) {
-          break;
-        }
-      } else if (this._individualTargets.length > 0) {
-        this._individualTargets.shift();
-        if (this._individualTargets.length > 0) {
-          this.setTargets([this._individualTargets[0]]);
-          this._actionList = this._action.item().targetActions.slice();
+        this._actSeq = this._actionList.shift();
+        if (this._actSeq) {
+            if (!this.actionConditionsMet(this._actSeq)) continue;
+            var seqName = this._actSeq[0].toUpperCase();
+            if (!this.processActionSequenceCheck(seqName, this._actSeq[1])) {
+                break;
+            }
+        } else if (this._individualTargets.length > 0) {
+            this._individualTargets.shift();
+            if (this._individualTargets.length > 0) {
+                this.setTargets([this._individualTargets[0]]);
+                this._actionList = this._action.item().targetActions.slice();
+            } else {
+                this._phase = 'phaseChange';
+                break;
+            }
         } else {
-          this._phase = 'phaseChange';
-          break;
+            this._phase = 'phaseChange';
+            break;
         }
-      } else {
-        this._phase = 'phaseChange';
-        break;
-      }
     }
 };
 
@@ -2044,92 +2044,109 @@ BattleManager.startAction = function() {
 BattleManager.processActionSequenceCheck = function(actionName, actionArgs) {
     // IF condition
     if (actionName.match(/IF[ ](.*)/i)) {
-      return this.actionIfConditions(actionName, actionArgs);
+        return this.actionIfConditions(actionName, actionArgs);
     }
-    return this.processActionSequence(actionName, actionArgs)
+    try{
+        return this.processActionSequence(actionName, actionArgs)
+    }
+    catch(e)
+    {
+        Yanfly.Util.displayError(e, actionName, 'ACTION SPEED FORMULA ERROR'); 
+    }
 };
 
 BattleManager.processActionSequence = function(actionName, actionArgs) {
+    try{
     // NO ACTION
     if (actionName === '') {
-      return true;
+        return true;
     }
     // ACTION ANIMATION
     if (actionName === 'ACTION ANIMATION') {
-      return this.actionActionAnimation(actionArgs);
+        return this.actionActionAnimation(actionArgs);
     }
     // ACTION EFFECT
     if (actionName === 'ACTION COMMON EVENT') {
-      return this.actionActionCommonEvent();
+        return this.actionActionCommonEvent();
     }
+
     // ACTION EFFECT
     if (actionName === 'ACTION EFFECT') {
-      return this.actionActionEffect(actionArgs);
+        return this.actionActionEffect(actionArgs);
     }
+
     // ANI WAIT: frames
     if (['ANI WAIT', 'ANIWAIT', 'ANIMATION WAIT'].contains(actionName)) {
-      return this.actionAniWait(actionArgs[0]);
+        return this.actionAniWait(actionArgs[0]);
     }
     // CAST ANIMATION
     if (actionName === 'CAST ANIMATION') {
-      return this.actionCastAnimation();
+        return this.actionCastAnimation();
     }
     // CLEAR BATTLE LOG
     if (actionName === 'CLEAR BATTLE LOG') {
-      return this.actionClearBattleLog();
+        return this.actionClearBattleLog();
     }
     // DEATH BREAK
     if (actionName === 'DEATH BREAK') {
-      return this.actionDeathBreak();
+        return this.actionDeathBreak();
     }
     // DISPLAY ACTION
     if (actionName === 'DISPLAY ACTION') {
-      return this.actionDisplayAction();
+        return this.actionDisplayAction();
     }
     // IMMORTAL: targets, true/false
     if (actionName === 'IMMORTAL') {
-      return this.actionImmortal(actionArgs);
+        return this.actionImmortal(actionArgs);
     }
     // MOTION WAIT
     if (actionName === 'MOTION WAIT') {
-      return this.actionMotionWait(actionArgs);
+        return this.actionMotionWait(actionArgs);
     }
     // PERFORM ACTION
     if (actionName === 'PERFORM ACTION') {
-      return this.actionPerformAction();
+        return this.actionPerformAction();
     }
     // PERFORM FINISH
     if (actionName === 'PERFORM FINISH') {
-      return this.actionPerformFinish();
+        return this.actionPerformFinish();
     }
     // PERFORM START
     if (actionName === 'PERFORM START') {
-      return this.actionPerformStart();
+        return this.actionPerformStart();
     }
+
     // WAIT: frames
     if (actionName === 'WAIT') {
-      return this.actionWait(actionArgs[0]);
+        return this.actionWait(actionArgs[0]);
     }
+    
+ 
     // WAIT FOR ANIMATION
     if (actionName === 'WAIT FOR ANIMATION') {
-      return this.actionWaitForAnimation();
+        return this.actionWaitForAnimation();
     }
     // WAIT FOR EFFECT
     if (actionName === 'WAIT FOR EFFECT') {
-      return this.actionWaitForEffect();
+        return this.actionWaitForEffect();
     }
     // WAIT FOR MOVEMENT
     if (actionName === 'WAIT FOR MOVEMENT') {
-      return this.actionWaitForMovement();
+        return this.actionWaitForMovement();
     }
     // WAIT FOR NEW LINE
     if (actionName === 'WAIT FOR NEW LINE') {
-      return this.actionWaitForNewLine();
+        return this.actionWaitForNewLine();
     }
     // WAIT FOR POPUPS
     if (actionName === 'WAIT FOR POPUPS') {
-      return this.actionWaitForPopups();
+        return this.actionWaitForPopups();
     }
+    }
+    catch(e)
+        {
+            return true;
+        }
     return false;
 };
 
@@ -2137,318 +2154,318 @@ BattleManager.makeActionTargets = function(string) {
     var targets = []
     string = string.toUpperCase()
     if (['SUBJECT', 'USER'].contains(string)) {
-      return [this._subject];
+        return [this._subject];
     }
     if (['TARGET', 'TARGETS'].contains(string)) {
-      var group = this._targets;
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+        var group = this._targets;
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['ACTORS', 'EXISTING ACTORS', 'ALIVE ACTORS'].contains(string)) {
-      var group = $gameParty.aliveMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+        var group = $gameParty.aliveMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['ACTORS ALL', 'ALL ACTORS', 'PARTY'].contains(string)) {
-      var group = $gameParty.battleMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+        var group = $gameParty.battleMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['DEAD ACTORS', 'DEAD ACTOR'].contains(string)) {
-      var group = $gameParty.deadMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target) targets.push(target);
-      }
-      return targets;
+        var group = $gameParty.deadMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target) targets.push(target);
+        }
+        return targets;
     }
     if (['ACTORS NOT USER', 'ACTORS NOT SUBJECT'].contains(string)) {
-      var group = $gameParty.aliveMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target !== this._subject && target.isAppeared()) {
-          targets.push(target);
+        var group = $gameParty.aliveMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target !== this._subject && target.isAppeared()) {
+                targets.push(target);
+            }
         }
-      }
-      return targets;
+        return targets;
     }
     if (['ENEMIES', 'EXISTING ENEMIES', 'ALIVE ENEMIES', 'TROOP',
-    'TROOPS'].contains(string)) {
-      var group = $gameTroop.aliveMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+         'TROOPS'].contains(string)) {
+        var group = $gameTroop.aliveMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['ENEMIES ALL', 'ALL ENEMIES'].contains(string)) {
-      var group = $gameTroop.members();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+        var group = $gameTroop.members();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['DEAD ENEMIES', 'DEAD ENEMY'].contains(string)) {
-      var group = $gameTroop.deadMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target) targets.push(target);
-      }
-      return targets;
+        var group = $gameTroop.deadMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target) targets.push(target);
+        }
+        return targets;
     }
     if (['ENEMIES NOT USER', 'ENEMIES NOT SUBJECT', 'TROOP NOT USER',
-    'TROOP NOT SUBJECT'].contains(string)) {
-      var group = $gameTroop.aliveMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target !== this._subject && target.isAppeared()) {
-          targets.push(target);
+         'TROOP NOT SUBJECT'].contains(string)) {
+        var group = $gameTroop.aliveMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target !== this._subject && target.isAppeared()) {
+                targets.push(target);
+            }
         }
-      }
-      return targets;
+        return targets;
     }
     if (string.match(/ACTOR[ ](\d+)/i)) {
-      var target = $gameParty.battleMembers()[parseInt(RegExp.$1)];
-      if (target && target.isAppeared()) return [target];
+        var target = $gameParty.battleMembers()[parseInt(RegExp.$1)];
+        if (target && target.isAppeared()) return [target];
     }
     if (string.match(/ENEMY[ ](\d+)/i)) {
-      var target = $gameTroop.members()[parseInt(RegExp.$1)];
-      if (target && target.isAppeared()) return [target];
+        var target = $gameTroop.members()[parseInt(RegExp.$1)];
+        if (target && target.isAppeared()) return [target];
     }
     if (['FRIEND', 'FRIENDS', 'ALLIES'].contains(string)) {
-      var group = this._action.friendsUnit().aliveMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+        var group = this._action.friendsUnit().aliveMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['ALL FRIENDS', 'ALL ALLIES'].contains(string)) {
-      var group = this._action.friendsUnit().members();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+        var group = this._action.friendsUnit().members();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['DEAD FRIEND', 'DEAD FRIENDS', 'DEAD ALLIES'].contains(string)) {
-      var group = this._action.friendsUnit().deadMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+        var group = this._action.friendsUnit().deadMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['OPPONENT', 'OPPONENTS', 'RIVALS', 'FOES'].contains(string)) {
-      var group = this._action.opponentsUnit().aliveMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+        var group = this._action.opponentsUnit().aliveMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['ALL OPPONENTS', 'ALL RIVALS', 'ALL FOES'].contains(string)) {
-      var group = this._action.opponentsUnit().members();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+        var group = this._action.opponentsUnit().members();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['DEAD OPPONENT', 'DEAD OPPONENTS', 'DEAD RIVALS',
-    'DEAD FOES'].contains(string)) {
-      var group = this._action.opponentsUnit().deadMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target) targets.push(target);
-      }
-      return targets;
+         'DEAD FOES'].contains(string)) {
+        var group = this._action.opponentsUnit().deadMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target) targets.push(target);
+        }
+        return targets;
     }
     if (['FRIENDS NOT USER', 'ALLIES NOT USER'].contains(string)) {
-      var group = this._action.friendsUnit().aliveMembers();
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target !== this._subject && target.isAppeared()) {
-          targets.push(target);
+        var group = this._action.friendsUnit().aliveMembers();
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target !== this._subject && target.isAppeared()) {
+                targets.push(target);
+            }
         }
-      }
-      return targets;
+        return targets;
     }
     if (string.match(/(?:FRIEND|ALLY)[ ](\d+)/i)) {
-      var target = this._action.friendsUnit().members()[parseInt(RegExp.$1)];
-      if (target && target.isAppeared()) return [target];
+        var target = this._action.friendsUnit().members()[parseInt(RegExp.$1)];
+        if (target && target.isAppeared()) return [target];
     }
     if (string.match(/(?:OPPONENT|FOE|RIVAL)[ ](\d+)/i)) {
-      var target = this._action.opponentsUnit().members()[parseInt(RegExp.$1)]
-      if (target && target.isAppeared()) return [target];
+        var target = this._action.opponentsUnit().members()[parseInt(RegExp.$1)]
+        if (target && target.isAppeared()) return [target];
     }
     if (['ALL ALIVE'].contains(string)) {
-      var group = this._action.friendsUnit().aliveMembers();
-      group = group.concat(this._action.opponentsUnit().aliveMembers());
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+        var group = this._action.friendsUnit().aliveMembers();
+        group = group.concat(this._action.opponentsUnit().aliveMembers());
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['ALL MEMBERS'].contains(string)) {
-      var group = this._action.friendsUnit().members();
-      group = group.concat(this._action.opponentsUnit().members());
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      return targets;
+        var group = this._action.friendsUnit().members();
+        group = group.concat(this._action.opponentsUnit().members());
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        return targets;
     }
     if (['ALL DEAD'].contains(string)) {
-      var group = this._action.friendsUnit().deadMembers();
-      group = group.concat(this._action.opponentsUnit().deadMembers());
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target) targets.push(target);
-      }
-      return targets;
+        var group = this._action.friendsUnit().deadMembers();
+        group = group.concat(this._action.opponentsUnit().deadMembers());
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target) targets.push(target);
+        }
+        return targets;
     }
     if (['ALL NOT USER'].contains(string)) {
-      var group = this._action.friendsUnit().aliveMembers();
-      group = group.concat(this._action.opponentsUnit().aliveMembers());
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target !== this._subject && target.isAppeared()) {
-          targets.push(target);
+        var group = this._action.friendsUnit().aliveMembers();
+        group = group.concat(this._action.opponentsUnit().aliveMembers());
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target !== this._subject && target.isAppeared()) {
+                targets.push(target);
+            }
         }
-      }
-      return targets;
+        return targets;
     }
     if (['FOCUS', 'PARTICIPANTS'].contains(string)) {
-      var group = this._targets;
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target && target.isAppeared()) targets.push(target);
-      }
-      if (!targets.contains(this._subject)) targets.push(this._subject);
-      return targets;
+        var group = this._targets;
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target && target.isAppeared()) targets.push(target);
+        }
+        if (!targets.contains(this._subject)) targets.push(this._subject);
+        return targets;
     }
     if (['NOT FOCUS', 'NONPARTICIPANTS'].contains(string)) {
-      var group = this._action.friendsUnit().members();
-      group = group.concat(this._action.opponentsUnit().members());
-      for (var i = 0; i < group.length; ++i) {
-        var target = group[i];
-        if (target) {
-          if (target === this._subject) continue;
-          if (target.isHidden()) continue;
-          if (this._targets.contains(target)) continue;
+        var group = this._action.friendsUnit().members();
+        group = group.concat(this._action.opponentsUnit().members());
+        for (var i = 0; i < group.length; ++i) {
+            var target = group[i];
+            if (target) {
+                if (target === this._subject) continue;
+                if (target.isHidden()) continue;
+                if (this._targets.contains(target)) continue;
 
-          if (target.isDead()) {
-            if (Imported.YEP_X_AnimatedSVEnemies && target.isEnemy()) {
-              if (target.hasSVBattler() && !target.sideviewCollapse()) {
-                // Ignore
-              } else {
-                continue;
-              }
-            } else if (target.isActor()) {
-              // Ignore
-            } else {
-              continue;
+                if (target.isDead()) {
+                    if (Imported.YEP_X_AnimatedSVEnemies && target.isEnemy()) {
+                        if (target.hasSVBattler() && !target.sideviewCollapse()) {
+                            // Ignore
+                        } else {
+                            continue;
+                        }
+                    } else if (target.isActor()) {
+                        // Ignore
+                    } else {
+                        continue;
+                    }
+                }
+
+                targets.push(target);
             }
-          }
-
-          targets.push(target);
         }
-      }
-      return targets;
+        return targets;
     }
     if (string.match(/(?:CHAR|CHARA|CHARACTER)[ ](\d+)/i)) {
-      var actorId = parseInt(RegExp.$1);
-      var actor = $gameActors.actor(actorId);
-      if (actor && $gameParty.battleMembers().contains(actor)) {
-        return [actor];
-      }
+        var actorId = parseInt(RegExp.$1);
+        var actor = $gameActors.actor(actorId);
+        if (actor && $gameParty.battleMembers().contains(actor)) {
+            return [actor];
+        }
     }
     if ('FIRST' === string.toUpperCase()) {
-      return [this._targets[0]];
+        return [this._targets[0]];
     }
     return targets;
 };
 
 BattleManager.actionConditionsMet = function(actSeq) {
-  var ci = this._conditionFlags.length - 1;
-  var actionName = actSeq[0];
-  var actionArgs = actSeq[1];
-  var subject = this._subject;
-  var user = this._subject;
-  var target = this._targets[0];
-  var targets = this._targets;
-  var action = this._action;
-  var item = this._action.item();
-  if (actionName.match(/ELSE[ ]IF[ ](.*)/i)) {
-    if (this._conditionFlags.length <= 0) return false;
-    if (this._conditionFlags[ci]) {
-      this._conditionFlags[ci] = false;
-      this._trueFlags[ci] = true;
-    } else if (!this._conditionFlags[ci] && !this._trueFlags[ci]) {
-      var text = String(RegExp.$1);
-      try {
-        this._conditionFlags[ci] = eval(text);
-        this._trueFlags[ci] = eval(text);
-      } catch (e) {
-        Yanfly.Util.displayError(e, text, 'ACTION SEQUENCE IF CONDITION ERROR');
-        this._conditionFlags[ci] = false;
-        this._trueFlags[ci] = false;
-      }
+    var ci = this._conditionFlags.length - 1;
+    var actionName = actSeq[0];
+    var actionArgs = actSeq[1];
+    var subject = this._subject;
+    var user = this._subject;
+    var target = this._targets[0];
+    var targets = this._targets;
+    var action = this._action;
+    var item = this._action.item();
+    if (actionName.match(/ELSE[ ]IF[ ](.*)/i)) {
+        if (this._conditionFlags.length <= 0) return false;
+        if (this._conditionFlags[ci]) {
+            this._conditionFlags[ci] = false;
+            this._trueFlags[ci] = true;
+        } else if (!this._conditionFlags[ci] && !this._trueFlags[ci]) {
+            var text = String(RegExp.$1);
+            try {
+                this._conditionFlags[ci] = eval(text);
+                this._trueFlags[ci] = eval(text);
+            } catch (e) {
+                Yanfly.Util.displayError(e, text, 'ACTION SEQUENCE IF CONDITION ERROR');
+                this._conditionFlags[ci] = false;
+                this._trueFlags[ci] = false;
+            }
+        }
+        return false;
+    } else if (actionName.match(/ELSE[ ]*(.*)/i)) {
+        if (this._conditionFlags.length <= 0) return false;
+        if (this._conditionFlags[ci]) {
+            this._conditionFlags[ci] = false;
+            this._trueFlags[ci] = true;
+        } else if (!this._conditionFlags[ci] && !this._trueFlags[ci]) {
+            this._conditionFlags[ci] = true;
+            this._trueFlags[ci] = true;
+        }
+        return false;
+    } else if (actionName.toUpperCase() === 'END') {
+        if (this._conditionFlags.length <= 0) return false;
+        this._conditionFlags.pop();
+        this._trueFlags.pop();
+        return false;
     }
-    return false;
-  } else if (actionName.match(/ELSE[ ]*(.*)/i)) {
-    if (this._conditionFlags.length <= 0) return false;
-    if (this._conditionFlags[ci]) {
-      this._conditionFlags[ci] = false;
-      this._trueFlags[ci] = true;
-    } else if (!this._conditionFlags[ci] && !this._trueFlags[ci]) {
-      this._conditionFlags[ci] = true;
-      this._trueFlags[ci] = true;
-    }
-    return false;
-  } else if (actionName.toUpperCase() === 'END') {
-    if (this._conditionFlags.length <= 0) return false;
-    this._conditionFlags.pop();
-    this._trueFlags.pop();
-    return false;
-  }
-  if (this._conditionFlags.length > 0) return this._conditionFlags[ci];
-  return true
+    if (this._conditionFlags.length > 0) return this._conditionFlags[ci];
+    return true
 };
 
 BattleManager.actionActionAnimation = function(actionArgs) {
     if (actionArgs && actionArgs[0]) {
-      var targets = this.makeActionTargets(actionArgs[0]);
+        var targets = this.makeActionTargets(actionArgs[0]);
     } else {
-      var targets = this._targets;
+        var targets = this._targets;
     }
     var mirror = false;
     if (actionArgs && actionArgs[1]) {
-      if (actionArgs[1].toUpperCase() === 'MIRROR') mirror = true;
+        if (actionArgs[1].toUpperCase() === 'MIRROR') mirror = true;
     }
     var subject = this._subject;
     var group = targets.filter(Yanfly.Util.onlyUnique);
     var aniId = this._action.item().animationId;
     if (aniId < 0) {
-      if (mirror) {
-        this._logWindow.showActorAtkAniMirror(subject, group);
-      } else {
-        this._logWindow.showAttackAnimation(subject, group);
-      }
+        if (mirror) {
+            this._logWindow.showActorAtkAniMirror(subject, group);
+        } else {
+            this._logWindow.showAttackAnimation(subject, group);
+        }
     } else {
-      this._logWindow.showNormalAnimation(group, aniId, mirror);
+        this._logWindow.showNormalAnimation(group, aniId, mirror);
     }
     return true;
 };
@@ -2464,18 +2481,18 @@ BattleManager.actionActionCommonEvent = function() {
 
 BattleManager.actionActionEffect = function(actionArgs) {
     if (actionArgs && actionArgs[0]) {
-      var targets = this.makeActionTargets(actionArgs[0]);
+        var targets = this.makeActionTargets(actionArgs[0]);
     } else {
-      var targets = this._targets;
+        var targets = this._targets;
     }
     targets.forEach(function(target) {
-      if (target !== undefined) {
-        var alreadyDead = target.isDead();
-        this.invokeAction(this._subject, target);
-        if (target.isDead() && !alreadyDead) {
-            target.performCollapse();
+        if (target !== undefined) {
+            var alreadyDead = target.isDead();
+            this.invokeAction(this._subject, target);
+            if (target.isDead() && !alreadyDead) {
+                target.performCollapse();
+            }
         }
-      }
     }, this);
     return true;
 };
@@ -2487,16 +2504,16 @@ BattleManager.actionAniWait = function(frames) {
 };
 
 BattleManager.actionCastAnimation = function() {
-  if (!$gameSystem.isSideView() && this._subject.isActor()) return true;
-  if (!this._action.isAttack() && !this._action.isGuard() &&
-  this._action.isSkill()) {
-    if (this._action.item().castAnimation > 0) {
-      var ani = $dataAnimations[this._action.item().castAnimation]
-      this._logWindow.showAnimation(this._subject, [this._subject],
-        this._action.item().castAnimation);
+    if (!$gameSystem.isSideView() && this._subject.isActor()) return true;
+    if (!this._action.isAttack() && !this._action.isGuard() &&
+        this._action.isSkill()) {
+        if (this._action.item().castAnimation > 0) {
+            var ani = $dataAnimations[this._action.item().castAnimation]
+            this._logWindow.showAnimation(this._subject, [this._subject],
+                                          this._action.item().castAnimation);
+        }
     }
-  }
-  return true;
+    return true;
 };
 
 
@@ -2507,11 +2524,11 @@ BattleManager.actionClearBattleLog = function() {
 
 BattleManager.actionDeathBreak = function() {
     if (this._subject.isDead()) {
-      this._targets = [];
-      this._actionList = [];
-      this._individualTargets = [];
-      this._phase = 'phaseChange';
-      return false;
+        this._targets = [];
+        this._actionList = [];
+        this._individualTargets = [];
+        this._phase = 'phaseChange';
+        return false;
     }
     return true;
 };
@@ -2522,42 +2539,42 @@ BattleManager.actionDisplayAction = function() {
 };
 
 BattleManager.actionIfConditions = function(actionName, actionArgs) {
-  var subject = this._subject;
-  var user = this._subject;
-  var target = this._targets[0];
-  var targets = this._targets;
-  var action = this._action;
-  var item = this._action.item();
-  var actionName = this._actSeq[0];
-  if (actionName.match(/IF[ ](.*)/i)) {
-    var text = String(RegExp.$1);
-    try {
-      this._conditionFlags.push(eval(text));
-    } catch (e) {
-      this._conditionFlags.push(false);
-      Yanfly.Util.displayError(e, text, 'ACTION SEQUENCE IF CONDITION ERROR');
+    var subject = this._subject;
+    var user = this._subject;
+    var target = this._targets[0];
+    var targets = this._targets;
+    var action = this._action;
+    var item = this._action.item();
+    var actionName = this._actSeq[0];
+    if (actionName.match(/IF[ ](.*)/i)) {
+        var text = String(RegExp.$1);
+        try {
+            this._conditionFlags.push(eval(text));
+        } catch (e) {
+            this._conditionFlags.push(false);
+            Yanfly.Util.displayError(e, text, 'ACTION SEQUENCE IF CONDITION ERROR');
+        }
+        this._trueFlags.push(false);
+        var ci = this._conditionFlags.length;
     }
-    this._trueFlags.push(false);
-    var ci = this._conditionFlags.length;
-  }
-  return true;
+    return true;
 };
 
 BattleManager.actionImmortal = function(actionArgs) {
     var targets =
-      this.makeActionTargets(actionArgs[0]).filter(Yanfly.Util.onlyUnique);
+        this.makeActionTargets(actionArgs[0]).filter(Yanfly.Util.onlyUnique);
     try {
-      var value = eval(String(actionArgs[1]).toLowerCase());
+        var value = eval(String(actionArgs[1]).toLowerCase());
     } catch (e) {
-      var value = false;
+        var value = false;
     }
     targets.forEach(function (target) {
-      if (value) {
-        target.addImmortal();
-      } else {
-        var alreadyDead = target.isDead();
-        target.removeImmortal();
-      }
+        if (value) {
+            target.addImmortal();
+        } else {
+            var alreadyDead = target.isDead();
+            target.removeImmortal();
+        }
     }, this);
     return true;
 };
@@ -2565,8 +2582,8 @@ BattleManager.actionImmortal = function(actionArgs) {
 BattleManager.actionMotionWait = function(actionArgs) {
     var targets = this.makeActionTargets(actionArgs[0]);
     if (targets[0].isActor() && targets[0].isSpriteVisible()) {
-      this._logWindow._waitCount += 12;
-      return false;
+        this._logWindow._waitCount += 12;
+        return false;
     }
     return true;
 };
@@ -2574,8 +2591,8 @@ BattleManager.actionMotionWait = function(actionArgs) {
 BattleManager.actionPerformAction = function() {
     this._logWindow.performAction(this._subject, this._action);
     if (this._subject.isActor() && this._subject.isSpriteVisible) {
-      this._logWindow._waitCount += 20;
-      return false;
+        this._logWindow._waitCount += 20;
+        return false;
     }
     return true;
 };
@@ -2583,10 +2600,10 @@ BattleManager.actionPerformAction = function() {
 BattleManager.actionPerformFinish = function() {
     this._logWindow.performActionEnd(this._subject);
     $gameParty.aliveMembers().forEach(function(member) {
-      member.spriteReturnHome();
+        member.spriteReturnHome();
     });
     $gameTroop.aliveMembers().forEach(function(member) {
-      member.spriteReturnHome();
+        member.spriteReturnHome();
     });
     return true;
 };
@@ -2633,11 +2650,11 @@ BattleManager.actionWaitForPopups = function() {
 Yanfly.BEC.SceneManager_snapForBackground = SceneManager.snapForBackground;
 SceneManager.snapForBackground = function() {
     if ($gameParty.inBattle()) {
-      var spriteset = this._scene._spriteset;
-      if (spriteset.battleback1Name() === '' && 
-      spriteset.battleback2Name() === '') {
-        return;
-      }
+        var spriteset = this._scene._spriteset;
+        if (spriteset.battleback1Name() === '' && 
+            spriteset.battleback2Name() === '') {
+            return;
+        }
     }
     Yanfly.BEC.SceneManager_snapForBackground.call(this);
 };
@@ -2684,37 +2701,37 @@ Sprite_Battler.prototype.setZ = function() {
 
 Sprite_Battler.prototype.setupDamagePopup = function() {
     if (this._battler.isDamagePopupRequested()) {
-      if (this._battler.isSpriteVisible()) {
-        var sprite = new Sprite_Damage();
-        sprite.x = this.x + this.damageOffsetX();
-        sprite.y = this.y + this.damageOffsetY();
-        sprite.setup(this._battler);
-        this.pushDamageSprite(sprite);
-        BattleManager._spriteset.addChild(sprite);
-        this._battler.clearResult();
-      }
+        if (this._battler.isSpriteVisible()) {
+            var sprite = new Sprite_Damage();
+            sprite.x = this.x + this.damageOffsetX();
+            sprite.y = this.y + this.damageOffsetY();
+            sprite.setup(this._battler);
+            this.pushDamageSprite(sprite);
+            BattleManager._spriteset.addChild(sprite);
+            this._battler.clearResult();
+        }
     } else {
-      this._battler.clearDamagePopup();
+        this._battler.clearDamagePopup();
     }
 };
 
 Sprite_Battler.prototype.pushDamageSprite = function(sprite) {
     var heightBuffer = Yanfly.Param.BECPopupOverlap;
     if (Yanfly.Param.BECNewPopBottom) {
-      this._damages.push(sprite);
-      this._damages.forEach(function(spr) {
-        for (var i = 0; i < spr.children.length; i++) {
-          childSprite = spr.children[i];
-          childSprite.anchor.y += heightBuffer;
-        }
-      }, this);
+        this._damages.push(sprite);
+        this._damages.forEach(function(spr) {
+            for (var i = 0; i < spr.children.length; i++) {
+                childSprite = spr.children[i];
+                childSprite.anchor.y += heightBuffer;
+            }
+        }, this);
     } else {
-      this._damages.push(sprite);
-      heightBuffer *= this._damages.length
-      for (var i = 0; i < sprite.children.length; i++) {
-        childSprite = sprite.children[i];
-        childSprite.anchor.y += heightBuffer;
-      }
+        this._damages.push(sprite);
+        heightBuffer *= this._damages.length
+        for (var i = 0; i < sprite.children.length; i++) {
+            childSprite = sprite.children[i];
+            childSprite.anchor.y += heightBuffer;
+        }
     }
 };
 
@@ -2794,9 +2811,9 @@ Sprite_Battler.prototype.setMirror = function(value) {
 
 Sprite_Battler.prototype.isPopupPlaying = function() {
     if (this._damages.length > 0) {
-      for (var i = 0; i < this._damages.length; ++i) {
-        return this._damages[i].isPlaying();
-      }
+        for (var i = 0; i < this._damages.length; ++i) {
+            return this._damages[i].isPlaying();
+        }
     }
     return false;
 };
@@ -2816,7 +2833,7 @@ Sprite_Actor.prototype.postSpriteInitialize = function() {
 Yanfly.BEC.Sprite_Actor_updateShadow = Sprite_Actor.prototype.updateShadow;
 Sprite_Actor.prototype.updateShadow = function() {
     if (this._hideShadows === undefined) {
-      this._hideShadows = Yanfly.Param.BECShowShadows;
+        this._hideShadows = Yanfly.Param.BECShowShadows;
     }
     if (!this._hideShadows) return this._shadowSprite.visible = false;
     Yanfly.BEC.Sprite_Actor_updateShadow.call(this);
@@ -2831,40 +2848,40 @@ Sprite_Actor.prototype.setActorHome = function(index) {
     statusHeight *= Window_Base.prototype.lineHeight.call(this);
     statusHeight += Window_Base.prototype.standardPadding.call(this) * 2;
     if ($gameSystem.isSideView()) {
-      var code = Yanfly.Param.BECHomePosX;
-      try {
-        var homeX = eval(code);
-      } catch (e) {
-        var homeX = 0;
-        Yanfly.Util.displayError(e, code, 'SIDE VIEW HOME X FORMULA ERROR');
-      }
-      var code = Yanfly.Param.BECHomePosY;
-      try {
-        var homeY = eval(code);
-      } catch (e) {
-        var homeY = 0;
-        Yanfly.Util.displayError(e, code, 'SIDE VIEW HOME Y FORMULA ERROR');
-      }
+        var code = Yanfly.Param.BECHomePosX;
+        try {
+            var homeX = eval(code);
+        } catch (e) {
+            var homeX = 0;
+            Yanfly.Util.displayError(e, code, 'SIDE VIEW HOME X FORMULA ERROR');
+        }
+        var code = Yanfly.Param.BECHomePosY;
+        try {
+            var homeY = eval(code);
+        } catch (e) {
+            var homeY = 0;
+            Yanfly.Util.displayError(e, code, 'SIDE VIEW HOME Y FORMULA ERROR');
+        }
     } else {
-      var code = Yanfly.Param.BECFrontPosX;
-      try {
-        var homeX = eval(code);
-      } catch (e) {
-        var homeX = 0;
-        Yanfly.Util.displayError(e, code, 'FRONT VIEW HOME X FORMULA ERROR');
-      }
-      var code = Yanfly.Param.BECFrontPosY;
-      try {
-        var homeY = eval(code);
-      } catch (e) {
-        var homeY = 0;
-        Yanfly.Util.displayError(e, code, 'FRONT VIEW HOME Y FORMULA ERROR');
-      }
+        var code = Yanfly.Param.BECFrontPosX;
+        try {
+            var homeX = eval(code);
+        } catch (e) {
+            var homeX = 0;
+            Yanfly.Util.displayError(e, code, 'FRONT VIEW HOME X FORMULA ERROR');
+        }
+        var code = Yanfly.Param.BECFrontPosY;
+        try {
+            var homeY = eval(code);
+        } catch (e) {
+            var homeY = 0;
+            Yanfly.Util.displayError(e, code, 'FRONT VIEW HOME Y FORMULA ERROR');
+        }
     }
     this._checkAliveStatus = false;
     if ($gameParty.battleMembers()[index]) {
-      var actor = $gameParty.battleMembers()[index];
-      if (actor.isAlive()) this._checkAliveStatus = true;
+        var actor = $gameParty.battleMembers()[index];
+        if (actor.isAlive()) this._checkAliveStatus = true;
     }
     this.setHome(homeX, homeY);
     this.moveToStartPosition();
@@ -2873,7 +2890,7 @@ Sprite_Actor.prototype.setActorHome = function(index) {
 Sprite_Actor.prototype.moveToStartPosition = function() {
     if (BattleManager._bypassMoveToStartLocation) return;
     if ($gameSystem.isSideView() && this._checkAliveStatus) {
-      this.startMove(300, 0, 0);
+        this.startMove(300, 0, 0);
     }
 };
 
@@ -2934,9 +2951,9 @@ Sprite_Actor.prototype.updateFrame = function() {
     if (!this._mainSprite) return;
     if (!this._mainSprite.bitmap) return;
     if (this._mainSprite.bitmap.width > 0 && !this.bitmap) {
-      var sw = this._mainSprite.bitmap.width / 9;
-      var sh = this._mainSprite.bitmap.height / 6;
-      this.bitmap = new Bitmap(sw, sh);
+        var sw = this._mainSprite.bitmap.width / 9;
+        var sh = this._mainSprite.bitmap.height / 6;
+        this.bitmap = new Bitmap(sw, sh);
     }
 };
 
@@ -2948,23 +2965,23 @@ Sprite_Actor.prototype.refreshMotion = function() {
     if (this._motion === motionGuard && !BattleManager.isInputting()) return;
     var stateMotion = actor.stateMotionIndex();
     if (actor.isInputting() || actor.isActing()) {
-      this.startMotion(actor.idleMotion());
+        this.startMotion(actor.idleMotion());
     } else if (stateMotion === 3) {
-      this.startMotion(actor.deadMotion());
+        this.startMotion(actor.deadMotion());
     } else if (stateMotion === 2) {
-      this.startMotion(actor.sleepMotion());
+        this.startMotion(actor.sleepMotion());
     } else if (actor.isChanting()) {
-      this.startMotion(actor.chantMotion());
+        this.startMotion(actor.chantMotion());
     } else if (actor.isGuard() || actor.isGuardWaiting()) {
-      this.startMotion(actor.guardMotion());
+        this.startMotion(actor.guardMotion());
     } else if (stateMotion === 1) {
-      this.startMotion(actor.abnormalMotion());
+        this.startMotion(actor.abnormalMotion());
     } else if (actor.isDying()) {
-      this.startMotion(actor.dyingMotion());
+        this.startMotion(actor.dyingMotion());
     } else if (actor.isUndecided()) {
-      this.startMotion(actor.idleMotion());
+        this.startMotion(actor.idleMotion());
     } else {
-      this.startMotion(actor.waitMotion());
+        this.startMotion(actor.waitMotion());
     }
 };
 
@@ -3028,14 +3045,14 @@ Sprite_Damage.prototype.setup = function(target) {
     this._result = target.shiftDamagePopup();
     var result = this._result;
     if (result.missed || result.evaded) {
-      this.createMiss();
+        this.createMiss();
     } else if (result.hpAffected) {
-      this.createDigits(0, result.hpDamage);
+        this.createDigits(0, result.hpDamage);
     } else if (target.isAlive() && result.mpDamage !== 0) {
-      this.createDigits(2, result.mpDamage);
+        this.createDigits(2, result.mpDamage);
     }
     if (result.critical) {
-      this.setupCriticalEffect();
+        this.setupCriticalEffect();
     }
 };
 
@@ -3089,31 +3106,31 @@ Spriteset_Battle.prototype.update = function() {
 };
 
 Spriteset_Battle.prototype.updateZCoordinates = function() {
-  if (Imported.YEP_ImprovedBattlebacks) {
-    this.updateBattlebackGroupRemove();
-  } else {
-    this._battleField.removeChild(this._back1Sprite);
-    this._battleField.removeChild(this._back2Sprite);
-  }
-  this._battleField.children.sort(this.battleFieldDepthCompare);
-  if (Imported.YEP_ImprovedBattlebacks) {
-    this.updateBattlebackGroupAdd();
-  } else {
-    this._battleField.addChildAt(this._back2Sprite, 0);
-    this._battleField.addChildAt(this._back1Sprite, 0);
-  }
+    if (Imported.YEP_ImprovedBattlebacks) {
+        this.updateBattlebackGroupRemove();
+    } else {
+        this._battleField.removeChild(this._back1Sprite);
+        this._battleField.removeChild(this._back2Sprite);
+    }
+    this._battleField.children.sort(this.battleFieldDepthCompare);
+    if (Imported.YEP_ImprovedBattlebacks) {
+        this.updateBattlebackGroupAdd();
+    } else {
+        this._battleField.addChildAt(this._back2Sprite, 0);
+        this._battleField.addChildAt(this._back1Sprite, 0);
+    }
 };
 
 Spriteset_Battle.prototype.battleFieldDepthCompare = function(a, b) {
     var priority = BattleManager.getSpritePriority();
     if (a._battler && b._battler && priority !== 0) {
-      if (priority === 1) {
-        if (a._battler.isActor() && b._battler.isEnemy()) return 1;
-        if (a._battler.isEnemy() && b._battler.isActor()) return -1;
-      } else if (priority === 2) {
-        if (a._battler.isActor() && b._battler.isEnemy()) return -1;
-        if (a._battler.isEnemy() && b._battler.isActor()) return 1;
-      }
+        if (priority === 1) {
+            if (a._battler.isActor() && b._battler.isEnemy()) return 1;
+            if (a._battler.isEnemy() && b._battler.isActor()) return -1;
+        } else if (priority === 2) {
+            if (a._battler.isActor() && b._battler.isEnemy()) return -1;
+            if (a._battler.isEnemy() && b._battler.isActor()) return 1;
+        }
     }
     if (a.z < b.z) return -1;
     if (a.z > b.z) return 1;
@@ -3129,18 +3146,18 @@ Spriteset_Battle.prototype.isPopupPlaying = function() {
 };
 
 Yanfly.BEC.Spriteset_Battle_battlerSprites =
-  Spriteset_Battle.prototype.battlerSprites;
+    Spriteset_Battle.prototype.battlerSprites;
 Spriteset_Battle.prototype.battlerSprites = function() {
-  var sprites = Yanfly.BEC.Spriteset_Battle_battlerSprites.call(this);
-  var length = sprites.length;
-  var result = [];
-  for (var i = 0; i < length; ++i) {
-    var sprite = sprites[i];
-    if (!sprite) continue;
-    if (!sprite._battler) continue;
-    result.push(sprite);
-  }
-  return result;
+    var sprites = Yanfly.BEC.Spriteset_Battle_battlerSprites.call(this);
+    var length = sprites.length;
+    var result = [];
+    for (var i = 0; i < length; ++i) {
+        var sprite = sprites[i];
+        if (!sprite) continue;
+        if (!sprite._battler) continue;
+        result.push(sprite);
+    }
+    return result;
 };
 
 //=============================================================================
@@ -3151,11 +3168,11 @@ Game_Temp.prototype.clearActionSequenceSettings = function() {
 };
 
 Game_Temp.prototype.forceActionQueue = function(command) {
-  if (!this._forceActionQueue) {
-    this._forceActionQueue = JsonEx.makeDeepCopy($dataCommonEvents[1]);
-    this._forceActionQueue.list = [];
-  }
-  this._forceActionQueue.list.push(command);
+    if (!this._forceActionQueue) {
+        this._forceActionQueue = JsonEx.makeDeepCopy($dataCommonEvents[1]);
+        this._forceActionQueue.list = [];
+    }
+    this._forceActionQueue.list.push(command);
 };
 
 Yanfly.BEC.Game_Temp_clearCommonEvent = Game_Temp.prototype.clearCommonEvent;
@@ -3165,19 +3182,19 @@ Game_Temp.prototype.clearCommonEvent = function() {
 };
 
 Yanfly.BEC.Game_Temp_isCommonEventReserved =
-  Game_Temp.prototype.isCommonEventReserved;
+    Game_Temp.prototype.isCommonEventReserved;
 Game_Temp.prototype.isCommonEventReserved = function() {
-  if (this._forceActionQueue) return true;
-  return Yanfly.BEC.Game_Temp_isCommonEventReserved.call(this);
+    if (this._forceActionQueue) return true;
+    return Yanfly.BEC.Game_Temp_isCommonEventReserved.call(this);
 };
 
 Yanfly.BEC.Game_Temp_reservedCommonEvent =
-  Game_Temp.prototype.reservedCommonEvent;
+    Game_Temp.prototype.reservedCommonEvent;
 Game_Temp.prototype.reservedCommonEvent = function() {
-  if (this._forceActionQueue) {
-    return this._forceActionQueue;
-  }
-  return Yanfly.BEC.Game_Temp_reservedCommonEvent.call(this);
+    if (this._forceActionQueue) {
+        return this._forceActionQueue;
+    }
+    return Yanfly.BEC.Game_Temp_reservedCommonEvent.call(this);
 };
 
 //=============================================================================
@@ -3212,7 +3229,7 @@ Yanfly.BEC.Game_Interpreter_pluginCommand =
 Game_Interpreter.prototype.pluginCommand = function(command, args) {
     Yanfly.BEC.Game_Interpreter_pluginCommand.call(this, command, args);
     if (command === 'setBattleSys' && !$gameParty.inBattle()) {
-      this.setBattleSystem(args[0]);
+        this.setBattleSystem(args[0]);
     }
 };
 
@@ -3234,10 +3251,10 @@ Game_Action.prototype.speed = function() {
     var agi = user.agi; var luk = user.luk;
     var code = Yanfly.Param.BECActionSpeed;
     try {
-      var speed = eval(code);
+        var speed = eval(code);
     } catch (e) {
-      var speed = 0;
-      Yanfly.Util.displayError(e, code, 'ACTION SPEED FORMULA ERROR');
+        var speed = 0;
+        Yanfly.Util.displayError(e, code, 'ACTION SPEED FORMULA ERROR');
     }
     if (this.item()) speed += this.item().speed;
     if (this.isAttack()) speed += this.subject().attackSpeed();
@@ -3252,9 +3269,9 @@ Game_Action.prototype.apply = function(target) {
     this.subject()._result = new Game_ActionResult();
     Yanfly.BEC.Game_Action_apply.call(this, target);
     if ($gameParty.inBattle()) {
-      target.startDamagePopup();
-      target.performResultEffects();
-      if (target !== this.subject()) this.subject().startDamagePopup();
+        target.startDamagePopup();
+        target.performResultEffects();
+        if (target !== this.subject()) this.subject().startDamagePopup();
     }
 };
 
@@ -3266,7 +3283,7 @@ Game_Action.prototype.itemEffectAddAttackState = function(target, effect) {
         chance *= this.lukEffectRate(target);
         if (Math.random() < chance) {
             if (stateId === target.deathStateId()) {
-              if (target.isImmortal()) target.removeImmortal();
+                if (target.isImmortal()) target.removeImmortal();
             }
             target.addState(stateId);
             this.makeSuccess(target);
@@ -3278,15 +3295,15 @@ Game_Action.prototype.itemEffectAddNormalState = function(target, effect) {
     var stateId = effect.dataId;
     var chance = effect.value1;
     if (!this.isCertainHit()) {
-      chance *= target.stateRate(stateId);
-      chance *= this.lukEffectRate(target);
+        chance *= target.stateRate(stateId);
+        chance *= this.lukEffectRate(target);
     }
     if (Math.random() < chance) {
-      if (stateId === target.deathStateId()) {
-        if (target.isImmortal()) target.removeImmortal();
-      }
-      target.addState(stateId);
-      this.makeSuccess(target);
+        if (stateId === target.deathStateId()) {
+            if (target.isImmortal()) target.removeImmortal();
+        }
+        target.addState(stateId);
+        this.makeSuccess(target);
     }
 };
 
@@ -3329,17 +3346,17 @@ Game_BattlerBase.prototype.completetStatusRefreshRequest = function() {
 Game_BattlerBase.prototype.updateStateTicks = function() {
     var needRefresh = false;
     for (var i = 0; i < this._states.length; ++i) {
-      var stateId = this._states[i];
-      var state = $dataStates[stateId];
-      if (!state) continue;
-      if (state.autoRemovalTiming !== 2) continue;
-      if (!this._stateTurns[stateId]) continue;
-      var value = BattleManager.tickRate() / Yanfly.Param.BECTurnTime;
-      var shown1 = Math.ceil(this._stateTurns[stateId]);
-      this._stateTurns[stateId] -= value;
-      var shown2 = Math.ceil(this._stateTurns[stateId]);
-      if (shown1 !== shown2) needRefresh = true;
-      if (this._stateTurns[stateId] <= 0) this.removeState(stateId);
+        var stateId = this._states[i];
+        var state = $dataStates[stateId];
+        if (!state) continue;
+        if (state.autoRemovalTiming !== 2) continue;
+        if (!this._stateTurns[stateId]) continue;
+        var value = BattleManager.tickRate() / Yanfly.Param.BECTurnTime;
+        var shown1 = Math.ceil(this._stateTurns[stateId]);
+        this._stateTurns[stateId] -= value;
+        var shown2 = Math.ceil(this._stateTurns[stateId]);
+        if (shown1 !== shown2) needRefresh = true;
+        if (this._stateTurns[stateId] <= 0) this.removeState(stateId);
     }
     if (needRefresh) this.refresh();
 };
@@ -3358,22 +3375,22 @@ Game_BattlerBase.prototype.updateStateTurnTiming = function(timing) {
     var statesRemoved = [];
     this._freeStateTurn = this._freeStateTurn || [];
     for (var i = 0; i < this._states.length; ++i) {
-      var stateId = this._states[i];
-      var state = $dataStates[stateId];
-      if (!state) continue;
-      if (state.autoRemovalTiming !== timing) continue;
-      if (!this._stateTurns[stateId]) continue;
-      if (this._freeStateTurn.contains(stateId)) {
-        var index = this._freeStateTurn.indexOf(stateId);
-        this._freeStateTurn.splice(index, 1);
-      } else {
-        this._stateTurns[stateId] -= 1;
-      }
-      if (this._stateTurns[stateId] <= 0) statesRemoved.push(stateId);
+        var stateId = this._states[i];
+        var state = $dataStates[stateId];
+        if (!state) continue;
+        if (state.autoRemovalTiming !== timing) continue;
+        if (!this._stateTurns[stateId]) continue;
+        if (this._freeStateTurn.contains(stateId)) {
+            var index = this._freeStateTurn.indexOf(stateId);
+            this._freeStateTurn.splice(index, 1);
+        } else {
+            this._stateTurns[stateId] -= 1;
+        }
+        if (this._stateTurns[stateId] <= 0) statesRemoved.push(stateId);
     }
     for (var i = 0; i < statesRemoved.length; ++i) {
-      var stateId = statesRemoved[i];
-      this.removeState(stateId);
+        var stateId = statesRemoved[i];
+        this.removeState(stateId);
     }
 };
 
@@ -3396,13 +3413,13 @@ Game_BattlerBase.prototype.updateStateTurnEnd = function() {
 Game_BattlerBase.prototype.updateBuffTicks = function() {
     var needRefresh = false;
     for (var i = 0; i < this._buffTurns.length; i++) {
-      if (this._buffTurns[i] <= 0) continue;
-      var value = BattleManager.tickRate() / Yanfly.Param.BECTurnTime;
-      var shown1 = Math.ceil(this._buffTurns[i]);
-      this._buffTurns[i] -= value;
-      var shown2 = Math.ceil(this._buffTurns[i]);
-      if (shown1 !== shown2) needRefresh = true;
-      if (this._buffTurns[i] <= 0) this.removeBuff(i);
+        if (this._buffTurns[i] <= 0) continue;
+        var value = BattleManager.tickRate() / Yanfly.Param.BECTurnTime;
+        var shown1 = Math.ceil(this._buffTurns[i]);
+        this._buffTurns[i] -= value;
+        var shown2 = Math.ceil(this._buffTurns[i]);
+        if (shown1 !== shown2) needRefresh = true;
+        if (this._buffTurns[i] <= 0) this.removeBuff(i);
     }
     if (needRefresh) this.refresh();
 };
@@ -3460,14 +3477,14 @@ Game_Battler.prototype.onBattleEnd = function() {
 Yanfly.BEC.Game_Battler_isSelected = Game_Battler.prototype.isSelected;
 Game_Battler.prototype.isSelected = function() {
     if ($gameParty.inBattle() && BattleManager.isAllSelection()) {
-      if (!this.isAppeared()) return false;
-      var action = BattleManager.inputtingAction();
-      if (action && action.item()) {
-        if (this.isDead() && this.isEnemy()) return false;
-        if (this.isDead() && this.isActor()) return action.isForDeadFriend();
-        if (action.isForFriend() && this.isActor()) return true;
-        if (action.isForOpponent() && this.isEnemy()) return true;
-      }
+        if (!this.isAppeared()) return false;
+        var action = BattleManager.inputtingAction();
+        if (action && action.item()) {
+            if (this.isDead() && this.isEnemy()) return false;
+            if (this.isDead() && this.isActor()) return action.isForDeadFriend();
+            if (action.isForFriend() && this.isActor()) return true;
+            if (action.isForOpponent() && this.isEnemy()) return true;
+        }
     }
     return Yanfly.BEC.Game_Battler_isSelected.call(this);
 };
@@ -3479,11 +3496,11 @@ Game_Battler.prototype.regenerateAll = function() {
     Yanfly.BEC.Game_Battler_regenerateAll.call(this);
     if (!BattleManager.timeBasedStates()) this.updateStateTurns();
     if (!BattleManager.timeBasedBuffs()) {
-      this.updateBuffTurns();
-      this.removeBuffsAuto();
+        this.updateBuffTurns();
+        this.removeBuffsAuto();
     }
     if (this.isDead() && lifeState === true) {
-      this.performCollapse();
+        this.performCollapse();
     }
     if ($gameParty.inBattle()) this.startDamagePopup();
 };
@@ -3516,20 +3533,20 @@ Game_Battler.prototype.isDamagePopupRequested = function() {
 Game_Battler.prototype.startDamagePopup = function() {
     var result = this.result();
     if (result.missed || result.evaded) {
-      var copyResult = JsonEx.makeDeepCopy(result);
-      copyResult.hpAffected = false;
-      copyResult.mpDamage = 0;
-      this._damagePopup.push(copyResult);
+        var copyResult = JsonEx.makeDeepCopy(result);
+        copyResult.hpAffected = false;
+        copyResult.mpDamage = 0;
+        this._damagePopup.push(copyResult);
     }
     if (result.hpAffected) {
-      var copyResult = JsonEx.makeDeepCopy(result);
-      copyResult.mpDamage = 0;
-      this._damagePopup.push(copyResult);
+        var copyResult = JsonEx.makeDeepCopy(result);
+        copyResult.mpDamage = 0;
+        this._damagePopup.push(copyResult);
     }
     if (result.mpDamage !== 0) {
-      var copyResult = JsonEx.makeDeepCopy(result);
-      copyResult.hpAffected = false;
-      this._damagePopup.push(copyResult);
+        var copyResult = JsonEx.makeDeepCopy(result);
+        copyResult.hpAffected = false;
+        this._damagePopup.push(copyResult);
     }
 };
 
@@ -3549,30 +3566,30 @@ Game_Battler.prototype.performResultEffects = function() {
     var result = this.result();
     if (result.missed && result.physical) this.performMiss();
     if (result.evaded) {
-      if (result.physical) {
-        this.performEvasion();
-      } else {
-        this.performMagicEvasion();
-      }
+        if (result.physical) {
+            this.performEvasion();
+        } else {
+            this.performMagicEvasion();
+        }
     }
     if (result.hpAffected) {
-      if (result.hpDamage > 0 && !result.drain) {
-        this.performDamage();
-      }
-      if (result.hpDamage < 0) {
-        this.performRecovery();
-      }
+        if (result.hpDamage > 0 && !result.drain) {
+            this.performDamage();
+        }
+        if (result.hpDamage < 0) {
+            this.performRecovery();
+        }
     }
     if (this.isAlive() && result.mpDamage !== 0 && result.mpDamage < 0) {
-      this.performRecovery();
+        this.performRecovery();
     }
     if (this.isAlive() && result.tpDamage !== 0 && result.tpDamage < 0) {
-      this.performRecovery();
+        this.performRecovery();
     }
 };
 
 Yanfly.BEC.Game_Battler_performDamage =
-  Game_Battler.prototype.performDamage;
+    Game_Battler.prototype.performDamage;
 Game_Battler.prototype.performDamage = function() {
     Yanfly.BEC.Game_Battler_performDamage.call(this);
     this.performFlinch();
@@ -3621,11 +3638,11 @@ Game_Battler.prototype.performSubstitute = function(target) {
     if (!$gameSystem.isSideView()) return;
     this._flinched = true;
     if (BattleManager._action.isForAll()) {
-      this.spriteStepForward();
-      target.spriteStepSubBack();
+        this.spriteStepForward();
+        target.spriteStepSubBack();
     } else {
-      this.spriteStepToSubstitute(target);
-      target.spriteStepSubBack();
+        this.spriteStepToSubstitute(target);
+        target.spriteStepSubBack();
     }
 };
 
@@ -3640,21 +3657,21 @@ Game_Battler.prototype.battler = function() {
 Game_Battler.prototype.requestMotion = function(motionType) {
     this._motionType = motionType;
     if (this.battler()) {
-      this.battler().startMotion(motionType);
+        this.battler().startMotion(motionType);
     }
 };
 
 Game_Battler.prototype.forceMotion = function(motionType) {
     this._motionType = motionType;
     if (this.battler()) {
-      this.battler().forceMotion(motionType);
+        this.battler().forceMotion(motionType);
     }
 };
 
 Game_Battler.prototype.startWeaponAnimation = function(weaponImageId) {
     this._weaponImageId = weaponImageId;
     if (this.battler()) {
-      this.battler().setupWeaponAnimation();
+        this.battler().setupWeaponAnimation();
     }
 };
 
@@ -3674,50 +3691,50 @@ Game_Battler.prototype.performActionEnd = function() {
 
 Game_Battler.prototype.spriteStepForward = function() {
     if ($gameSystem.isSideView() && this.battler()) {
-      this.battler().stepForward();
+        this.battler().stepForward();
     }
 };
 
 Game_Battler.prototype.spriteStepBack = function() {
     if ($gameSystem.isSideView() && this.battler()) {
-      this.battler().stepBack();
+        this.battler().stepBack();
     }
 };
 
 Game_Battler.prototype.spriteStepSubBack = function() {
     if ($gameSystem.isSideView() && this.battler()) {
-      this.battler().stepSubBack();
+        this.battler().stepSubBack();
     }
 };
 
 Game_Battler.prototype.spriteStepToSubstitute = function(target) {
     if ($gameSystem.isSideView() && this.battler()) {
-      this.battler().stepToSubstitute(target);
+        this.battler().stepToSubstitute(target);
     }
 };
 
 Game_Battler.prototype.spriteStepFlinch = function() {
     if ($gameSystem.isSideView() && this.battler()) {
-      this.battler().stepFlinch();
+        this.battler().stepFlinch();
     }
 };
 
 Game_Battler.prototype.spriteReturnHome = function() {
     if ($gameSystem.isSideView() && this.battler()) {
-      this._flinched = false;
-      this.spriteFaceForward();
-      this.battler().stepBack();
-      if (this.numActions() <= 0) {
-        this.setActionState('undecided');
-      }
-      this.battler().refreshMotion();
+        this._flinched = false;
+        this.spriteFaceForward();
+        this.battler().stepBack();
+        if (this.numActions() <= 0) {
+            this.setActionState('undecided');
+        }
+        this.battler().refreshMotion();
     }
 };
 
 Game_Battler.prototype.reflectAnimationId = function() {
     for (var i = 0; i < this.states().length; ++i) {
-      var state = this.states()[i];
-      if (state.reflectAnimationId > 0) return state.reflectAnimationId;
+        var state = this.states()[i];
+        if (state.reflectAnimationId > 0) return state.reflectAnimationId;
     }
     return Yanfly.Param.BECReflectAni;
 };
@@ -3725,49 +3742,49 @@ Game_Battler.prototype.reflectAnimationId = function() {
 Game_Battler.prototype.spriteCanMove = function() {
     if (!$gameSystem.isSideView()) return false;
     for (var i = 0; i < this.states().length; ++i) {
-      var state = this.states()[i];
-      if (state.spriteCannotMove) return false;
+        var state = this.states()[i];
+        if (state.spriteCannotMove) return false;
     }
     return this.canMove();
 };
 
 Game_Battler.prototype.spritePosX = function() {
     if ($gameSystem.isSideView() && this.battler()) {
-      return this.battler().x;
+        return this.battler().x;
     } else if (this.battler()) {
-      return this.battler().x;
+        return this.battler().x;
     } else {
-      return 0;
+        return 0;
     }
 };
 
 Game_Battler.prototype.spritePosY = function() {
     if ($gameSystem.isSideView() && this.battler()) {
-      return this.battler().y;
+        return this.battler().y;
     } else if (this.battler()) {
-      return this.battler().y;
+        return this.battler().y;
     } else {
-      return 0;
+        return 0;
     }
 };
 
 Game_Battler.prototype.spriteWidth = function() {
     if ($gameSystem.isSideView() && this.battler() && this.battler().bitmap) {
-      return this.battler().bitmap.width;
+        return this.battler().bitmap.width;
     } else if (this.battler() && this.battler().bitmap) {
-      return this.battler().bitmap.width;
+        return this.battler().bitmap.width;
     } else {
-      return 1;
+        return 1;
     }
 };
 
 Game_Battler.prototype.spriteHeight = function() {
     if ($gameSystem.isSideView() && this.battler() && this.battler().bitmap) {
-      return this.battler().bitmap.height;
+        return this.battler().bitmap.height;
     } else if (this.battler() && this.battler().bitmap) {
-      return this.battler().bitmap.height;
+        return this.battler().bitmap.height;
     } else {
-      return 1;
+        return 1;
     }
 };
 
@@ -3781,23 +3798,23 @@ Game_Battler.prototype.anchorY = function() {
 
 Game_Battler.prototype.spriteHomeX = function() {
     if ($gameSystem.isSideView() && this.battler()) {
-      return this.battler()._homeX;
+        return this.battler()._homeX;
     } else {
-      return 0;
+        return 0;
     }
 };
 
 Game_Battler.prototype.spriteHomeY = function() {
     if ($gameSystem.isSideView() && this.battler()) {
-      return this.battler()._homeY;
+        return this.battler()._homeY;
     } else {
-      return 0;
+        return 0;
     }
 };
 
 Game_Battler.prototype.setMirror = function(value) {
     if ($gameSystem.isSideView() && this.battler() && this.spriteCanMove()) {
-      this.battler().setMirror(value);
+        this.battler().setMirror(value);
     }
 };
 
@@ -3811,17 +3828,17 @@ Game_Battler.prototype.spriteFaceBackward = function() {
 
 Game_Battler.prototype.spriteFacePoint = function(pointX, pointY) {
     if (this.spritePosX() > pointX) {
-      this.spriteFaceBackward();
+        this.spriteFaceBackward();
     } else {
-      this.spriteFaceForward();
+        this.spriteFaceForward();
     }
 };
 
 Game_Battler.prototype.spriteFaceAwayPoint = function(pointX, pointY) {
     if (this.spritePosX() > pointX) {
-      this.spriteFaceForward();
+        this.spriteFaceForward();
     } else {
-      this.spriteFaceBackward();
+        this.spriteFaceBackward();
     }
 };
 
@@ -3866,7 +3883,7 @@ Game_Battler.prototype.forceMotionRefresh = function() {
 Game_Battler.prototype.requestMotionRefresh = function() {
     var deadMotion = this.deadMotion();
     if (this.isDead() && this._motionType !== deadMotion) {
-      this.requestMotion(deadMotion);
+        this.requestMotion(deadMotion);
     }
     if (this.isDead() && this._motionType === deadMotion) return;
     if (this._motionType === 'victory') return;
@@ -3874,7 +3891,7 @@ Game_Battler.prototype.requestMotionRefresh = function() {
     if (this._motionType === 'guard' && !BattleManager.isInputting()) return;
     this.clearMotion();
     if (this.battler() && BattleManager.isInputting()) {
-      this.battler().refreshMotion();
+        this.battler().refreshMotion();
     }
 };
 
@@ -3885,9 +3902,9 @@ Game_Battler.prototype.onTurnStart = function() {
 Game_Battler.prototype.onTurnEnd = function() {
     this.clearResult();
     if (BattleManager.isTurnBased()) {
-      this.regenerateAll();
+        this.regenerateAll();
     } else if (BattleManager.isTickBased() && !BattleManager.isTurnEnd()) {
-      this.regenerateAll();
+        this.regenerateAll();
     }
     this.removeStatesAuto(2);
 };
@@ -3912,7 +3929,7 @@ Game_Battler.prototype.increaseSelfTurnCount = function() {
 Game_Battler.prototype.turnCount = function() {
     if (BattleManager.isTurnBased()) return $gameTroop.turnCount();
     if (BattleManager.isTickBased() && Yanfly.Param.BECAISelfTurn) {
-      return this._selfTurnCount;
+        return this._selfTurnCount;
     }
     return $gameTroop.turnCount();
 };
@@ -3933,7 +3950,7 @@ Game_Battler.prototype.canAddStateFreeTurn = function(stateId) {
     if (BattleManager._subject !== this) return false;
     if ($dataStates[stateId].autoRemovalTiming !== 1) return false;
     if (Imported.YEP_BuffsStatesCore) {
-      if ($dataStates[stateId].reapplyRules === 0) return false;
+        if ($dataStates[stateId].reapplyRules === 0) return false;
     }
     return true;
 };
@@ -3977,8 +3994,8 @@ Game_Battler.prototype.waitMotion = function() {
 
 Yanfly.BEC.Game_Battler_startAnimation = Game_Battler.prototype.startAnimation;
 Game_Battler.prototype.startAnimation = function(animationId, mirror, delay) {
-  if (!$dataAnimations[animationId]) return;
-  Yanfly.BEC.Game_Battler_startAnimation.call(this, animationId, mirror, delay);
+    if (!$dataAnimations[animationId]) return;
+    Yanfly.BEC.Game_Battler_startAnimation.call(this, animationId, mirror, delay);
 };
 
 //=============================================================================
@@ -4000,16 +4017,16 @@ Game_Actor.prototype.isSpriteVisible = function() {
 
 Game_Actor.prototype.reflectAnimationId = function() {
     if (this.actor().reflectAnimationId > 0) {
-      return this.actor().reflectAnimationId;
+        return this.actor().reflectAnimationId;
     }
     if (this.currentClass().reflectAnimationId > 0) {
-      return this.currentClass().reflectAnimationId;
+        return this.currentClass().reflectAnimationId;
     }
     for (var i = 0; i < this.equips().length; ++i) {
-      var equip = this.equips()[i];
-      if (equip && equip.reflectAnimationId > 0) {
-        return equip.reflectAnimationId;
-      }
+        var equip = this.equips()[i];
+        if (equip && equip.reflectAnimationId > 0) {
+            return equip.reflectAnimationId;
+        }
     }
     return Game_Battler.prototype.reflectAnimationId.call(this);
 };
@@ -4018,25 +4035,25 @@ Game_Actor.prototype.spriteCanMove = function() {
     if (this.actor().spriteCannotMove) return false;
     if (this.currentClass().spriteCannotMove) return false;
     for (var i = 0; i < this.equips().length; ++i) {
-      var equip = this.equips()[i];
-      if (equip && equip.spriteCannotMove) return false;
+        var equip = this.equips()[i];
+        if (equip && equip.spriteCannotMove) return false;
     }
     return Game_Battler.prototype.spriteCanMove.call(this);
 };
 
 Game_Actor.prototype.spriteWidth = function() {
     if ($gameSystem.isSideView() && this.battler()) {
-      return this.battler()._mainSprite.width;
+        return this.battler()._mainSprite.width;
     } else {
-      return 1;
+        return 1;
     }
 };
 
 Game_Actor.prototype.spriteHeight = function() {
     if ($gameSystem.isSideView() && this.battler()) {
-      return this.battler()._mainSprite.height;
+        return this.battler()._mainSprite.height;
     } else {
-      return 1;
+        return 1;
     }
 };
 
@@ -4044,23 +4061,23 @@ Game_Actor.prototype.anchorX = function() {
     if (this._anchorX !== undefined) return this._anchorX;
     var length = this.states().length;
     for (var i = 0; i < length; ++i) {
-      var obj = this.states()[i];
-      if (obj && obj.anchorX !== undefined) {
-        this._anchorX = obj.anchorX;
-        return this._anchorX;
-      }
+        var obj = this.states()[i];
+        if (obj && obj.anchorX !== undefined) {
+            this._anchorX = obj.anchorX;
+            return this._anchorX;
+        }
     }
     length = this.equips().length;
     for (var i = 0; i < length; ++i) {
-      var obj = this.equips()[i];
-      if (obj && obj.anchorX !== undefined) {
-        this._anchorX = obj.anchorX;
-        return this._anchorX;
-      }
+        var obj = this.equips()[i];
+        if (obj && obj.anchorX !== undefined) {
+            this._anchorX = obj.anchorX;
+            return this._anchorX;
+        }
     }
     if (this.currentClass().anchorX !== undefined) {
-      this._anchorX = this.currentClass().anchorX;
-      return this._anchorX;
+        this._anchorX = this.currentClass().anchorX;
+        return this._anchorX;
     }
     this._anchorX = this.actor().anchorX;
     return this._anchorX;
@@ -4070,23 +4087,23 @@ Game_Actor.prototype.anchorY = function() {
     if (this._anchorY !== undefined) return this._anchorY;
     var length = this.states().length;
     for (var i = 0; i < length; ++i) {
-      var obj = this.states()[i];
-      if (obj && obj.anchorY !== undefined) {
-        this._anchorY = obj.anchorY;
-        return this._anchorY;
-      }
+        var obj = this.states()[i];
+        if (obj && obj.anchorY !== undefined) {
+            this._anchorY = obj.anchorY;
+            return this._anchorY;
+        }
     }
     length = this.equips().length;
     for (var i = 0; i < length; ++i) {
-      var obj = this.equips()[i];
-      if (obj && obj.anchorY !== undefined) {
-        this._anchorY = obj.anchorY;
-        return this._anchorY;
-      }
+        var obj = this.equips()[i];
+        if (obj && obj.anchorY !== undefined) {
+            this._anchorY = obj.anchorY;
+            return this._anchorY;
+        }
     }
     if (this.currentClass().anchorY !== undefined) {
-      this._anchorY = this.currentClass().anchorY;
-      return this._anchorY;
+        this._anchorY = this.currentClass().anchorY;
+        return this._anchorY;
     }
     this._anchorY = this.actor().anchorY;
     return this._anchorY;
@@ -4094,17 +4111,17 @@ Game_Actor.prototype.anchorY = function() {
 
 Game_Actor.prototype.spriteFacePoint = function(pointX, pointY) {
     if (this.spritePosX() > pointX) {
-      this.spriteFaceForward();
+        this.spriteFaceForward();
     } else {
-      this.spriteFaceBackward();
+        this.spriteFaceBackward();
     }
 };
 
 Game_Actor.prototype.spriteFaceAwayPoint = function(pointX, pointY) {
     if (this.spritePosX() > pointX) {
-      this.spriteFaceBackward();
+        this.spriteFaceBackward();
     } else {
-      this.spriteFaceForward();
+        this.spriteFaceForward();
     }
 };
 
@@ -4113,14 +4130,14 @@ Game_Actor.prototype.performAttack = function() {
     var wtypeId = weapons[0] ? weapons[0].wtypeId : 0;
     var attackMotion = $dataSystem.attackMotions[wtypeId];
     if (attackMotion) {
-      if (attackMotion.type === 0) {
-        this.forceMotion('thrust');
-      } else if (attackMotion.type === 1) {
-        this.forceMotion('swing');
-      } else if (attackMotion.type === 2) {
-        this.forceMotion('missile');
-      }
-      this.startWeaponAnimation(attackMotion.weaponImageId);
+        if (attackMotion.type === 0) {
+            this.forceMotion('thrust');
+        } else if (attackMotion.type === 1) {
+            this.forceMotion('swing');
+        } else if (attackMotion.type === 2) {
+            this.forceMotion('missile');
+        }
+        this.startWeaponAnimation(attackMotion.weaponImageId);
     }
 };
 
@@ -4129,21 +4146,21 @@ Game_Actor.prototype.attackMotion = function() {
     var wtypeId = weapons[0] ? weapons[0].wtypeId : 0;
     var attackMotion = $dataSystem.attackMotions[wtypeId];
     if (attackMotion) {
-      if (attackMotion.type === 0) {
-        return 'thrust';
-      } else if (attackMotion.type === 1) {
-        return 'swing';
-      } else if (attackMotion.type === 2) {
-        return 'missile';
-      }
+        if (attackMotion.type === 0) {
+            return 'thrust';
+        } else if (attackMotion.type === 1) {
+            return 'swing';
+        } else if (attackMotion.type === 2) {
+            return 'missile';
+        }
     };
     return 'thrust';
 };
 
 Game_Actor.prototype.performEscapeSuccess = function() {
     if (this.battler()) {
-      this.performEscape();
-      this.battler().startMove(300, 0, 60);
+        this.performEscape();
+        this.battler().startMove(300, 0, 60);
     }
 };
 
@@ -4152,30 +4169,30 @@ Game_Actor.prototype.performEscapeSuccess = function() {
 //=============================================================================
 
 if (!Game_Enemy.prototype.skills) {
-Game_Enemy.prototype.skills = function() {
-  var skills = []
-  for (var i = 0; i < this.enemy().actions.length; ++i) {
-    var skill = $dataSkills[this.enemy().actions[i].skillId]
-    if (skill) skills.push(skill);
-  }
-  return skills;
-}
+    Game_Enemy.prototype.skills = function() {
+        var skills = []
+        for (var i = 0; i < this.enemy().actions.length; ++i) {
+            var skill = $dataSkills[this.enemy().actions[i].skillId]
+            if (skill) skills.push(skill);
+        }
+        return skills;
+    }
 }; // (!Game_Enemy.prototype.skills)
 
 Game_Enemy.prototype.performActionStart = function(action) {
     Game_Battler.prototype.performActionStart.call(this, action);
     if (!$gameSystem.isSideView() || !this.spriteCanMove()) {
-      this.requestEffect('whiten');
+        this.requestEffect('whiten');
     }
 };
 
 Yanfly.BEC.Game_Enemy_performDamage = Game_Enemy.prototype.performDamage;
 Game_Enemy.prototype.performDamage = function() {
     if ($gameSystem.isSideView()) {
-      Game_Battler.prototype.performDamage.call(this);
-      SoundManager.playEnemyDamage();
+        Game_Battler.prototype.performDamage.call(this);
+        SoundManager.playEnemyDamage();
     } else {
-      Yanfly.BEC.Game_Enemy_performDamage.call(this);
+        Yanfly.BEC.Game_Enemy_performDamage.call(this);
     }
 };
 
@@ -4193,7 +4210,7 @@ Game_Enemy.prototype.attackAnimationId2 = function() {
 
 Game_Enemy.prototype.reflectAnimationId = function() {
     if (this.enemy().reflectAnimationId > 0) {
-      return this.enemy().reflectAnimationId;
+        return this.enemy().reflectAnimationId;
     }
     return Game_Battler.prototype.reflectAnimationId.call(this);
 };
@@ -4219,35 +4236,35 @@ Game_Enemy.prototype.meetsTurnCondition = function(param1, param2) {
 Game_Unit.prototype.createActions = function() {
     var max = this.members().length;
     for (var i = 0; i < max; ++i) {
-      var member = this.members()[i];
-      if (member) member.createActions();
+        var member = this.members()[i];
+        if (member) member.createActions();
     }
 };
 
 Game_Unit.prototype.requestMotionRefresh = function() {
     var max = this.members().length;
     for (var i = 0; i < max; ++i) {
-      var member = this.members()[i];
-      if (member) member.requestMotionRefresh();
+        var member = this.members()[i];
+        if (member) member.requestMotionRefresh();
     }
 };
 
 Game_Unit.prototype.onTurnStart = function() {
     var max = this.members().length;
     for (var i = 0; i < max; ++i) {
-      var member = this.members()[i];
-      if (member) {
-        member.onTurnStart();
-        member.refresh();
-      }
+        var member = this.members()[i];
+        if (member) {
+            member.onTurnStart();
+            member.refresh();
+        }
     }
 };
 
 Game_Unit.prototype.updateTick = function() {
     var max = this.members().length;
     for (var i = 0; i < max; ++i) {
-      var member = this.members()[i];
-      if (member) member.updateTick();
+        var member = this.members()[i];
+        if (member) member.updateTick();
     }
 };
 
@@ -4255,8 +4272,8 @@ Game_Unit.prototype.refreshMembers = function() {
     var group = this.allMembers();
     var length = group.length;
     for (var i = 0; i < length; ++i) {
-      var member = group[i];
-      if (member) member.refresh();
+        var member = group[i];
+        if (member) member.refresh();
     }
 };
 
@@ -4266,8 +4283,8 @@ Game_Unit.prototype.refreshMembers = function() {
 
 Game_Party.prototype.performEscapeSuccess = function() {
     for (var i = 0; i < this.members().length; ++i) {
-      var member = this.members()[i];
-      if (member) member.performEscapeSuccess();
+        var member = this.members()[i];
+        if (member) member.performEscapeSuccess();
     }
 };
 
@@ -4276,7 +4293,7 @@ Game_Party.prototype.performEscapeSuccess = function() {
 //=============================================================================
 
 Game_Troop.prototype.allMembers = function() {
-  return this.members();
+    return this.members();
 };
 
 //=============================================================================
@@ -4300,7 +4317,7 @@ Yanfly.BEC.Scene_Battle_createSkillWindow =
 Scene_Battle.prototype.createSkillWindow = function() {
     Yanfly.BEC.Scene_Battle_createSkillWindow.call(this);
     if (Yanfly.Param.BECLowerWindows) {
-      this.adjustLowerWindow(this._skillWindow);
+        this.adjustLowerWindow(this._skillWindow);
     }
 };
 
@@ -4309,7 +4326,7 @@ Yanfly.BEC.Scene_Battle_createItemWindow =
 Scene_Battle.prototype.createItemWindow = function() {
     Yanfly.BEC.Scene_Battle_createItemWindow.call(this);
     if (Yanfly.Param.BECLowerWindows) {
-      this.adjustLowerWindow(this._itemWindow);
+        this.adjustLowerWindow(this._itemWindow);
     }
 };
 
@@ -4319,7 +4336,7 @@ Scene_Battle.prototype.createActorWindow = function() {
     Yanfly.BEC.Scene_Battle_createActorWindow.call(this);
     this._actorWindow.x = Graphics.boxWidth - this._actorWindow.width;
     if (Yanfly.Param.BECSelectHelp) {
-      this._actorWindow.setHelpWindow(this._helpWindow);
+        this._actorWindow.setHelpWindow(this._helpWindow);
     }
 };
 
@@ -4328,7 +4345,7 @@ Yanfly.BEC.Scene_Battle_createEnemyWindow =
 Scene_Battle.prototype.createEnemyWindow = function() {
     Yanfly.BEC.Scene_Battle_createEnemyWindow.call(this);
     if (Yanfly.Param.BECSelectHelp) {
-      this._enemyWindow.setHelpWindow(this._helpWindow);
+        this._enemyWindow.setHelpWindow(this._helpWindow);
     }
 };
 
@@ -4341,15 +4358,15 @@ Yanfly.BEC.Scene_Battle_startPartyCommandSelection =
     Scene_Battle.prototype.startPartyCommandSelection;
 Scene_Battle.prototype.startPartyCommandSelection = function() {
     if (this.isStartActorCommand()) {
-      this.selectNextCommand();
+        this.selectNextCommand();
     } else {
-      Yanfly.BEC.Scene_Battle_startPartyCommandSelection.call(this);
+        Yanfly.BEC.Scene_Battle_startPartyCommandSelection.call(this);
     }
 };
 
 Scene_Battle.prototype.isStartActorCommand = function() {
     if (this._isStartActorCommand === undefined) {
-      this._isStartActorCommand = Yanfly.Param.BECStartActCmd;
+        this._isStartActorCommand = Yanfly.Param.BECStartActCmd;
     }
     return this._isStartActorCommand;
 };
@@ -4358,14 +4375,14 @@ Yanfly.BEC.Scene_Battle_selectPreviousCommand =
     Scene_Battle.prototype.selectPreviousCommand;
 Scene_Battle.prototype.selectPreviousCommand = function() {
     if (this.isStartActorCommand()) {
-      BattleManager.selectPreviousCommand();
-      if (BattleManager.isInputting() && BattleManager.actor()) {
-        this.startActorCommandSelection();
-      } else {
-        Yanfly.BEC.Scene_Battle_startPartyCommandSelection.call(this);
-      }
+        BattleManager.selectPreviousCommand();
+        if (BattleManager.isInputting() && BattleManager.actor()) {
+            this.startActorCommandSelection();
+        } else {
+            Yanfly.BEC.Scene_Battle_startPartyCommandSelection.call(this);
+        }
     } else {
-      Yanfly.BEC.Scene_Battle_selectPreviousCommand.call(this);
+        Yanfly.BEC.Scene_Battle_selectPreviousCommand.call(this);
     }
 };
 
@@ -4500,9 +4517,9 @@ Window_Help.prototype.setBattler = function(battler) {
     if (!battler) return;
     var action = BattleManager.inputtingAction();
     if (this.specialSelectionText(action)) {
-      this.drawSpecialSelectionText(action);
+        this.drawSpecialSelectionText(action);
     } else {
-      this.drawBattler(battler);
+        this.drawBattler(battler);
     }
 };
 
@@ -4524,29 +4541,29 @@ Window_Help.prototype.drawSpecialSelectionText = function(action) {
     var wy = (this.contents.height - this.lineHeight()) / 2;
     var text = '';
     if (action.isForUser()) {
-      text = Yanfly.Param.BECHelpUserTx;
+        text = Yanfly.Param.BECHelpUserTx;
     } else if (action.isForRandom()) {
-      BattleManager.startAllSelection();
-      var fmt = Yanfly.Param.BECHelpRandTx;
-      if (action.isForOpponent() && action.numTargets() !== 1) {
-        var target = Yanfly.Param.BECHelpEnemiesTx;
-      } else if (action.isForOpponent() && action.numTargets() === 1) {
-        var target = Yanfly.Param.BECHelpEnemyTx;
-      } else if (action.isForFriend() && action.numTargets() !== 1) {
-        var target = Yanfly.Param.BECHelpAlliesTx;
-      } else {
-        var target = Yanfly.Param.BECHelpAllyTx;
-      }
-      text = fmt.format(target, Yanfly.Util.toGroup(action.numTargets()));
+        BattleManager.startAllSelection();
+        var fmt = Yanfly.Param.BECHelpRandTx;
+        if (action.isForOpponent() && action.numTargets() !== 1) {
+            var target = Yanfly.Param.BECHelpEnemiesTx;
+        } else if (action.isForOpponent() && action.numTargets() === 1) {
+            var target = Yanfly.Param.BECHelpEnemyTx;
+        } else if (action.isForFriend() && action.numTargets() !== 1) {
+            var target = Yanfly.Param.BECHelpAlliesTx;
+        } else {
+            var target = Yanfly.Param.BECHelpAllyTx;
+        }
+        text = fmt.format(target, Yanfly.Util.toGroup(action.numTargets()));
     } else if (action.isForAll()) {
-      BattleManager.startAllSelection();
-      var fmt = Yanfly.Param.BECHelpAllTx;
-      if (action.isForOpponent()) {
-        var target = Yanfly.Param.BECHelpEnemiesTx;
-      } else {
-        var target = Yanfly.Param.BECHelpAlliesTx;
-      }
-      text = fmt.format(target);
+        BattleManager.startAllSelection();
+        var fmt = Yanfly.Param.BECHelpAllTx;
+        if (action.isForOpponent()) {
+            var target = Yanfly.Param.BECHelpEnemiesTx;
+        } else {
+            var target = Yanfly.Param.BECHelpAlliesTx;
+        }
+        text = fmt.format(target);
     }
     this.drawText(text, wx, wy, this.contents.width, 'center');
 };
@@ -4561,20 +4578,20 @@ Window_BattleActor.prototype.autoSelect = function() {
     this._inputLock = false;
     this._selectDead = false;
     if (action.isForUser()) {
-      this.select(BattleManager.actor().index());
-      this._inputLock = true;
+        this.select(BattleManager.actor().index());
+        this._inputLock = true;
     } else if (action.isForDeadFriend()) {
-      this._selectDead = true;
-      this.autoSelectFirstDeadActor();
-      if (action.isForAll()) this._inputLock = true;
+        this._selectDead = true;
+        this.autoSelectFirstDeadActor();
+        if (action.isForAll()) this._inputLock = true;
     }
 };
 
 Window_BattleActor.prototype.autoSelectFirstDeadActor = function() {
     var length = $gameParty.members().length;
     for (var i = 0; i < length; ++i) {
-      var member = $gameParty.members()[i];
-      if (member && member.isDead()) return this.select(i);
+        var member = $gameParty.members()[i];
+        if (member && member.isDead()) return this.select(i);
     }
 };
 
@@ -4592,46 +4609,46 @@ Yanfly.BEC.Window_BattleActor_processTouch =
     Window_BattleActor.prototype.processTouch;
 Window_BattleActor.prototype.processTouch = function() {
     if (Yanfly.Param.BECActorSelect && this.isOpenAndActive()) {
-      if (TouchInput.isTriggered() && !this.isTouchedInsideFrame()) {
-        if (this.getClickedActor() >= 0) {
-          var index = this.getClickedActor();
-          if (this.index() === index) {
-            return this.processOk();
-          } else {
-            SoundManager.playCursor();
-            return this.select(index);
-          }
+        if (TouchInput.isTriggered() && !this.isTouchedInsideFrame()) {
+            if (this.getClickedActor() >= 0) {
+                var index = this.getClickedActor();
+                if (this.index() === index) {
+                    return this.processOk();
+                } else {
+                    SoundManager.playCursor();
+                    return this.select(index);
+                }
+            }
         }
-      }
-      if (TouchInput.isPressed() && !this.isTouchedInsideFrame()) {
-        if (this.getClickedActor() >= 0) {
-          var index = this.getClickedActor();
-          if (this.index() !== index) {
-            SoundManager.playCursor();
-            return this.select(index);
-          }
+        if (TouchInput.isPressed() && !this.isTouchedInsideFrame()) {
+            if (this.getClickedActor() >= 0) {
+                var index = this.getClickedActor();
+                if (this.index() !== index) {
+                    SoundManager.playCursor();
+                    return this.select(index);
+                }
+            }
         }
-      }
-      if (Yanfly.Param.BECSelectMouseOver) {
-        var index = this.getMouseOverActor();
-        if (index >= 0 && this.index() !== index) {
-          SoundManager.playCursor();
-          return this.select(index);
+        if (Yanfly.Param.BECSelectMouseOver) {
+            var index = this.getMouseOverActor();
+            if (index >= 0 && this.index() !== index) {
+                SoundManager.playCursor();
+                return this.select(index);
+            }
         }
-      }
     }
     Yanfly.BEC.Window_BattleActor_processTouch.call(this);
 };
 
 Window_BattleActor.prototype.getClickedActor = function() {
     for (var i = 0; i < $gameParty.battleMembers().length; ++i) {
-      var actor = $gameParty.battleMembers().reverse()[i];
-      if (!actor) continue;
-      if (this.isClickedActor(actor)) {
-        if (this._selectDead && !actor.isDead()) continue;
-        if (this._inputLock && actor.index() !== this.index()) continue;
-        return actor.index();
-      }
+        var actor = $gameParty.battleMembers().reverse()[i];
+        if (!actor) continue;
+        if (this.isClickedActor(actor)) {
+            if (this._selectDead && !actor.isDead()) continue;
+            if (this._inputLock && actor.index() !== this.index()) continue;
+            return actor.index();
+        }
     }
     return -1;
 };
@@ -4649,18 +4666,18 @@ Window_BattleActor.prototype.isClickedActor = function(actor) {
     rect.x = actor.spritePosX() - rect.width / 2;
     rect.y = actor.spritePosY() - rect.height;
     return (x >= rect.x && y >= rect.y && x < rect.x + rect.width &&
-      y < rect.y + rect.height);
+            y < rect.y + rect.height);
 };
 
 Window_BattleActor.prototype.getMouseOverActor = function() {
     for (var i = 0; i < $gameParty.battleMembers().length; ++i) {
-      var actor = $gameParty.battleMembers().reverse()[i];
-      if (!actor) continue;
-      if (this.isMouseOverActor(actor)) {
-        if (this._selectDead && !actor.isDead()) continue;
-        if (this._inputLock && actor.index() !== this.index()) continue;
-        return actor.index();
-      }
+        var actor = $gameParty.battleMembers().reverse()[i];
+        if (!actor) continue;
+        if (this.isMouseOverActor(actor)) {
+            if (this._selectDead && !actor.isDead()) continue;
+            if (this._inputLock && actor.index() !== this.index()) continue;
+            return actor.index();
+        }
     }
     return -1;
 };
@@ -4678,7 +4695,7 @@ Window_BattleActor.prototype.isMouseOverActor = function(actor) {
     rect.x = actor.spritePosX() - rect.width / 2;
     rect.y = actor.spritePosY() - rect.height;
     return (x >= rect.x && y >= rect.y && x < rect.x + rect.width &&
-      y < rect.y + rect.height);
+            y < rect.y + rect.height);
 };
 
 //=============================================================================
@@ -4691,8 +4708,8 @@ Yanfly.BEC.Window_BattleEnemy_initialize =
     Window_BattleEnemy.prototype.initialize;
 Window_BattleEnemy.prototype.initialize = function(x, y) {
     if (Yanfly.Param.BECEnemySelect) {
-      x -= Graphics.boxWidth * 200;
-      y -= Graphics.boxHeight * 200;
+        x -= Graphics.boxWidth * 200;
+        y -= Graphics.boxHeight * 200;
     };
     Yanfly.BEC.Window_BattleEnemy_initialize.call(this, x, y);
 };
@@ -4726,7 +4743,7 @@ Window_BattleEnemy.prototype.refresh = function() {
 Window_BattleEnemy.prototype.sortTargets = function() {
     this._enemies.sort(function(a, b) {
         if (a.spritePosX() == b.spritePosX()) {
-          return a.spritePosY() - b.spritePosY();
+            return a.spritePosY() - b.spritePosY();
         }
         return a.spritePosX() - b.spritePosX();
     });
@@ -4750,47 +4767,47 @@ Yanfly.BEC.Window_BattleEnemy_processTouch =
     Window_BattleEnemy.prototype.processTouch;
 Window_BattleEnemy.prototype.processTouch = function() {
     if (Yanfly.Param.BECEnemySelect && this.isOpenAndActive()) {
-      if (TouchInput.isTriggered() && !this.isTouchedInsideFrame()) {
-        if (this.getClickedEnemy() >= 0) {
-          var index = this.getClickedEnemy();
-          if (this.index() === index) {
-            return this.processOk();
-          } else {
-            SoundManager.playCursor();
-            return this.select(index);
-          }
+        if (TouchInput.isTriggered() && !this.isTouchedInsideFrame()) {
+            if (this.getClickedEnemy() >= 0) {
+                var index = this.getClickedEnemy();
+                if (this.index() === index) {
+                    return this.processOk();
+                } else {
+                    SoundManager.playCursor();
+                    return this.select(index);
+                }
+            }
         }
-      }
-      if (TouchInput.isPressed() && !this.isTouchedInsideFrame()) {
-        if (this.getClickedEnemy() >= 0) {
-          var index = this.getClickedEnemy();
-          if (this.index() !== index) {
-            SoundManager.playCursor();
-            return this.select(index);
-          }
+        if (TouchInput.isPressed() && !this.isTouchedInsideFrame()) {
+            if (this.getClickedEnemy() >= 0) {
+                var index = this.getClickedEnemy();
+                if (this.index() !== index) {
+                    SoundManager.playCursor();
+                    return this.select(index);
+                }
+            }
         }
-      }
-      if (Yanfly.Param.BECSelectMouseOver) {
-        var index = this.getMouseOverEnemy();
-        if (index >= 0 && this.index() !== index) {
-          SoundManager.playCursor();
-          return this.select(index);
+        if (Yanfly.Param.BECSelectMouseOver) {
+            var index = this.getMouseOverEnemy();
+            if (index >= 0 && this.index() !== index) {
+                SoundManager.playCursor();
+                return this.select(index);
+            }
         }
-      }
     };
     Yanfly.BEC.Window_BattleEnemy_processTouch.call(this);
 };
 
 Window_BattleEnemy.prototype.getClickedEnemy = function() {
     for (var i = 0; i < this._enemies.length; ++i) {
-      var enemy = this._enemies[i];
-      if (!enemy) continue;
-      if (this.isClickedEnemy(enemy)) {
-        if (this._selectDead && !enemy.isDead()) continue;
-        var index = this._enemies.indexOf(enemy)
-        if (this._inputLock && index !== this.index()) continue;
-        return index;
-      }
+        var enemy = this._enemies[i];
+        if (!enemy) continue;
+        if (this.isClickedEnemy(enemy)) {
+            if (this._selectDead && !enemy.isDead()) continue;
+            var index = this._enemies.indexOf(enemy)
+            if (this._inputLock && index !== this.index()) continue;
+            return index;
+        }
     }
     return -1;
 };
@@ -4807,19 +4824,19 @@ Window_BattleEnemy.prototype.isClickedEnemy = function(enemy) {
     rect.x = enemy.spritePosX() - rect.width / 2;
     rect.y = enemy.spritePosY() - rect.height;
     return (x >= rect.x && y >= rect.y && x < rect.x + rect.width &&
-      y < rect.y + rect.height);
+            y < rect.y + rect.height);
 };
 
 Window_BattleEnemy.prototype.getMouseOverEnemy = function() {
     for (var i = 0; i < this._enemies.length; ++i) {
-      var enemy = this._enemies[i];
-      if (!enemy) continue;
-      if (this.isMouseOverEnemy(enemy)) {
-        if (this._selectDead && !enemy.isDead()) continue;
-        var index = this._enemies.indexOf(enemy)
-        if (this._inputLock && index !== this.index()) continue;
-        return index;
-      }
+        var enemy = this._enemies[i];
+        if (!enemy) continue;
+        if (this.isMouseOverEnemy(enemy)) {
+            if (this._selectDead && !enemy.isDead()) continue;
+            var index = this._enemies.indexOf(enemy)
+            if (this._inputLock && index !== this.index()) continue;
+            return index;
+        }
     }
     return -1;
 };
@@ -4836,7 +4853,7 @@ Window_BattleEnemy.prototype.isMouseOverEnemy = function(enemy) {
     rect.x = enemy.spritePosX() - rect.width / 2;
     rect.y = enemy.spritePosY() - rect.height;
     return (x >= rect.x && y >= rect.y && x < rect.x + rect.width &&
-      y < rect.y + rect.height);
+            y < rect.y + rect.height);
 };
 
 //=============================================================================
@@ -4884,7 +4901,7 @@ Window_EnemyVisualSelect.prototype.updateWindowAspects = function() {
 
 Window_EnemyVisualSelect.prototype.updateBattlerName = function() {
     if (this._battlerName !== this._battler.name())
-    this._battlerName = this._battler.name();
+        this._battlerName = this._battler.name();
     this._requestRefresh = true;
     this._nameTextWidth = undefined;
 };
@@ -4893,7 +4910,7 @@ Window_EnemyVisualSelect.prototype.updateWindowSize = function() {
     var spriteWidth = this._battler.spriteWidth();
     this.contents.fontSize = Yanfly.Param.BECEnemyFontSize;
     if (this._nameTextWidth === undefined) {
-      this._nameTextWidth = this.textWidth(this._battler.name());
+        this._nameTextWidth = this.textWidth(this._battler.name());
     }
     var textWidth = this._nameTextWidth;
     textWidth += this.textPadding() * 2;
@@ -4931,9 +4948,9 @@ Window_EnemyVisualSelect.prototype.updateWindowPosition = function() {
 
 Window_EnemyVisualSelect.prototype.updateOpacity = function() {
     if (this.isShowWindow()) {
-      this.contentsOpacity += 32;
+        this.contentsOpacity += 32;
     } else {
-      this.contentsOpacity -= 32;
+        this.contentsOpacity -= 32;
     }
 };
 
@@ -4944,17 +4961,17 @@ Window_EnemyVisualSelect.prototype.isShowWindow = function() {
     if (!enemyWindow.active) return false;
     if (!this._battler.isAppeared()) return false;
     if (this._battler.isDead()) {
-      return enemyWindow._selectDead;
+        return enemyWindow._selectDead;
     }
     return enemyWindow._enemies.contains(this._battler);
 };
 
 Window_EnemyVisualSelect.prototype.updateCursor = function() {
     if (this.isShowCursor()) {
-      var wy = this.contents.height - this.lineHeight();
-      this.setCursorRect(0, wy, this.contents.width, this.lineHeight());
+        var wy = this.contents.height - this.lineHeight();
+        this.setCursorRect(0, wy, this.contents.width, this.lineHeight());
     } else {
-      this.setCursorRect(0, 0, 0, 0);
+        this.setCursorRect(0, 0, 0, 0);
     }
 };
 
@@ -5019,9 +5036,9 @@ Window_BattleStatus.prototype.numVisibleRows = function() {
 Window_BattleStatus.prototype.updateStatusRequests = function() {
     if (BattleManager._victoryPhase) return;
     for (var i = 0; i < $gameParty.battleMembers().length; ++i) {
-      var actor = $gameParty.battleMembers()[i];
-      if (!actor) continue;
-      if (actor.isStatusRefreshRequested()) this.processStatusRefresh(i);
+        var actor = $gameParty.battleMembers()[i];
+        if (!actor) continue;
+        if (actor.isStatusRefreshRequested()) this.processStatusRefresh(i);
     }
 };
 
@@ -5040,15 +5057,15 @@ Window_BattleStatus.prototype.update = function() {
 
 if (!Yanfly.Param.BECCurMax) {
 
-Window_BattleStatus.prototype.drawCurrentAndMax = function(current, max, x, y,
-                                                   width, color1, color2) {
-    var labelWidth = this.textWidth('HP');
-    var valueWidth = this.textWidth(Yanfly.Util.toGroup(max));
-    var slashWidth = this.textWidth('/');
-    var x1 = x + width - valueWidth;
-    this.changeTextColor(color1);
-    this.drawText(Yanfly.Util.toGroup(current), x1, y, valueWidth, 'right');
-};
+    Window_BattleStatus.prototype.drawCurrentAndMax = function(current, max, x, y,
+                                                                width, color1, color2) {
+        var labelWidth = this.textWidth('HP');
+        var valueWidth = this.textWidth(Yanfly.Util.toGroup(max));
+        var slashWidth = this.textWidth('/');
+        var x1 = x + width - valueWidth;
+        this.changeTextColor(color1);
+        this.drawText(Yanfly.Util.toGroup(current), x1, y, valueWidth, 'right');
+    };
 
 }; // Yanfly.Param.BECCurMax
 
@@ -5085,19 +5102,19 @@ Window_BattleLog.prototype.animationNextDelay = function() {
 Window_BattleLog.prototype.updateWaitMode = function() {
     var waiting = false;
     switch (this._waitMode) {
-    case 'effect':
-        waiting = this._spriteset.isEffecting();
-        break;
-    case 'movement':
-        waiting = this._spriteset.isAnyoneMoving();
-        break;
-    case 'animation':
-        waiting = this._spriteset.isAnimationPlaying();
-        break;
-    case 'popups':
-        waiting = this._spriteset.isPopupPlaying();
-        break;
-    }
+        case 'effect':
+            waiting = this._spriteset.isEffecting();
+            break;
+        case 'movement':
+            waiting = this._spriteset.isAnyoneMoving();
+            break;
+        case 'animation':
+            waiting = this._spriteset.isAnimationPlaying();
+            break;
+        case 'popups':
+            waiting = this._spriteset.isPopupPlaying();
+            break;
+                          }
     if (!waiting) {
         this._waitMode = '';
     }
@@ -5126,14 +5143,14 @@ Yanfly.BEC.Window_BattleLog_displayAction =
     Window_BattleLog.prototype.displayAction;
 Window_BattleLog.prototype.displayAction = function(subject, item) {
     if (Yanfly.Param.BECFullActText) {
-      Yanfly.BEC.Window_BattleLog_displayAction.call(this, subject, item);
+        Yanfly.BEC.Window_BattleLog_displayAction.call(this, subject, item);
     } else {
-      this._actionIcon = this.displayIcon(item);
-      var text = this.displayText(item);
-      this.push('addText', '<SIMPLE>' + text);
-      if (item.message2) {
-        this.push('addText', '<CENTER>' + item.message2.format(text));
-      }
+        this._actionIcon = this.displayIcon(item);
+        var text = this.displayText(item);
+        this.push('addText', '<SIMPLE>' + text);
+        if (item.message2) {
+            this.push('addText', '<CENTER>' + item.message2.format(text));
+        }
     }
 };
 
@@ -5151,15 +5168,15 @@ Yanfly.BEC.Window_BattleLog_displayActionResults =
     Window_BattleLog.prototype.displayActionResults;
 Window_BattleLog.prototype.displayActionResults = function(subject, target) {
     if (Yanfly.Param.BECOptSpeed) {
-      if (target.result().used) {
-          this.displayCritical(target);
-          this.displayDamage(target);
-          this.displayAffectedStatus(target);
-          this.displayFailure(target);
-      }
+        if (target.result().used) {
+            this.displayCritical(target);
+            this.displayDamage(target);
+            this.displayAffectedStatus(target);
+            this.displayFailure(target);
+        }
     } else {
-      Yanfly.BEC.Window_BattleLog_displayActionResults.call(this, subject,
-          target);
+        Yanfly.BEC.Window_BattleLog_displayActionResults.call(this, subject,
+                                                              target);
     }
     if (target.isDead()) target.performCollapse();
 };
@@ -5168,11 +5185,11 @@ Yanfly.BEC.Window_BattleLog_drawLineText =
     Window_BattleLog.prototype.drawLineText;
 Window_BattleLog.prototype.drawLineText = function(index) {
     if (this._lines[index].match('<CENTER>')) {
-      this.drawCenterLine(index);
+        this.drawCenterLine(index);
     } else if (this._lines[index].match('<SIMPLE>')) {
-      this.drawSimpleActionLine(index);
+        this.drawSimpleActionLine(index);
     } else {
-      Yanfly.BEC.Window_BattleLog_drawLineText.call(this, index);
+        Yanfly.BEC.Window_BattleLog_drawLineText.call(this, index);
     }
 };
 
@@ -5195,16 +5212,16 @@ Window_BattleLog.prototype.drawSimpleActionLine = function(index) {
     var rect = this.itemRectForText(index);
     this.contents.clearRect(rect.x, rect.y, rect.width, rect.height);
     if (this._actionIcon) {
-      var tw = this.textWidth(text);
-      var ix = (rect.width - tw) / 2 - 4;
-      this.drawIcon(this._actionIcon, ix, rect.y + 2);
+        var tw = this.textWidth(text);
+        var ix = (rect.width - tw) / 2 - 4;
+        this.drawIcon(this._actionIcon, ix, rect.y + 2);
     }
     this.drawText(text, rect.x, rect.y, Graphics.boxWidth, 'center');
 };
 
 Window_BattleLog.prototype.displayCounter = function(target) {
     if (Yanfly.Param.BECShowCntText) {
-      this.addText(TextManager.counterAttack.format(target.name()));
+        this.addText(TextManager.counterAttack.format(target.name()));
     }
     target.performCounter();
     this.showAttackAnimation(target, [BattleManager._subject]);
@@ -5213,7 +5230,7 @@ Window_BattleLog.prototype.displayCounter = function(target) {
 
 Window_BattleLog.prototype.displayReflection = function(target) {
     if (Yanfly.Param.BECShowRflText) {
-      this.addText(TextManager.magicReflection.format(target.name()));
+        this.addText(TextManager.magicReflection.format(target.name()));
     }
     target.performReflection();
     var animationId = BattleManager._action.item().animationId;
@@ -5223,8 +5240,8 @@ Window_BattleLog.prototype.displayReflection = function(target) {
 
 Window_BattleLog.prototype.displaySubstitute = function(substitute, target) {
     if (Yanfly.Param.BECShowSubText) {
-      var substName = substitute.name();
-      this.addText(TextManager.substitute.format(substName, target.name()));
+        var substName = substitute.name();
+        this.addText(TextManager.substitute.format(substName, target.name()));
     }
     substitute.performSubstitute(target);
 };
@@ -5312,23 +5329,23 @@ Window_BattleLog.prototype.popupDamage = function(target) {
 Yanfly.BEC.Window_BattleLog_showEnemyAttackAnimation =
     Window_BattleLog.prototype.showEnemyAttackAnimation;
 Window_BattleLog.prototype.showEnemyAttackAnimation =
-function(subject, targets) {
+    function(subject, targets) {
     if ($gameSystem.isSideView()) {
-      this.showNormalAnimation(targets, subject.attackAnimationId(), false);
+        this.showNormalAnimation(targets, subject.attackAnimationId(), false);
     } else {
-      this.showNormalAnimation(targets, subject.attackAnimationId(), false);
-      Yanfly.BEC.Window_BattleLog_showEnemyAttackAnimation.call(this, subject,
-          targets);
+        this.showNormalAnimation(targets, subject.attackAnimationId(), false);
+        Yanfly.BEC.Window_BattleLog_showEnemyAttackAnimation.call(this, subject,
+                                                                  targets);
     }
 };
 
 Window_BattleLog.prototype.showActorAtkAniMirror = function(subject, targets) {
-  if (subject.isActor()) {
-    this.showNormalAnimation(targets, subject.attackAnimationId1(), true);
-    this.showNormalAnimation(targets, subject.attackAnimationId2(), false);
-  } else {
-    this.showNormalAnimation(targets, subject.attackAnimationId1(), true)
-  }
+    if (subject.isActor()) {
+        this.showNormalAnimation(targets, subject.attackAnimationId1(), true);
+        this.showNormalAnimation(targets, subject.attackAnimationId2(), false);
+    } else {
+        this.showNormalAnimation(targets, subject.attackAnimationId1(), true)
+    }
 };
 
 //=============================================================================
@@ -5338,14 +5355,14 @@ Window_BattleLog.prototype.showActorAtkAniMirror = function(subject, targets) {
 Yanfly.Util = Yanfly.Util || {};
 
 Yanfly.Util.displayError = function(e, code, message) {
-  console.log(message);
-  console.log(code || 'NON-EXISTENT');
-  console.error(e);
-  if (Utils.isNwjs() && Utils.isOptionValid('test')) {
-    if (!require('nw.gui').Window.get().isDevToolsOpen()) {
-      require('nw.gui').Window.get().showDevTools();
+    console.log(message);
+    console.log(code || 'NON-EXISTENT');
+    console.error(e);
+    if (Utils.isNwjs() && Utils.isOptionValid('test')) {
+        if (!require('nw.gui').Window.get().isDevToolsOpen()) {
+            require('nw.gui').Window.get().showDevTools();
+        }
     }
-  }
 };
 
 if (!Yanfly.Util.toGroup) {

@@ -773,6 +773,7 @@ Yanfly.Param.SoundPan = Number(Yanfly.Parameters['Default Pan']);
 Yanfly.ASP1.BattleManager_processActionSequence =
     BattleManager.processActionSequence;
 BattleManager.processActionSequence = function(actionName, actionArgs) {
+    try{
   // ADD X BUFF
   if (actionName.match(/ADD[ ](.*)[ ]BUFF/i)) {
     return this.actionAddBuff(actionName, actionArgs);
@@ -867,6 +868,11 @@ BattleManager.processActionSequence = function(actionName, actionArgs) {
   if (actionName.match(/TP[ ](.*)/i)) {
     return this.actionTpModify(actionName, actionArgs);
   }
+    }
+    catch(e)
+        {
+            return true;
+        }
   return Yanfly.ASP1.BattleManager_processActionSequence.call(this,
     actionName, actionArgs);
 };

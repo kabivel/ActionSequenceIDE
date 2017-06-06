@@ -71,11 +71,18 @@ if(Imported.YEP_BattleEngineCore)
     var SergeofBIBEK_ASLoops_BattleManager_processActionSequence = BattleManager.processActionSequence;
     BattleManager.processActionSequence = function(actionName, actionArgs)
     {
+        try{
         // Action Sequence While Start
         if (actionName.match(/^\s*WHILE .*/i))
         {
             //Calls my Original Function passing in the variables.
+            try{
             return this.SergeofBIBEKWhileLoopStart();
+            }
+            catch(e)
+                {
+                    return true;
+                }
         }
         // Action Sequence While End
         if (actionName.match(/^\s*END WHILE/i))
@@ -83,6 +90,11 @@ if(Imported.YEP_BattleEngineCore)
             //Calls my Original Function passing in the variables.
             return this.SergeofBIBEKWhileLoopEnd();
         }
+        }
+        catch(e)
+            {
+                return true;
+            }
 
         //Call the original
         return SergeofBIBEK_ASLoops_BattleManager_processActionSequence.call(this, actionName, actionArgs);

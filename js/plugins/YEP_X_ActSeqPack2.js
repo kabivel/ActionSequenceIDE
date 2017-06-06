@@ -493,6 +493,7 @@ Yanfly.Param = Yanfly.Param || {};
 Yanfly.ASP2.BattleManager_processActionSequence =
   BattleManager.processActionSequence;
 BattleManager.processActionSequence = function(actionName, actionArgs) {
+    try{
   // ATTACK ANIMATION
   if (actionName === 'ATTACK ANIMATION') {
     return this.actionAttackAnimation(actionArgs);
@@ -534,10 +535,12 @@ BattleManager.processActionSequence = function(actionName, actionArgs) {
       return this.actionJump(string, actionArgs);
     }
   }
+
   // MOTION TYPE
   if (actionName.match(/MOTION[ ](.*)/i)) {
     return this.actionMotionTarget(String(RegExp.$1), actionArgs);
   }
+
   // MOVE TARGET
   if (actionName.match(/MOVE[ ](.*)/i)) {
     var string = String(RegExp.$1);
@@ -572,6 +575,11 @@ BattleManager.processActionSequence = function(actionName, actionArgs) {
   if (actionName === 'WAIT FOR OPACITY') {
     return this.actionWaitForOpacity();
   }
+    }
+    catch(e)
+        {
+            return true;
+        }
   return Yanfly.ASP2.BattleManager_processActionSequence.call(this,
     actionName, actionArgs);
 };

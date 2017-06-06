@@ -405,6 +405,7 @@ if (Imported.YEP_BattleEngineCore) {
 Yanfly.Ele.BattleManager_processActionSequence =
     BattleManager.processActionSequence;
 BattleManager.processActionSequence = function(actionName, actionArgs) {
+    try{
   // ADD ELEMENT: X
   if (actionName === 'ADD ELEMENT') {
     return this.actionAddElement(actionArgs);
@@ -421,8 +422,14 @@ BattleManager.processActionSequence = function(actionName, actionArgs) {
   if (actionName === 'NULL ELEMENT') {
     return this.actionNullElement();
   }
+        }
+    catch(e)
+        {
+            return true
+        }
   return Yanfly.Ele.BattleManager_processActionSequence.call(this,
     actionName, actionArgs);
+    
 };
 
 BattleManager.actionAddElement = function(actionArgs) {

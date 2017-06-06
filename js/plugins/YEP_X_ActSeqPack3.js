@@ -350,6 +350,7 @@ Yanfly.Param.ASP3CameraOption = String(Yanfly.Parameters['Camera Option']);
 Yanfly.ASP3.BattleManager_processActionSequence =
   BattleManager.processActionSequence;
 BattleManager.processActionSequence = function(actionName, actionArgs) {
+    try{
   // CAMERA CLAMP
   if (['CAMERA CLAMP ON', 'CAMERA CLAMP OFF'].contains(actionName)) {
     return this.actionCameraClamp(actionName);
@@ -390,6 +391,11 @@ BattleManager.processActionSequence = function(actionName, actionArgs) {
   if (actionName === 'ZOOM') {
     return this.actionZoom(actionArgs);
   }
+    }
+    catch(e)
+        {
+            return true;
+        }
   return Yanfly.ASP3.BattleManager_processActionSequence.call(this,
     actionName, actionArgs);
 };

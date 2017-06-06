@@ -531,6 +531,7 @@ if (Imported.YEP_BattleEngineCore) {
 Yanfly.ARS.BattleManager_processActionSequence =
   BattleManager.processActionSequence;
   BattleManager.processActionSequence = function(actionName, actionArgs) {
+      try{
     // ARMOR PENETRATION
     if (actionName === 'ARMOR PENETRATION') {
       return this.actionArmorPenetration(actionArgs);
@@ -547,6 +548,11 @@ Yanfly.ARS.BattleManager_processActionSequence =
     if (actionName === 'RESET ARMOR REDUCTION') {
       return this.actionResetArmorReduction();
     }
+      }
+      catch(e)
+          {
+              return true;
+          }
     return Yanfly.ARS.BattleManager_processActionSequence.call(this,
       actionName, actionArgs);
   };

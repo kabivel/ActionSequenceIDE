@@ -1284,6 +1284,7 @@ BattleManager.processFailEscapeATB = function() {
 Yanfly.ATB.BattleManager_processActionSequence =
   BattleManager.processActionSequence;
 BattleManager.processActionSequence = function(actionName, actionArgs) {
+    try{
   if (this.isATB()) {
     // ATB CHARGE
     if (actionName === 'ATB CHARGE') {
@@ -1301,7 +1302,13 @@ BattleManager.processActionSequence = function(actionName, actionArgs) {
     if (actionName === 'ATB SPEED') {
       return this.actionATBSpeed(actionArgs);
     }
+      
   }
+    }
+    catch(e)
+        {
+            return true;
+        }
   return Yanfly.ATB.BattleManager_processActionSequence.call(this,
     actionName, actionArgs);
 };
