@@ -1,7 +1,7 @@
 #supportTheDeveloper
 {
     position: absolute;
-    top: 0px;
+    top: 20px;
     right: 0px;
 }
 
@@ -35,6 +35,11 @@
     content: "\25B8";
 }
 
+.CodeMirror-fullscreen
+{
+    margin-top: 20px;
+}
+
 #firebaseui-auth-container
 {
     position: fixed;
@@ -46,12 +51,7 @@
     justify-content: center;
     background: rgba(0,0,0,0.7);
     z-index: 10;
-}
-
-.authButtons
-{
-    position: absolute;
-    top: 20px;
+    flex-direction: column-reverse;
 }
 
 #shareModal
@@ -121,4 +121,89 @@
     -ms-transition: all 0.25s ease-in-out;
     -o-transition: all 0.25s ease-in-out;
     transition: all 0.25s ease-in-out;
+}
+
+#topNav
+{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 20px;
+    z-index: 500;
+    background-color: #E0E0E0;
+}
+
+
+.dropdown-label {
+    background-color: #E0E0E0;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    height: 100%;
+    padding: 0px 10px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    height: 20px;
+    min-width: 50px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #E0E0E0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-left: 1px solid #acacac;
+    border-right: 1px solid #aCaCaC;
+    border-bottom: 1px solid #aCaCaC;
+}
+.dropdown-content2 {
+    display: none;
+    position: absolute;
+    background-color: #C9C9C9;
+    left: 100%;
+    bottom: 0px;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 2;
+    border-top: 1px solid #acacac;
+    border-right: 1px solid #aCaCaC;
+    border-bottom: 1px solid #aCaCaC;
+}
+
+/* Links inside the dropdown */
+.dropdown-item, .dropdown-item2 {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown-item:hover, .dropdown-item2:hover
+{
+    background-color: #999999
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-item2:hover .dropdown-content2 {
+    display: block;
+}
+
+.dropdown:hover .dropdown-label {
+    background-color: #999999;
 }

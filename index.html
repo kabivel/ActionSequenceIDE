@@ -120,79 +120,110 @@
     </head>
 
     <body style="margin: 0px; font-size: 12px;">
+        <div id="topNav">
+            <div class="dropdown">
+                <div class="dropdown-label">File</div>
+                <div class="dropdown-content">
+                    <span id="signedInButtons" style="display: none;">
+                        <div class="dropdown-item" value="New" onclick="newHandler();">New</div>
+                        <div class="dropdown-item" value="Save" class="authItem" onclick="saveHandler();">Save</div>
+                        <div class="dropdown-item" value="Save As" class="authItem" onclick="saveAsHandler();">Save As...</div>
+                        <div class="dropdown-item2">
+                            <label>Sequences: <select id="sequenceSelector"><option>Loading...</option></select></label>
+                            <div class="dropdown-content2">
+                                <div class="dropdown-item" value="Load" onclick="loadHandler();">Load</div>
+                                <div class="dropdown-item" value="Delete" onclick="deleteHandler();">Delete</div>
+                            </div>
+                        </div>
+                    </span>
+                    <div class="dropdown-item" onclick="shareHandler();">Share...</div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <div class="dropdown-label">Editor</div>
+                <div class="dropdown-content">
+                    <label class="dropdown-item">Theme: 
+                        <select id="themeSelector" onchange="changeTheme()">
+                            <option value="serge-light">Light</option>
+                            <option value="serge-dark">Dark</option>
+                            <option value="3024-day">3024-day</option>
+                            <option value="3024-night">3024-night</option>
+                            <option value="abcdef">abcdef</option>
+                            <option value="ambiance">ambiance</option>
+                            <option value="base16-dark">base16-dark</option>
+                            <option value="base16-light">base16-light</option>
+                            <option value="bespin">bespin</option>
+                            <option value="blackboard">blackboard</option>
+                            <option value="cobalt">cobalt</option>
+                            <option value="colorforth">colorforth</option>
+                            <option value="dracula">dracula</option>
+                            <option value="duotone-dark">duotone-dark</option>
+                            <option value="duotone-light">duotone-light</option>
+                            <option value="eclipse">eclipse</option>
+                            <option value="elegant">elegant</option>
+                            <option value="erlang-dark">erlang-dark</option>
+                            <option value="hopscotch">hopscotch</option>
+                            <option value="icecoder">icecoder</option>
+                            <option value="isotope">isotope</option>
+                            <option value="lesser-dark">lesser-dark</option>
+                            <option value="liquibyte">liquibyte</option>
+                            <option value="material">material</option>
+                            <option value="mbo">mbo</option>
+                            <option value="mdn-like">mdn-like</option>
+                            <option value="midnight">midnight</option>
+                            <option value="monokai">monokai</option>
+                            <option value="neat">neat</option>
+                            <option value="neo">neo</option>
+                            <option value="night">night</option>
+                            <option value="panda-syntax">panda-syntax</option>
+                            <option value="paraiso-dark">paraiso-dark</option>
+                            <option value="paraiso-light">paraiso-light</option>
+                            <option value="pastel-on-dark">pastel-on-dark</option>
+                            <option value="railscasts">railscasts</option>
+                            <option value="rubyblue">rubyblue</option>
+                            <option value="seti">seti</option>
+                            <option value="solarized dark">solarized dark</option>
+                            <option value="solarized light">solarized light</option>
+                            <option value="the-matrix">the-matrix</option>
+                            <option value="tomorrow-night-bright">tomorrow-night-bright</option>
+                            <option value="tomorrow-night-eighties">tomorrow-night-eighties</option>
+                            <option value="ttcn">ttcn</option>
+                            <option value="twilight">twilight</option>
+                            <option value="vibrant-ink">vibrant-ink</option>
+                            <option value="xq-dark">xq-dark</option>
+                            <option value="xq-light">xq-light</option>
+                            <option value="yeti">yeti</option>
+                            <option value="zenburn">zenburn</option>
+                        </select>
+                    </label>
+                    <div class="dropdown-item" onclick="toggleFullscreen();">Fullscreen</div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <div class="dropdown-label">Preview</div>
+                <div class="dropdown-content">
+                    <div class="dropdown-item" onclick="previewHandler();">Open Preview</div>
+                </div>
+            </div>
+            <div class="dropdown" style="float: right;">
+                <div class="dropdown-label"><p style="margin: 0px;" id="userName">Loading...</p></div>
+                <div class="dropdown-content">
+                    <div class="dropdown-item" id="signInButton" onclick="signInButton();" style="display: none;">Sign In</div>
+                    <div class="dropdown-item" id="signOutButton" onclick="signOutButton();" style="display: none;">Sign Out</div>
+                </div>
+            </div>
+        </div>
         <div id="siteContainer" style="padding: 10px;">
             <h1 style="text-align: center;">Action Sequence Editor</h1>
             <h2 style="text-align: center;">by SergeofBIBEK</h2>
             <input id="signInButton" class="authButtons" type="button" value="Sign In" onclick="signInButton();" style="display: none;">
             <input id="signOutButton" class="authButtons" type="button" value="Sign Out" onclick="signOutButton();" style="display: none;">
-            <p id="userName" style="position: absolute; top: 40px"></p>
+
             <p id="projectName" style="position: absolute; top: 60px">New Sequence</p>
-            <label>Theme: 
-                <select id="themeSelector" onchange="changeTheme()">
-                    <option value="serge-light">Light</option>
-                    <option value="serge-dark">Dark</option>
-                    <option value="3024-day">3024-day</option>
-                    <option value="3024-night">3024-night</option>
-                    <option value="abcdef">abcdef</option>
-                    <option value="ambiance">ambiance</option>
-                    <option value="base16-dark">base16-dark</option>
-                    <option value="base16-light">base16-light</option>
-                    <option value="bespin">bespin</option>
-                    <option value="blackboard">blackboard</option>
-                    <option value="cobalt">cobalt</option>
-                    <option value="colorforth">colorforth</option>
-                    <option value="dracula">dracula</option>
-                    <option value="duotone-dark">duotone-dark</option>
-                    <option value="duotone-light">duotone-light</option>
-                    <option value="eclipse">eclipse</option>
-                    <option value="elegant">elegant</option>
-                    <option value="erlang-dark">erlang-dark</option>
-                    <option value="hopscotch">hopscotch</option>
-                    <option value="icecoder">icecoder</option>
-                    <option value="isotope">isotope</option>
-                    <option value="lesser-dark">lesser-dark</option>
-                    <option value="liquibyte">liquibyte</option>
-                    <option value="material">material</option>
-                    <option value="mbo">mbo</option>
-                    <option value="mdn-like">mdn-like</option>
-                    <option value="midnight">midnight</option>
-                    <option value="monokai">monokai</option>
-                    <option value="neat">neat</option>
-                    <option value="neo">neo</option>
-                    <option value="night">night</option>
-                    <option value="panda-syntax">panda-syntax</option>
-                    <option value="paraiso-dark">paraiso-dark</option>
-                    <option value="paraiso-light">paraiso-light</option>
-                    <option value="pastel-on-dark">pastel-on-dark</option>
-                    <option value="railscasts">railscasts</option>
-                    <option value="rubyblue">rubyblue</option>
-                    <option value="seti">seti</option>
-                    <option value="solarized dark">solarized dark</option>
-                    <option value="solarized light">solarized light</option>
-                    <option value="the-matrix">the-matrix</option>
-                    <option value="tomorrow-night-bright">tomorrow-night-bright</option>
-                    <option value="tomorrow-night-eighties">tomorrow-night-eighties</option>
-                    <option value="ttcn">ttcn</option>
-                    <option value="twilight">twilight</option>
-                    <option value="vibrant-ink">vibrant-ink</option>
-                    <option value="xq-dark">xq-dark</option>
-                    <option value="xq-light">xq-light</option>
-                    <option value="yeti">yeti</option>
-                    <option value="zenburn">zenburn</option>
-                </select>
-            </label>
-            <input type="button" value="Fullscreen" onclick="toggleFullscreen();">
-            <input type="button" value="Preview" onclick="previewHandler();">
-            <input type="button" value="Share" onclick="shareHandler();">
-            <span id="signedInButtons" style="display: none;">
-                <input type="button" value="New" onclick="newHandler();">
-                <input type="button" value="Save" class="authItem" onclick="saveHandler();">
-                <input type="button" value="Save As" class="authItem" onclick="saveAsHandler();">
-                <label>Sequences: <select id="sequenceSelector"><option>Loading...</option></select></label>
-                <input type="button" value="Load" onclick="loadHandler();">
-                <input type="button" value="Delete" onclick="deleteHandler();">
-            </span>
+            
+            
             <div id="codeMirrorHolder" style="height: 77vh; border: 1px solid black;"></div>
+            
             <div id="supportTheDeveloper">
                 <p style="text-align: center;">Support The Developer?</p>
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -202,10 +233,14 @@
                     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                 </form>
             </div>
-            <div id="firebaseui-auth-container" style="display: none;"><input type="button" value="Cancel" style="position: absolute; top:15px; right: 25px; font-size: 25px;" onclick="document.getElementById('firebaseui-auth-container').style.display = 'none';"> </div>
+            
+            <div id="firebaseui-auth-container" style="display: none;"><input type="button" value="Cancel" style="font-size: 25px;" onclick="document.getElementById('firebaseui-auth-container').style.display = 'none';"> </div>
+            
             <div id="shareModal" style="display: none;"><input type="button" value="Close" style="position: absolute; top:15px; right: 25px; font-size: 25px;" onclick="document.getElementById('shareModal').style.display = 'none';"><div id="shareContent"></div> </div>
+            
             <div id="previewHolder" style="display: none;" ondrag="console.log(event);"><p id="description">Drag, Resize, Snap</p><input id="closePreview" type="button" value="Close Preview" onclick="closePreview();"></div>
             <div id="ghostpane" style="display: none;"></div>
+            
         </div>
         <script src="main.js"></script>
         <script src="move.js"></script>

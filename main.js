@@ -199,7 +199,7 @@ function signedOutHandler()
     document.getElementById("signedInButtons").style.display = "none";
     document.getElementById("signOutButton").style.display = "none";
     document.getElementById("signInButton").removeAttribute("style");
-    document.getElementById("userName").innerHTML = "";
+    document.getElementById("userName").innerHTML = "Not Logged In";
 }
 function signedInHandler()
 {
