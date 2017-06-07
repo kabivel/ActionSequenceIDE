@@ -51,12 +51,12 @@ window.addEventListener("load", function(event){
                 {
                     document.getElementById("skillCastAnimation").value = sequence.val().castAnimation;
                 }
-                
+
                 externalAssetPath = sequence.val().ownAssets;
                 if (externalAssetPath == undefined)
-                    {
-                        externalAssetPath = "";
-                    }
+                {
+                    externalAssetPath = "";
+                }
                 updateSkillSettings(false);
             }
             else
@@ -119,7 +119,8 @@ function previewHandler()
         SceneManager.goto(Scene_Map);
     }
 
-    window.scrollTo(0, document.getElementById("previewHolder").offsetTop - 50);
+    document.getElementById("openPreviewButton").style.display = "none";
+    document.getElementById("closePreviewButton").removeAttribute("style");
 }
 
 function closePreview()
@@ -128,6 +129,8 @@ function closePreview()
         SceneManager.goto(Scene_Pause);
         document.getElementById("previewHolder").style.display = "none";
         document.getElementById("ghostpane").style.display = "none";
+        document.getElementById("closePreviewButton").style.display = "none";
+        document.getElementById("openPreviewButton").removeAttribute("style");
     }, 1000);
 }
 
