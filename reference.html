@@ -1,0 +1,146 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="reference.css">
+
+    </head>
+
+    <body>
+        <div id="topNav">
+            <div class="topNavItem">Battle Engine Core</div>
+            <div class="topNavItem">Action Sequence Pack 1</div>
+            <div class="topNavItem">Action Sequence Pack 2</div>
+            <div class="topNavItem">Action Sequence Pack 3</div>
+        </div>
+
+        <div class="infoPanes" id="BattleEngineCore">
+            <div class="paneTitle">Battle Engine Core</div>
+
+            <div class="commandTitle">ACTION ANIMATION</div>
+            <div class="commandDescription">Plays the animation assigned to the skill/item. The animation will automatically select the skill’s/item’s assigned targets.</div>
+            <div class="commandExample">action animation</div>
+
+            <div class="commandTitle">ACTION COMMON EVENT</div>
+            <div class="commandDescription">Plays the common event found within the skill’s/item’s traits list. This will only play the last common event on the list, following the game engine’s original process. Nothing else will continue on the action list until the common event is finished.</div>
+            <div class="commandExample">action common event</div>
+
+            <div class="commandTitle">ACTION EFFECT: <span class="target">target</span></div>
+            <div class="commandDescription">Causes the target(s) to take damage/healing from the skill/item and incurs any changes made to the target(s) such as buffs and states.</div>
+            <div class="commandExample">action effect</div>
+
+            <div class="commandTitle">ANIMATION WAIT: X</div>
+            <div class="commandDescription">Waits x animaiton frames. Each frame for an animation does not last one game frame, but instead, several. To make life easier, you can use this to have the game wait x frames played for the animation.</div>
+            <div class="commandExample">animation wait: 5</div>
+
+            <div class="commandTitle">CAST ANIMATION</div>
+            <div class="commandDescription">Plays an animation on the skill’s user. Will not occur if the action is an item or the user’s default normal attack.</div>
+            <div class="commandExample">cast animation</div>
+
+            <div class="commandTitle">CLEAR BATTLE LOG</div>
+            <div class="commandDescription">Clears all the messages at the top of the screen.</div>
+            <div class="commandExample">clear battle log</div>
+
+            <div class="commandTitle">DEATH BREAK</div>
+            <div class="commandDescription">If a user were to die for any reason during the middle of the skill (either via counter attack or reflection), this will force the remainder of the action sequences for the part of the skill/item to shut down and be skipped.</div>
+            <div class="commandExample">death break</div>
+
+            <div class="commandTitle">DISPLAY ACTION</div>
+            <div class="commandDescription">Displays the action’s name at the top of the battle log. It will remain there until the battle log is cleared.</div>
+            <div class="commandExample">display action</div>
+
+            <div class="commandTitle">IF … ELSE STATEMENTS</div>
+            <div class="commandDescription">For those familiar with programming, you can use if…else statements to perform different actions based on different conditions. Use ‘if’ to specify a block of code to be executed, if a specified condition is true. Use ‘else’ to specify a block of code to be executed, if the same condition is false. Use ‘else if’ to specify a new condition to test, if the first condition is false. Use ‘end’ to specify where the conditions are to end.</div>
+            <div class="commandExample">
+                if $gameSwitches.value(1)
+                action effect
+                else if $gameSwitches.value(2)
+                action effect
+                action effect
+                else
+                action effect
+                action effect
+                action effect
+                end
+            </div>
+
+            <div class="commandTitle">IMMORTAL: <span class="target">targets</span>, true/false</div>
+            <div class="commandDescription">Sets the targets to a state of immortality so that they don’t die in the middle of an attack. This is to ensure every action effect goes through.</div>
+            <div class="commandExample">immortal: targets, true</div>
+
+            <div class="commandTitle">MOTION WAIT: <span class="target">target</span></div>
+            <div class="commandDescription">Makes the game wait 12 frames if the target(s) performing the action is an actor. If the target(s) is not an actor, no waiting will be done.</div>
+            <div class="commandExample">motion wait: user</div>
+
+            <div class="commandTitle">PERFORM ACTION</div>
+            <div class="commandDescription">Causes actors to step forward and swing their weapon, thrust it, however the motion that is determined will be automatically done by the game.</div>
+            <div class="commandExample">perform action</div>
+
+            <div class="commandTitle">PERFORM FINISH</div>
+            <div class="commandDescription">Causes actor to move back to its home spot.</div>
+            <div class="commandExample">perform finish</div>
+
+            <div class="commandTitle">PERFORM START</div>
+            <div class="commandDescription">Causes actor to move forward from its home spot.</div>
+            <div class="commandExample">perform start</div>
+
+            <div class="commandTitle">WAIT: frames</div>
+            <div class="commandDescription">Makes the game wait a certain amount of frames before going on to the next action in the action sequence.</div>
+            <div class="commandExample">wait: 60</div>
+
+            <div class="commandTitle">WAIT FOR ANIMATION</div>
+            <div class="commandDescription">Waits for all animations to finish before going on to the next action in the action sequence.</div>
+            <div class="commandExample">wait for animation</div>
+
+            <div class="commandTitle">WAIT FOR EFFECT</div>
+            <div class="commandDescription">Waits for all effects to finish playing before continuing on.</div>
+            <div class="commandExample">wait for effect</div>
+
+            <div class="commandTitle">WAIT FOR MOVEMENT</div>
+            <div class="commandDescription">Waits for all battler movements to finish before going on to the next action in the action sequence.</div>
+            <div class="commandExample">wait for movement</div>
+
+            <div class="commandTitle">WAIT FOR NEW LINE</div>
+            <div class="commandDescription">Waits for a new line to appear in the log window before going on to the
+                next action in the action sequence.</div>
+            <div class="commandExample">wait for new line</div>
+
+        </div>
+        <div class="infoPanes hidden" id="ActionSequencePack1"></div>
+        <div class="infoPanes hidden" id="ActionSequencePack2"></div>
+        <div class="infoPanes hidden" id="ActionSequencePack3"></div>
+
+        <div id="targetsPane" class="hidden">
+            user; This will select the active battler.
+            target, targets; These will select the active targets in question.
+            actors, existing actors; These will select all living actors.
+            all actors; This will select all actors including dead ones.
+            dead actors: This will select only dead actors.
+            actors not user; This will select all living actors except for the user.
+            actor x; This will select the actor in slot x.
+            character x; This will select the specific character with actor ID x.
+            enemies, existing enemies; This will select all living enemies.
+            all enemies; This will select all enemies, even dead.
+            dead enemies: This will select only dead enemies.
+            enemies not user; This will select all enemies except for the user.
+            enemy x; This will select the enemy in slot x.
+            friends; This will select the battler’s alive allies.
+            all friends; This will select the all of battler’s allies, even dead.
+            dead friends; This will select the battler’s dead allies.
+            friends not user; This will select the battler’s allies except itself.
+            friend x: This will select the battler’s ally in slot x.
+            opponents; This will select the battler’s alive opponents.
+            all opponents; This will select the all of the battler’s opponents.
+            dead opponents; This will select the battler’s dead opponents.
+            opponent x: This will select the battler’s opponent in slot x.
+            all alive; Selects all living actors and enemies.
+            all members; Selects all living and dead actors and enemies.
+            all dead; Selects all dead actors and enemies.
+            all not user; This will select all living battlers except user.
+            focus; Selects the active battler and its targets.
+            not focus; Selects everything but the active battler and its targets.
+
+        </div>
+
+
+        <script type="text/javascript" src="reference.js"></script>
+    </body>
+</html>

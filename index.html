@@ -121,6 +121,10 @@
     </head>
 
     <body style="margin: 0px; font-size: 12px;">
+        <div id="sideNav" class="sidenav">
+            <div class="closebtn sideItem" onclick="closeNav();">&times;</div>
+            <iframe class="infoBar" src="reference.html"></iframe>
+        </div>
         <div id="topNav">
             <div class="dropdown">
                 <div class="dropdown-label">File</div>
@@ -262,7 +266,13 @@
                 <div class="dropdown-content">
                     <div class="dropdown-item" id="signInButton" onclick="signInButton();" style="display: none;">Sign In</div>
                     <div class="dropdown-item" id="signOutButton" onclick="signOutButton();" style="display: none;">Sign Out</div>
-                    <div class="downdown-item"><label>Custom Assets URL<input id="customPathBox" type="text"></label><input type="button" value="Save" onclick="saveCustomPath();"></div>
+                    <div class="dropdown-item2">
+                        Custom Assets
+                        <div class="dropdown-content3">
+                            <label class="dropdown-item">Custom Assets URL<input id="customPathBox" type="text"></label>
+                            <input type="button" style="width: 100%;" value="Save" onclick="saveCustomPath();">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -271,10 +281,10 @@
             <h2 style="text-align: center;">by SergeofBIBEK</h2>
 
             <h2 id="projectName" style="position: absolute; top: 60px">New Sequence</h2>
-            
-            
+
+
             <div id="codeMirrorHolder" style="height: 77vh; border: 1px solid black;"></div>
-            
+
             <div id="supportTheDeveloper">
                 <p style="text-align: center;">Support The Developer?</p>
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -284,14 +294,14 @@
                     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                 </form>
             </div>
-            
+
             <div id="firebaseui-auth-container" style="display: none;"><input type="button" value="Cancel" style="font-size: 25px;" onclick="document.getElementById('firebaseui-auth-container').style.display = 'none';"> </div>
-            
+
             <div id="shareModal" style="display: none;"><input type="button" value="Close" style="position: absolute; top:15px; right: 25px; font-size: 25px;" onclick="document.getElementById('shareModal').style.display = 'none';"><div id="shareContent"></div> </div>
-            
+
             <div id="previewHolder" style="display: none;" ondrag="console.log(event);"><p id="description">Drag, Resize, Snap</p></div>
             <div id="ghostpane" style="display: none;"></div>
-            
+
         </div>
         <script src="main.js"></script>
         <script src="move.js"></script>

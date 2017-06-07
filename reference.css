@@ -1,0 +1,86 @@
+body
+{
+    margin: 0px;
+    padding: 0px;
+}
+
+#topNav
+{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 50px;
+    z-index: 500;
+    background-color: white;
+    outline: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 16px;
+}
+
+.topNavItem
+{
+    background-color: black;
+    color: white;
+    padding: 0px 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.topNavItem:hover
+{
+    background-color: #999999;
+}
+
+.infoPanes
+{
+    margin-top: 50px;
+    position: absolute;
+    height: calc(100% - 50px);
+    width: 100%;
+    overflow: scroll;
+}
+
+.paneTitle 
+{
+    font-size: 25px;
+    text-align: center;
+    padding: 15px;
+    background-color: black;
+    color: white;
+}
+
+.commandTitle 
+{
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-style: double;
+    background-color: #202020;
+    color: white;
+    padding: 10px 0px;
+}
+
+.commandDescription 
+{
+    text-align: center;
+    background-color: #404040;
+    color: white;
+    padding: 10px 10px;
+}
+
+.commandExample {
+    padding: 10px 0px;
+    background-color: #606060;
+    color: white;
+    text-align: center;
+}
+
+.hidden
+{
+    display: none;
+}
