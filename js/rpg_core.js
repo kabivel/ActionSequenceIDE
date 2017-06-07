@@ -2244,11 +2244,11 @@ Graphics._centerElement = function(element) {
  * @private
  */
 Graphics._disableTextSelection = function() {
-    var body = document.getElementById("previewHolder");
+/*    var body = document.getElementById("previewHolder");
     body.style.userSelect = 'none';
     body.style.webkitUserSelect = 'none';
     body.style.msUserSelect = 'none';
-    body.style.mozUserSelect = 'none';
+    body.style.mozUserSelect = 'none';*/
 };
 
 /**
@@ -2257,11 +2257,11 @@ Graphics._disableTextSelection = function() {
  * @private
  */
 Graphics._disableContextMenu = function() {
-    var elements = document.getElementById("previewHolder").getElementsByTagName('*');
+/*    var elements = document.getElementById("previewHolder").getElementsByTagName('*');
     var oncontextmenu = function() { return false; };
     for (var i = 0; i < elements.length; i++) {
         elements[i].oncontextmenu = oncontextmenu;
-    }
+    }*/
 };
 
 /**
@@ -2343,7 +2343,7 @@ Graphics._isVideoVisible = function() {
  */
 Graphics._setupEventHandlers = function() {
     window.addEventListener('resize', this._onWindowResize.bind(this));
-    document.addEventListener('keydown', this._onKeyDown.bind(this));
+    /*document.addEventListener('keydown', this._onKeyDown.bind(this));*/
 };
 
 /**
@@ -2739,8 +2739,8 @@ Input._wrapNwjsAlert = function() {
  * @private
  */
 Input._setupEventHandlers = function() {
-    document.addEventListener('keydown', this._onKeyDown.bind(this));
-    document.addEventListener('keyup', this._onKeyUp.bind(this));
+    /*document.addEventListener('keydown', this._onKeyDown.bind(this));
+    document.addEventListener('keyup', this._onKeyUp.bind(this));*/
     window.addEventListener('blur', this._onLostFocus.bind(this));
 };
 
@@ -3202,7 +3202,7 @@ Object.defineProperty(TouchInput, 'date', {
  * @private
  */
 TouchInput._setupEventHandlers = function() {
-    document.addEventListener('mousedown', this._onMouseDown.bind(this));
+    /*document.addEventListener('mousedown', this._onMouseDown.bind(this));
     document.addEventListener('mousemove', this._onMouseMove.bind(this));
     document.addEventListener('mouseup', this._onMouseUp.bind(this));
     document.addEventListener('wheel', this._onWheel.bind(this));
@@ -3210,7 +3210,7 @@ TouchInput._setupEventHandlers = function() {
     document.addEventListener('touchmove', this._onTouchMove.bind(this));
     document.addEventListener('touchend', this._onTouchEnd.bind(this));
     document.addEventListener('touchcancel', this._onTouchCancel.bind(this));
-    document.addEventListener('pointerdown', this._onPointerDown.bind(this));
+    document.addEventListener('pointerdown', this._onPointerDown.bind(this));*/
 };
 
 /**
@@ -7278,7 +7278,7 @@ WebAudio._createMasterGainNode = function() {
  * @private
  */
 WebAudio._setupEventHandlers = function() {
-    document.addEventListener("touchend", function() {
+    /*document.addEventListener("touchend", function() {
         var context = WebAudio._context;
         if (context && context.state === "suspended" && typeof context.resume === "function") {
             context.resume().then(function() {
@@ -7288,7 +7288,7 @@ WebAudio._setupEventHandlers = function() {
             WebAudio._onTouchStart();
         }
     });
-    document.addEventListener('touchstart', this._onTouchStart.bind(this));
+    document.addEventListener('touchstart', this._onTouchStart.bind(this));*/
     document.addEventListener('visibilitychange', this._onVisibilityChange.bind(this));
 };
 
@@ -8003,7 +8003,7 @@ Html5Audio.initialize = function () {
  * @private
  */
 Html5Audio._setupEventHandlers = function () {
-    document.addEventListener('touchstart', this._onTouchStart.bind(this));
+    /*document.addEventListener('touchstart', this._onTouchStart.bind(this));*/
     document.addEventListener('visibilitychange', this._onVisibilityChange.bind(this));
     this._audioElement.addEventListener("loadeddata", this._onLoadedData.bind(this));
     this._audioElement.addEventListener("error", this._onError.bind(this));
