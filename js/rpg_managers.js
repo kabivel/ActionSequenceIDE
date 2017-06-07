@@ -81,7 +81,7 @@ DataManager.loadDataFile = function(name, src) {
     var url = 'data/' + src;
     if (src.slice(0,7) == "http://" || src.slice(0,8) == "https://")
     {
-        var xhr2 = createCORSRequest("GET", url);
+        var xhr2 = createCORSRequest("GET", src);
         xhr2.onload = function() {
             if (xhr2.status < 400) {
                 window[name] = JSON.parse(xhr2.responseText);
