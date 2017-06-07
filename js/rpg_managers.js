@@ -81,7 +81,6 @@ DataManager.loadDataFile = function(name, src) {
     var url = 'data/' + src;
     if (src.slice(0,7) == "http://" || src.slice(0,8) == "https://")
     {
-        url = src;
         jQuery.getJSON( src , {}, function(result){
             window[name] = result;
             DataManager.onLoad(window[name]);

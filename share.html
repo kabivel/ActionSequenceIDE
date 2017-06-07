@@ -21,6 +21,8 @@
             firebase.initializeApp(config);
         </script>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        
         <link rel="stylesheet" href="cmlib/lib/codemirror.css">
         <link rel="stylesheet" href="cmlib/addon/hint/show-hint.css">
         <link rel="stylesheet" href="cmlib/addon/scroll/simplescrollbars.css">
@@ -115,67 +117,139 @@
         
     </head>
 
+    <div id="topNav">
+            <div class="dropdown">
+                <div class="dropdown-label">Editor</div>
+                <div class="dropdown-content">
+                    <label class="dropdown-item">Theme: 
+                        <select id="themeSelector" onchange="changeTheme()">
+                            <option value="serge-light">Light</option>
+                            <option value="serge-dark">Dark</option>
+                            <option value="3024-day">3024-day</option>
+                            <option value="3024-night">3024-night</option>
+                            <option value="abcdef">abcdef</option>
+                            <option value="ambiance">ambiance</option>
+                            <option value="base16-dark">base16-dark</option>
+                            <option value="base16-light">base16-light</option>
+                            <option value="bespin">bespin</option>
+                            <option value="blackboard">blackboard</option>
+                            <option value="cobalt">cobalt</option>
+                            <option value="colorforth">colorforth</option>
+                            <option value="dracula">dracula</option>
+                            <option value="duotone-dark">duotone-dark</option>
+                            <option value="duotone-light">duotone-light</option>
+                            <option value="eclipse">eclipse</option>
+                            <option value="elegant">elegant</option>
+                            <option value="erlang-dark">erlang-dark</option>
+                            <option value="hopscotch">hopscotch</option>
+                            <option value="icecoder">icecoder</option>
+                            <option value="isotope">isotope</option>
+                            <option value="lesser-dark">lesser-dark</option>
+                            <option value="liquibyte">liquibyte</option>
+                            <option value="material">material</option>
+                            <option value="mbo">mbo</option>
+                            <option value="mdn-like">mdn-like</option>
+                            <option value="midnight">midnight</option>
+                            <option value="monokai">monokai</option>
+                            <option value="neat">neat</option>
+                            <option value="neo">neo</option>
+                            <option value="night">night</option>
+                            <option value="panda-syntax">panda-syntax</option>
+                            <option value="paraiso-dark">paraiso-dark</option>
+                            <option value="paraiso-light">paraiso-light</option>
+                            <option value="pastel-on-dark">pastel-on-dark</option>
+                            <option value="railscasts">railscasts</option>
+                            <option value="rubyblue">rubyblue</option>
+                            <option value="seti">seti</option>
+                            <option value="solarized dark">solarized dark</option>
+                            <option value="solarized light">solarized light</option>
+                            <option value="the-matrix">the-matrix</option>
+                            <option value="tomorrow-night-bright">tomorrow-night-bright</option>
+                            <option value="tomorrow-night-eighties">tomorrow-night-eighties</option>
+                            <option value="ttcn">ttcn</option>
+                            <option value="twilight">twilight</option>
+                            <option value="vibrant-ink">vibrant-ink</option>
+                            <option value="xq-dark">xq-dark</option>
+                            <option value="xq-light">xq-light</option>
+                            <option value="yeti">yeti</option>
+                            <option value="zenburn">zenburn</option>
+                        </select>
+                    </label>
+                    <div class="dropdown-item" onclick="toggleFullscreen();">Fullscreen</div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <div class="dropdown-label">Preview</div>
+                <div class="dropdown-content">
+                    <div id="openPreviewButton" class="dropdown-item" onclick="previewHandler();">Open Preview</div>
+                    <div id="closePreviewButton" class="dropdown-item" onclick="closePreview();" style="display: none">Close Preview</div>
+                    <label class="dropdown-item">Background Music Volume
+                        <input id="bgmVol" type="range" step="10" max="100" min="0" onchange="volumeHandler();">
+                    </label>
+                    <label class="dropdown-item">Sound Effect Volume
+                        <input id="seVol" type="range" step="10" max="100" min="0" onchange="volumeHandler();">
+                    </label>
+                    <label class="dropdown-item">Music Effect Volume
+                        <input id="meVol" type="range" step="10" max="100" min="0" onchange="volumeHandler();">
+                    </label>
+                    <label class="dropdown-item">Background Sound Volume
+                        <input id="bgsVol" type="range" step="10" max="100" min="0" onchange="volumeHandler();">
+                    </label>
+                </div>
+            </div>
+            <div class="dropdown" id="skillDropdown">
+                <div class="dropdown-label" style="display: none;">Skill</div>
+                <div class="dropdown-content">
+                    <label class="dropdown-item">Scope
+                        <select id="skillScope">
+                            <option value="0">None</option>
+                            <option value="1" selected>1 Enemy</option>
+                            <option value="2">All Enemies</option>
+                            <option value="3">1 Random Enemy</option>
+                            <option value="4">2 Random Enemies</option>
+                            <option value="5">3 Random Enemies</option>
+                            <option value="6">4 Random Enemies</option>
+                            <option value="7">1 Ally</option>
+                            <option value="8">All Allies</option>
+                            <option value="9">1 Ally (Dead)</option>
+                            <option value="10">All Allies (Dead)</option>
+                            <option value="11">The User</option>
+                        </select>
+                    </label>
+                    <label class="dropdown-item">Damage Type
+                        <select id="skillDamageType">
+                            <option value="0">None</option>
+                            <option value="1" selected>HP Damage</option>
+                            <option value="2">MP Damage</option>
+                            <option value="3">HP Recover</option>
+                            <option value="4">MP Recover</option>
+                            <option value="5">HP Drain</option>
+                            <option value="6">MP Drain</option>
+                        </select>
+                    </label>
+                    <label class="dropdown-item">Animation ID
+                        <input value="-1" id="skillAnimation" type="number">
+                    </label>
+                    <label class="dropdown-item">Cast Animation ID
+                        <input value="52" id="skillCastAnimation" type="number">
+                    </label>
+                </div>
+            </div>
+            <div class="dropdown" style="float: right;">
+                <div class="dropdown-label" id="userName">Loading...</div>
+                <div class="dropdown-content">
+                    <div class="dropdown-item" id="signInButton" onclick="signInButton();" style="display: none;">Sign In</div>
+                    <div class="dropdown-item" id="signOutButton" onclick="signOutButton();" style="display: none;">Sign Out</div>
+                    <div class="downdown-item"><label>Custom Assets URL<input id="customPathBox" type="text"></label><input type="button" value="Save" onclick="saveCustomPath();"></div>
+                </div>
+            </div>
+        </div>
     <body style="margin: 0px; font-size: 12px;">
         <div id="siteContainer" style="height: calc(100vh - 20px); width: calc(100vw - 20px); overflow: hidden; padding: 10px;">
             <h1 style="text-align: center;">Action Sequence Editor</h1>
             <h2 style="text-align: center;">by SergeofBIBEK</h2>
-            <h1 id="projectName" style="position: absolute; top: 40px;"></h1>
-            <label>Theme: 
-                <select id="themeSelector" onchange="changeTheme()">
-                    <option value="serge-light">Light</option>
-                    <option value="serge-dark">Dark</option>
-                    <option value="3024-day">3024-day</option>
-                    <option value="3024-night">3024-night</option>
-                    <option value="abcdef">abcdef</option>
-                    <option value="ambiance">ambiance</option>
-                    <option value="base16-dark">base16-dark</option>
-                    <option value="base16-light">base16-light</option>
-                    <option value="bespin">bespin</option>
-                    <option value="blackboard">blackboard</option>
-                    <option value="cobalt">cobalt</option>
-                    <option value="colorforth">colorforth</option>
-                    <option value="dracula">dracula</option>
-                    <option value="duotone-dark">duotone-dark</option>
-                    <option value="duotone-light">duotone-light</option>
-                    <option value="eclipse">eclipse</option>
-                    <option value="elegant">elegant</option>
-                    <option value="erlang-dark">erlang-dark</option>
-                    <option value="hopscotch">hopscotch</option>
-                    <option value="icecoder">icecoder</option>
-                    <option value="isotope">isotope</option>
-                    <option value="lesser-dark">lesser-dark</option>
-                    <option value="liquibyte">liquibyte</option>
-                    <option value="material">material</option>
-                    <option value="mbo">mbo</option>
-                    <option value="mdn-like">mdn-like</option>
-                    <option value="midnight">midnight</option>
-                    <option value="monokai">monokai</option>
-                    <option value="neat">neat</option>
-                    <option value="neo">neo</option>
-                    <option value="night">night</option>
-                    <option value="panda-syntax">panda-syntax</option>
-                    <option value="paraiso-dark">paraiso-dark</option>
-                    <option value="paraiso-light">paraiso-light</option>
-                    <option value="pastel-on-dark">pastel-on-dark</option>
-                    <option value="railscasts">railscasts</option>
-                    <option value="rubyblue">rubyblue</option>
-                    <option value="seti">seti</option>
-                    <option value="solarized dark">solarized dark</option>
-                    <option value="solarized light">solarized light</option>
-                    <option value="the-matrix">the-matrix</option>
-                    <option value="tomorrow-night-bright">tomorrow-night-bright</option>
-                    <option value="tomorrow-night-eighties">tomorrow-night-eighties</option>
-                    <option value="ttcn">ttcn</option>
-                    <option value="twilight">twilight</option>
-                    <option value="vibrant-ink">vibrant-ink</option>
-                    <option value="xq-dark">xq-dark</option>
-                    <option value="xq-light">xq-light</option>
-                    <option value="yeti">yeti</option>
-                    <option value="zenburn">zenburn</option>
-                </select>
-            </label>
-            <input type="button" value="Fullscreen" onclick="toggleFullscreen();">
-            <input type="button" value="Preview" onclick="previewHandler();">
+            <h2 id="projectName" style="position: absolute; top: 60px;"></h2>
+            
             <div id="codeMirrorHolder" style="height: 77vh; border: 1px solid black;"></div>
             <div id="supportTheDeveloper">
                 <p style="text-align: center;">Support The Developer?</p>
