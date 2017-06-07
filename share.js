@@ -124,3 +124,8 @@ function updateSkillSettings()
 {
     
 }
+
+function loadCustomData()
+{
+    
+}
