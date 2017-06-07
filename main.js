@@ -325,6 +325,7 @@ function shareHandler()
             damageType: document.getElementById("skillDamageType").value,
             animation: document.getElementById("skillAnimation").value,
             castAnimation: document.getElementById("skillCastAnimation").value,
+            ownAssets: externalAssetPath,
         });
         publicURL = window.location.origin + "/share.html?sequence=" + publicKey.key;
 
