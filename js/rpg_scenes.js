@@ -384,9 +384,13 @@ Scene_Map.prototype.onMapLoaded = function() {
 };
 
 Scene_Map.prototype.start = function() {
-    adjustVolume();
-    updateSkillSettings(false);
-    loadCustomData();
+    if (FirstLoad)
+    {
+        adjustVolume();
+        updateSkillSettings(false);
+        loadCustomData();
+        FirstLoad = false;
+    }
     Scene_Base.prototype.start.call(this);
     SceneManager.clearStack();
     if (this._transfer) {
@@ -572,9 +576,9 @@ Scene_Map.prototype.updateTransferPlayer = function() {
 };
 
 Scene_Map.prototype.updateEncounter = function() {
-   if ($gamePlayer.executeEncounter()) {
-       SceneManager.push(Scene_Battle);
-   }
+    if ($gamePlayer.executeEncounter()) {
+        SceneManager.push(Scene_Battle);
+    }
 };
 
 Scene_Map.prototype.updateCallMenu = function() {
@@ -620,19 +624,19 @@ Scene_Map.prototype.isDebugCalled = function() {
 Scene_Map.prototype.fadeInForTransfer = function() {
     var fadeType = $gamePlayer.fadeType();
     switch (fadeType) {
-    case 0: case 1:
-        this.startFadeIn(this.fadeSpeed(), fadeType === 1);
-        break;
-    }
+        case 0: case 1:
+            this.startFadeIn(this.fadeSpeed(), fadeType === 1);
+            break;
+                    }
 };
 
 Scene_Map.prototype.fadeOutForTransfer = function() {
     var fadeType = $gamePlayer.fadeType();
     switch (fadeType) {
-    case 0: case 1:
-        this.startFadeOut(this.fadeSpeed(), fadeType === 1);
-        break;
-    }
+        case 0: case 1:
+            this.startFadeOut(this.fadeSpeed(), fadeType === 1);
+            break;
+                    }
 };
 
 Scene_Map.prototype.launchBattle = function() {
@@ -845,16 +849,16 @@ Scene_Menu.prototype.commandGameEnd = function() {
 
 Scene_Menu.prototype.onPersonalOk = function() {
     switch (this._commandWindow.currentSymbol()) {
-    case 'skill':
-        SceneManager.push(Scene_Skill);
-        break;
-    case 'equip':
-        SceneManager.push(Scene_Equip);
-        break;
-    case 'status':
-        SceneManager.push(Scene_Status);
-        break;
-    }
+        case 'skill':
+            SceneManager.push(Scene_Skill);
+            break;
+        case 'equip':
+            SceneManager.push(Scene_Equip);
+            break;
+        case 'status':
+            SceneManager.push(Scene_Status);
+            break;
+                                               }
 };
 
 Scene_Menu.prototype.onPersonalCancel = function() {
@@ -1509,7 +1513,7 @@ Scene_Save.prototype.onSavefileOk = function() {
 
 Scene_Save.prototype.onSaveSuccess = function() {
     SoundManager.playSave();
-	StorageManager.cleanBackup(this.savefileId());
+    StorageManager.cleanBackup(this.savefileId());
     this.popScene();
 };
 
@@ -1819,13 +1823,13 @@ Scene_Shop.prototype.onSellCancel = function() {
 Scene_Shop.prototype.onNumberOk = function() {
     SoundManager.playShop();
     switch (this._commandWindow.currentSymbol()) {
-    case 'buy':
-        this.doBuy(this._numberWindow.number());
-        break;
-    case 'sell':
-        this.doSell(this._numberWindow.number());
-        break;
-    }
+        case 'buy':
+            this.doBuy(this._numberWindow.number());
+            break;
+        case 'sell':
+            this.doSell(this._numberWindow.number());
+            break;
+                                               }
     this.endNumberInput();
     this._goldWindow.refresh();
     this._statusWindow.refresh();
@@ -1849,13 +1853,13 @@ Scene_Shop.prototype.doSell = function(number) {
 Scene_Shop.prototype.endNumberInput = function() {
     this._numberWindow.hide();
     switch (this._commandWindow.currentSymbol()) {
-    case 'buy':
-        this.activateBuyWindow();
-        break;
-    case 'sell':
-        this.activateSellWindow();
-        break;
-    }
+        case 'buy':
+            this.activateBuyWindow();
+            break;
+        case 'sell':
+            this.activateSellWindow();
+            break;
+                                               }
 };
 
 Scene_Shop.prototype.maxBuy = function() {
@@ -2057,7 +2061,7 @@ Scene_Battle.prototype.update = function() {
 
 Scene_Battle.prototype.updateBattleProcess = function() {
     if (!this.isAnyInputWindowActive() || BattleManager.isAborting() ||
-            BattleManager.isBattleEnd()) {
+        BattleManager.isBattleEnd()) {
         BattleManager.update();
         this.changeInputWindow();
     }
@@ -2329,15 +2333,15 @@ Scene_Battle.prototype.onActorOk = function() {
 Scene_Battle.prototype.onActorCancel = function() {
     this._actorWindow.hide();
     switch (this._actorCommandWindow.currentSymbol()) {
-    case 'skill':
-        this._skillWindow.show();
-        this._skillWindow.activate();
-        break;
-    case 'item':
-        this._itemWindow.show();
-        this._itemWindow.activate();
-        break;
-    }
+        case 'skill':
+            this._skillWindow.show();
+            this._skillWindow.activate();
+            break;
+        case 'item':
+            this._itemWindow.show();
+            this._itemWindow.activate();
+            break;
+                                                    }
 };
 
 Scene_Battle.prototype.selectEnemySelection = function() {
@@ -2359,18 +2363,18 @@ Scene_Battle.prototype.onEnemyOk = function() {
 Scene_Battle.prototype.onEnemyCancel = function() {
     this._enemyWindow.hide();
     switch (this._actorCommandWindow.currentSymbol()) {
-    case 'attack':
-        this._actorCommandWindow.activate();
-        break;
-    case 'skill':
-        this._skillWindow.show();
-        this._skillWindow.activate();
-        break;
-    case 'item':
-        this._itemWindow.show();
-        this._itemWindow.activate();
-        break;
-    }
+        case 'attack':
+            this._actorCommandWindow.activate();
+            break;
+        case 'skill':
+            this._skillWindow.show();
+            this._skillWindow.activate();
+            break;
+        case 'item':
+            this._itemWindow.show();
+            this._itemWindow.activate();
+            break;
+                                                    }
 };
 
 Scene_Battle.prototype.onSkillOk = function() {

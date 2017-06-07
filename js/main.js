@@ -10,6 +10,7 @@ window.onload = function() {
 };
 */
 
+var FirstLoad = true;
 
 function fullRefresh()
 {

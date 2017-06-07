@@ -366,6 +366,7 @@ function closePreview()
         document.getElementById("ghostpane").style.display = "none";
         document.getElementById("closePreviewButton").style.display = "none";
         document.getElementById("openPreviewButton").removeAttribute("style");
+        BattleManager._processingForcedAction = false;
     }, 1000);
 }
 
