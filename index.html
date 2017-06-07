@@ -24,6 +24,7 @@
         <script src="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.js"></script>
         <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css" />
         <script type="text/javascript" src="fbli.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
         <link rel="stylesheet" href="cmlib/lib/codemirror.css">
         <link rel="stylesheet" href="cmlib/addon/hint/show-hint.css">
@@ -261,6 +262,7 @@
                 <div class="dropdown-content">
                     <div class="dropdown-item" id="signInButton" onclick="signInButton();" style="display: none;">Sign In</div>
                     <div class="dropdown-item" id="signOutButton" onclick="signOutButton();" style="display: none;">Sign Out</div>
+                    <div class="downdown-item"><label>Custom Assets URL<input id="customPathBox" type="text"></label><input type="button" value="Save" onclick="saveCustomPath();"></div>
                 </div>
             </div>
         </div>

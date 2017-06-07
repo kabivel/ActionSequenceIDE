@@ -76,21 +76,33 @@ DataManager.loadDatabase = function() {
 };
 
 DataManager.loadDataFile = function(name, src) {
+
     var xhr = new XMLHttpRequest();
     var url = 'data/' + src;
-    xhr.open('GET', url);
-    xhr.overrideMimeType('application/json');
-    xhr.onload = function() {
-        if (xhr.status < 400) {
-            window[name] = JSON.parse(xhr.responseText);
+    if (src.slice(0,7) == "http://" || src.slice(0,8) == "https://")
+    {
+        url = src;
+        jQuery.getJSON( src , {}, function(result){
+            window[name] = result;
             DataManager.onLoad(window[name]);
-        }
-    };
-    xhr.onerror = function() {
-        DataManager._errorUrl = DataManager._errorUrl || url;
-    };
-    window[name] = null;
-    xhr.send();
+        });
+    }
+    else
+    {
+        xhr.open('GET', url);
+        xhr.overrideMimeType('application/json');
+        xhr.onload = function() {
+            if (xhr.status < 400) {
+                window[name] = JSON.parse(xhr.responseText);
+                DataManager.onLoad(window[name]);
+            }
+        };
+        xhr.onerror = function() {
+            DataManager._errorUrl = DataManager._errorUrl || url;
+        };
+        window[name] = null;
+        xhr.send();
+    }
 };
 
 DataManager.isDatabaseLoaded = function() {
@@ -851,7 +863,7 @@ ImageManager.loadBitmap = function(folder, filename, hue, smooth) {
     if (filename) {
         var path = folder + encodeURIComponent(filename) + '.png';
 
-            var bitmap = this.loadNormalBitmap(path, hue || 0);
+        var bitmap = this.loadNormalBitmap(path, hue || 0);
         bitmap.smooth = smooth;
         return bitmap;
     } else {

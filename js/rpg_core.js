@@ -633,7 +633,7 @@ Bitmap.load = function(url) {
         };
         testURL.onerror = function(){
             bitmap._image.crossOrigin = "anonymous";
-            bitmap._image.src = externalAssetPath + url;
+            bitmap._image.src = externalAssetPath + "/" + url;
             bitmap._image.onload = Bitmap.prototype._onLoad.bind(bitmap);
             bitmap._image.onerror = Bitmap.prototype._onError.bind(bitmap);
         };
@@ -7635,6 +7635,21 @@ WebAudio.prototype._load = function(url) {
         xhr.onload = function() {
             if (xhr.status < 400) {
                 this._onXhrLoad(xhr);
+            }
+            else
+            {
+                var xhr2 = new XMLHttpRequest();
+                xhr2.open('GET', externalAssetPath + "/" + url);
+                xhr2.responseType = 'arraybuffer';
+                xhr2.onload = function() {
+                    if (xhr2.status < 400) {
+                        this._onXhrLoad(xhr2);
+                    }
+                }.bind(this);
+                xhr2.onerror = function() {
+                    this._hasError = true;
+                }.bind(this);
+                xhr2.send();
             }
         }.bind(this);
         xhr.onerror = function() {

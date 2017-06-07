@@ -263,6 +263,11 @@ function signedInHandler()
         });
         document.getElementById("sequenceSelector").innerHTML = htmlString;
     });
+    
+    firebase.database().ref(currentUser.uid).child("ownAssets").once('value', function(assetPath){
+        externalAssetPath = assetPath.val();
+        document.getElementById("customPathBox").value = assetPath.val();
+    });
 
     document.getElementById("signedInButtons").removeAttribute("style");
     document.getElementById("signInButton").style.display = "none";
@@ -417,4 +422,27 @@ function setSkillOptions()
     document.getElementById("skillDropdown").removeAttribute("style");
 }
 
-var externalAssetPath = "http://actionsequence.cf/";
+var externalAssetPath = "";
+
+function loadCustomData()
+{
+    DataManager.loadDataFile("$dataAnimations", externalAssetPath + "/data/Animations.json");
+}
+
+function saveCustomPath()
+{
+    var path = document.getElementById("customPathBox").value;
+    if (path.slice(0,7) != "http://" && path.slice(0, 8) != "https://")
+        {
+            path = "http://" + path;
+        }
+    if (path.charAt(path.length - 1) == "/")
+        {
+            path = path.slice(0, -1);
+        }
+    firebase.database().ref(currentUser.uid).update({
+        ownAssets: path,
+    });
+    externalAssetPath = path;
+    loadCustomData();
+}
