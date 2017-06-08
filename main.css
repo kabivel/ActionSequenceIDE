@@ -235,7 +235,7 @@
     top: 0;
     right: 0;
     background-color: #111;
-    overflow-x: hidden;
+    overflow: hidden;
     transition: 0.5s;
     padding-top: 60px;
 }
@@ -279,9 +279,10 @@
     bottom: 0;
     width: 100%;
     height: 100%;
+    overflow: visible;
 }
 
-sideNavTitle {
+#sideNavTitle {
     color: white;
     position: absolute;
     top: 30px;

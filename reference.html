@@ -6,10 +6,10 @@
 
     <body>
         <div id="topNav">
-            <div class="topNavItem">Battle Engine Core</div>
-            <div class="topNavItem">Action Sequence Pack 1</div>
-            <div class="topNavItem">Action Sequence Pack 2</div>
-            <div class="topNavItem">Action Sequence Pack 3</div>
+            <div class="topNavItem" onclick="openPage('BattleEngineCore');">Battle Engine Core</div>
+            <div class="topNavItem" onclick="openPage('ActionSequencePack1');">Action Sequence Pack 1</div>
+            <div class="topNavItem" onclick="openPage('ActionSequencePack2');">Action Sequence Pack 2</div>
+            <div class="topNavItem" onclick="openPage('ActionSequencePack3');">Action Sequence Pack 3</div>
         </div>
 
         <div class="infoPanes" id="BattleEngineCore">
@@ -50,15 +50,15 @@
             <div class="commandTitle">IF … ELSE STATEMENTS</div>
             <div class="commandDescription">For those familiar with programming, you can use if…else statements to perform different actions based on different conditions. Use ‘if’ to specify a block of code to be executed, if a specified condition is true. Use ‘else’ to specify a block of code to be executed, if the same condition is false. Use ‘else if’ to specify a new condition to test, if the first condition is false. Use ‘end’ to specify where the conditions are to end.</div>
             <div class="commandExample">
-                if $gameSwitches.value(1)
-                action effect
-                else if $gameSwitches.value(2)
-                action effect
-                action effect
-                else
-                action effect
-                action effect
-                action effect
+                if $gameSwitches.value(1) <br>
+                action effect <br>
+                else if $gameSwitches.value(2) <br>
+                action effect <br>
+                action effect <br>
+                else <br>
+                action effect <br>
+                action effect <br>
+                action effect <br>
                 end
             </div>
 
@@ -102,44 +102,658 @@
             <div class="commandDescription">Waits for a new line to appear in the log window before going on to the
                 next action in the action sequence.</div>
             <div class="commandExample">wait for new line</div>
+            <div style="height: 100px;"></div>
+        </div>
+
+        <div class="infoPanes hidden" id="ActionSequencePack1">
+            <div class="paneTitle">Action Sequence Pack 1</div>
+
+            <div class="commandTitle">ADD <span class="stat">stat</span> BUFF: <span class="target">target</span>, (turns), (show)</div>
+            <div class="commandDescription">Affects the target with ‘stat’ buff. Replace ‘stat’ with ‘hp’, ‘mp’, ‘atk’, ‘def’, ‘mat’, ‘mdf’, ‘agi’, or ‘luk’. If you include a number after the target, it will buff the target by that many turns. Include ‘show’ and it will show the target getting the buff applied in the battle log.</div>
+            <div class="commandExample">
+                add atk buff: user, 3, show <br>
+                add def buff: target, 8
+            </div>
+
+            <div class="commandTitle">ADD <span class="stat">stat</span> DEBUFF: <span class="target">target</span>, (turns), (show)</div>
+            <div class="commandDescription">Affects the target with ‘stat’ debuff. Replace ‘stat’ with ‘hp’, ‘mp’, ‘atk’, ‘def’, ‘mat’, ‘mdf’, ‘agi’, or ‘luk’. If you include a number after the target, it will debuff the target by that many turns. Include ‘show’ and it will show the target getting the debuff applied in the battle log.</div>
+            <div class="commandExample">
+                add atk debuff: user, 3, show <br>
+                add def debuff: target, 8
+            </div>
+
+            <div class="commandTitle">
+                ADD STATE X: <span class="target">target</span>, (show) <br>
+                ADD STATE X, Y, Z: <span class="target">target</span> (show)
+            </div>
+            <div class="commandDescription">Affects the target with X state (including Y and Z if used in that format). If ‘show’ is included, it will display any state related messages.</div>
+            <div class="commandExample">
+                add state 5: target <br>
+                add state 6, 7, 8: user, show
+            </div>
+
+            <div class="commandTitle">ANIMATION X: <span class="target">target</span>, (mirror)</div>
+            <div class="commandDescription">Plays animation X on target. ‘Mirror’ will cause the animation to appear mirrored. Keep in mind that animations played on actors will automatically be mirrored and setting the mirror option will reverse it and have it appear unmirrored.</div>
+            <div class="commandExample">
+                animation 5: user <br>
+                animation 6: target, mirror
+            </div>
+
+            <div class="commandTitle">
+                BGM: STOP <br>
+                BGM: MEMORIZE <br>
+                BGM: MEMORY <br>
+                BGM: filename, (volume), (pitch), (pan)
+            </div>
+            <div class="commandDescription">Changes the current background music at hand. ‘Stop’ will stop any BGM from playing. ‘Memorize’ will memorize the current BGM. ‘Memory’ will replay the memorized BGM if there is one playing. If you choose a filename (without the filename extensions), the game will play that BGM instead. Using this option opens up access to the volume, pitch, and pan control, all of which are optional to use. If no values are inputed for volume, pitch, and pan, the game will use the settings in this plugin’s parameters.</div>
+            <div class="commandExample">
+                bgm: stop <br>
+                bgm: memorize <br>
+                bgm: memory <br>
+                bgm: Battle7 <br>
+                bgm: Theme2, 80, 100, 0
+            </div>
+
+            <div class="commandTitle">
+                BGs: STOP <br>
+                BGs: MEMORIZE <br>
+                BGs: MEMORY <br>
+                BGs: filename, (volume), (pitch), (pan)
+            </div>
+            <div class="commandDescription">Changes the current background sound at hand. ‘Stop’ will stop any BGS from playing. ‘Memorize’ will memorize the current BGS. ‘Memory’ will replay the memorized BGS if there is one playing. If you choose a filename (without the filename extensions), the game will play that BGS instead. Using this option opens up access to the volume, pitch, and pan control, all of which are optional to use. If no values are inputed for volume, pitch, and pan, the game will use the settings in this plugin’s parameters.</div>
+            <div class="commandExample">
+                bgs: stop <br>
+                bgs: memorize <br>
+                bgs: memory <br>
+                bgs: City <br>
+                bgs: Darkness, 80, 100, 0
+            </div>
+
+            <div class="commandTitle">
+                CHANGE SWITCH X: on/off/toggle/switch z <br>
+                CHANGE SWITCH X..Y: on/off/toggle/switch z <br>
+                CHANGE SWITCH X TO Y: on/off/toggle/switch z
+            </div>
+            <div class="commandDescription">Changes Game Switch X to on, off, toggle (switching between on/off), or to whatever value the switch y is.</div>
+            <div class="commandExample">
+                change switch 1: on <br>
+                change switch 2..4: off <br>
+                change switch 5 to 8: toggle <br>
+                change switch 9: switch 5
+            </div>
+
+            <div class="commandTitle">
+                CHANGE VARIABLE X = Y <br>
+                CHANGE VARIABLE X += Y <br>
+                CHANGE VARIABLE X -= Y <br>
+                CHANGE VARIABLE X *= Y <br>
+                CHANGE VARIABLE X /= Y <br>
+                CHANGE VARIABLE X %= Y
+            </div>
+            <div class="commandDescription">Changes variable X in the middle of the action sequence to be modified by value Y. Y can be either an integer or a piece of code.</div>
+            <div class="commandExample">
+                change variable 1 = 2 <br>
+                change variable 3 += 4 <br>
+                change variable 5 -= 6 <br>
+                change variable 7 *= 8 <br>
+                change variable 9 /= 10 <br>
+                change variable 11 %= 12
+            </div>
+
+            <div class="commandTitle">
+                COLLAPSE: <span class="target">target</span>, (force)
+            </div>
+            <div class="commandDescription">If the target is to be dead at this point, this will be the point in the action sequence where you can promt the game to kill the target as long as the target has 0 HP. If you want to force the death of the target, include the ‘force’ command after the targets.</div>
+            <div class="commandExample">
+                collapse: user <br>
+                collapse: target, force
+            </div>
+
+            <div class="commandTitle">
+                COMMON EVENT: X
+            </div>
+            <div class="commandDescription">Plays common event X at that point in the action sequence. Nothing else will continue until the common event is finished.</div>
+            <div class="commandExample">
+                common event: 1
+            </div>
+
+            <div class="commandTitle">
+                EVAL: code
+            </div>
+            <div class="commandDescription">For those who’d like to do something that the current Battle Engine doesn’t support, you can use an eval function to have a piece of code occur. Users beware, for those unfamiliar with JavaScript should avoid handling this action sequence command.</div>
+            <div class="commandExample">
+                eval: $gameParty.loseItem($dataItems[3], 10)
+            </div>
+
+            <div class="commandTitle">
+                GAIN ITEM X: Y LOSE ITEM X: Y <br>
+                GAIN WEAPON X: Y LOSE WEAPON X: Y <br>
+                GAIN ARMOR X: Y LOSE ARMOR X: Y
+            </div>
+            <div class="commandDescription">Your party will gain/lose item x, weapon x, or armor x in the amount of y. If you choose to omit y, it will default to 1.</div>
+            <div class="commandExample">
+                gain item 1: 20 <br>
+                lose weapon 2 <br>
+                gain armor 3: 50
+            </div>
+
+            <div class="commandTitle">
+                GAIN ITEM X: Y LOSE ITEM X: Y <br>
+                GAIN WEAPON X: Y LOSE WEAPON X: Y <br>
+                GAIN ARMOR X: Y LOSE ARMOR X: Y
+            </div>
+            <div class="commandDescription">Your party will gain/lose item x, weapon x, or armor x in the amount of y. If you choose to omit y, it will default to 1.</div>
+            <div class="commandExample">
+                gain item 1: 20 <br>
+                lose weapon 2 <br>
+                gain armor 3: 50
+            </div>
+
+            <div class="commandTitle">
+                GOLD +x <br>
+                GOLD -x
+            </div>
+            <div class="commandDescription">Your party will gain/lose gold in the middle of battle by x amount.</div>
+            <div class="commandExample">
+                gold +2000 <br>
+                gold -500
+            </div>
+
+            <div class="commandTitle">
+                HP +X: <span class="target">target</span>, (show) <br>
+                HP -X: <span class="target">target</span>, (show) <br>
+                HP +X%: <span class="target">target</span>, (show) <br>
+                HP -X%: <span class="target">target</span>, (show) <br>
+                HP +VARIABLE X: <span class="target">target</span>, (show) <br>
+                HP -VARIABLE X: <span class="target">target</span>, (show) <br>
+                HP +VARIABLE X%: <span class="target">target</span>, (show) <br>
+                HP -VARIABLE X%: <span class="target">target</span>, (show)
+            </div>
+            <div class="commandDescription">Target(s) gains HP equal to X values. To show the popup, insert ‘show’ after the target in the action sequence line. Including ‘show’ is entirely optional. If ‘show’ is omitted, no popup will be displayed.</div>
+            <div class="commandExample">
+                hp +500: user <br>
+                hp -variable 5: target <br>
+                hp +25%: target <br>
+                hp -variable 7: user
+            </div>
+
+            <div class="commandTitle">
+                ME: STOP <br>
+                ME: filename, (volume), (pitch), (pan)
+            </div>
+            <div class="commandDescription">Causes the battle to play a music fanfare. ‘Stop’ will stop any ME from playing. If you choose a filename (without the filename extensions), the game will play that ME instead. Using this option opens up access to the volume, pitch, and pan control, all of which are optional to use. If no values are inputed for volume, pitch, and pan, the game will use the settings in this plugin’s parameters.</div>
+            <div class="commandExample">
+                me: stop <br>
+                me: Victory1 <br>
+                me: Darkness, 80, 100, 0
+            </div>
+
+            <div class="commandTitle">
+                MP +X: <span class="target">target</span>, (show) <br>
+                MP -X: <span class="target">target</span>, (show) <br>
+                MP +X%: <span class="target">target</span>, (show) <br>
+                MP -X%: <span class="target">target</span>, (show) <br>
+                MP +VARIABLE X: <span class="target">target</span>, (show) <br>
+                MP -VARIABLE X: <span class="target">target</span>, (show) <br>
+                MP +VARIABLE X%: <span class="target">target</span>, (show) <br>
+                MP -VARIABLE X%: <span class="target">target</span>, (show)
+            </div>
+            <div class="commandDescription">Target(s) gains MP equal to X values. To show the popup, insert ‘show’ after the target in the action sequence line. Including ‘show’ is entirely optional. If ‘show’ is omitted, no popup will be displayed.</div>
+            <div class="commandExample">
+                mp +500: user <br>
+                mp -variable 5: target <br>
+                mp +25%: target <br>
+                mp -variable 7: user
+            </div>
+
+            <div class="commandTitle">
+                REFRESH STATUS
+            </div>
+            <div class="commandDescription">Refreshes the status window in the middle of an action sequence.</div>
+            <div class="commandExample">
+                refresh status
+            </div>
+
+            <div class="commandTitle">
+                REMOVE <span class="stat">stat</span> BUFF: <span class="target">target</span>, (show)
+            </div>
+            <div class="commandDescription">Removes the ‘stat’ buff from target. Replace ‘stat’ with ‘hp’, ‘mp’, ‘atk’, ‘def’, ‘mat’, ‘mdf’, ‘agi’, or ‘luk’. Include ‘show’ and it will show the target getting the buff removed in the battle log.</div>
+            <div class="commandExample">
+                remove atk buff: user, show <br>
+                remove def buff: target
+            </div>
+
+            <div class="commandTitle">
+                REMOVE <span class="stat">stat</span> DEBUFF: <span class="target">target</span>, (show)
+            </div>
+            <div class="commandDescription">Removes the ‘stat’ debuff from target. Replace ‘stat’ with ‘hp’, ‘mp’, ‘atk’, ‘def’, ‘mat’, ‘mdf’, ‘agi’, or ‘luk’. Include ‘show’ and it will show the target getting the debuff removed in the battle log.</div>
+            <div class="commandExample">
+                remove atk debuff: user, show <br>
+                remove def debuff: target
+            </div>
+
+            <div class="commandTitle">
+                REMOVE STATE X: target, (show) <br>
+                REMOVE STATE X, Y, Z: target, (show)
+            </div>
+            <div class="commandDescription">Removes X state (including Y and Z if used in that format) from target. If ‘show’ is included, it will display any state related messages.</div>
+            <div class="commandExample">
+                remove state 5: target <br>
+                remove state 6, 7, 8: user, show
+            </div>
+
+            <div class="commandTitle">
+                SE: filename, (volume), (pitch), (pan) <br>
+                SE: PLAY OK <br>
+                SE: PLAY CURSOR <br>
+                SE: PLAY CANCEL <br>
+                SE: PLAY BUZZER <br>
+                SE: PLAY EQUIP <br>
+                SE: PLAY SAVE <br>
+                SE: PLAY LOAD <br>
+                SE: PLAY BATTLE START <br>
+                SE: PLAY ESCAPE <br>
+                SE: PLAY ENEMY ATTACK <br>
+                SE: PLAY ENEMY DAMAGE <br>
+                SE: PLAY ENEMY COLLAPSE <br>
+                SE: PLAY BOSS COLLAPSE 1 <br>
+                SE: PLAY BOSS COLLAPSE 2 <br>
+                SE: PLAY ACTOR DAMAGE <br>
+                SE: PLAY ACTOR COLLAPSE <br>
+                SE: PLAY RECOVERY <br>
+                SE: PLAY MISS <br>
+                SE: PLAY EVASION <br>
+                SE: PLAY MAGIC EVASION <br>
+                SE: PLAY REFLECTION <br>
+                SE: PLAY SHOP <br>
+                SE: PLAY USE ITEM <br>
+                SE: PLAY USE SKILL
+            </div>
+            <div class="commandDescription">Causes the battle to play a Sound Effect. If you choose a filename (without the filename extensions), the game will play that ME instead. Using this option opens up access to the volume, pitch, and pan control, all of which are optional to use. If no values are inputed for volume, pitch, and pan, the game will use the settings in this plugin’s parameters. Using the action sequences with ‘play x’ in them will cause the game to play a system sound set within RPG Maker’s database.</div>
+            <div class="commandExample">
+                se: play enemy attack <br>
+                se: Ice1 <br>
+                se: Laser2, 80, 100, 0
+            </div>
+
+            <div class="commandTitle">
+                TP +X: <span class="target">target</span>, (show) <br>
+                TP -X: <span class="target">target</span>, (show) <br>
+                TP +X%: <span class="target">target</span>, (show) <br>
+                TP -X%: <span class="target">target</span>, (show) <br>
+                TP +VARIABLE X: <span class="target">target</span>, (show) <br>
+                TP -VARIABLE X: <span class="target">target</span>, (show) <br>
+                TP +VARIABLE X%: <span class="target">target</span>, (show) <br>
+                TP -VARIABLE X%: <span class="target">target</span>, (show)
+            </div>
+            <div class="commandDescription">Target(s) gains TP equal to X values. To show the popup, insert ‘show’ after the target in the action sequence line. Including ‘show’ is entirely optional. If ‘show’ is omitted, no popup will be displayed For TP to actually show popups, another plugin is needed to display TP popups.</div>
+            <div class="commandExample">
+                tp +500: user <br>
+                tp -variable 5: target <br>
+                tp +25%: target <br>
+                tp -variable 7: user
+            </div>
+            <div style="height: 100px;"></div>
 
         </div>
-        <div class="infoPanes hidden" id="ActionSequencePack1"></div>
-        <div class="infoPanes hidden" id="ActionSequencePack2"></div>
-        <div class="infoPanes hidden" id="ActionSequencePack3"></div>
+
+        <div class="infoPanes hidden" id="ActionSequencePack2">
+            <div class="paneTitle">Action Sequence Pack 2</div>
+
+            <div class="commandTitle">ATTACK ANIMATION: <span class="target">target</span></div>
+            <div class="commandDescription">Displays the active battler’s attack animation on the target(s). This will be the animation determined by the actor’s weapon(s). If it’s an enemy, it will be determined by the enemy’s attack animation.</div>
+            <div class="commandExample">attack animation: target</div>
+
+            <div class="commandTitle">ENEMY EFFECT: <span class="target">target</span>, effect-type</div>
+            <div class="commandDescription">This affects enemies only. Makes the target display either a ‘whiten’ effect or a ‘blink’ effect.</div>
+            <div class="commandExample">
+                enemy effect: targets, whiten <br>
+                enemy effect: targets, blink
+            </div>
+
+            <div class="commandTitle">
+                FACE <span class="target">target1</span>: FORWARD <br>
+                FACE <span class="target">target1</span>: BACKWARD <br>
+                FACE <span class="target">target1</span>: HOME <br>
+                FACE <span class="target">target1</span>: AWAY FROM HOME <br>
+                FACE <span class="target">target1</span>: POINT, x coordinate, y coordinate <br>
+                FACE <span class="target">target1</span>: AWAY FROM POINT, x coordinate, y coordinate <br>
+                FACE <span class="target">target1</span>: <span class="target">target2</span> <br>
+                FACE <span class="target">target1</span>: AWAY FROM <span class="target">target2</span>
+            </div>
+            <div class="commandDescription">This will cause the battler to face a certain direction. Arguments can be used in the above formats. This action sequence command will cause target1 to face any of those directions. If target2 is used, then target1 will face directions relative to target2.</div>
+            <div class="commandExample">
+                face user: forward <br>
+                face target: backward <br>
+                face enemies: home <br>
+                face allies: away from home <br>
+                face target: point, 20, 40 <br>
+                face target: away from point, 500, 600 <br>
+                face user: target <br>
+                face target: away from user
+            </div>
+
+            <div class="commandTitle">
+                FADE OUT: (frames) <br>
+                FADE IN: (frames)
+            </div>
+            <div class="commandDescription">Fades the screen out and fades the screen in respectively. You can set the amount of frames for the fading process. If you omit frames, 60 frames will be used by default.</div>
+            <div class="commandExample">
+                fade out <br>
+                fade in: 10
+            </div>
+
+            <div class="commandTitle">
+                FLASH SCREEN: WHITE, (frames) <br>
+                FLASH SCREEN: RED, (frames) <br>
+                FLASH SCREEN: ORANGE, (frames) <br>
+                FLASH SCREEN: YELLOW, (frames) <br>
+                FLASH SCREEN: GREEN, (frames) <br>
+                FLASH SCREEN: BLUE, (frames) <br>
+                FLASH SCREEN: PURPLE, (frames) <br>
+                FLASH SCREEN: MAGENTA, (frames) <br>
+                FLASH SCREEN: BLACK, (frames) <br>
+                FLASH SCREEN: (red), (green), (blue), (intensity), (frames)
+            </div>
+            <div class="commandDescription">Causes the game screen to flash a set color. If for the arguments, you use a color name, it will use a premade flash setting. If you choose to use your own settings, use the red, green, blue, intensity format to determine what color flash you would like. Red, green, blue, and intensity settings range from 0 to 255. If frames are used, that will be the duration of the screen flash. If omitted, the default frame count will be 60 frames.</div>
+            <div class="commandExample">
+                flash screen: white <br>
+                flash screen: red, 45 <br>
+                flash screen: 128, 170, 214, 170 <br>
+                flash screen: 68, 68, 68, 170, 45
+            </div>
+
+            <div class="commandTitle">
+                FLOAT <span class="target">target</span>: (height), (frames) <br>
+                FLOAT <span class="target">target</span>: (height%), (frames)
+            </div>
+            <div class="commandDescription">Causes the target to float into the air above the ground by height%. The height is relative to the floating target. Using 100% means the target will float above the ground 100% higher than its height. If no ‘%’ sign is used, the target will float that many pixels rather than a percentage of the target’s height. The frames determine how many frames it will take for the target to reach that height. Using 0% for the height will bring the target back to the ground.</div>
+            <div class="commandExample">
+                float user: 200% <br>
+                float enemies: 500, 30 <br>
+                float target: 0%, 30
+            </div>
+
+            <div class="commandTitle">
+                HIDE BATTLE HUD
+            </div>
+            <div class="commandDescription">Hides the battle hud to not obstruct any animations being played. You can reveal the battle hud again using ‘show battle hud’.</div>
+            <div class="commandExample">
+                hide battle hud
+            </div>
+
+            <div class="commandTitle">
+                JUMP <span class="target">target</span>: (height), (frames) <br>
+                JUMP <span class="target">target</span>: (height%), (frames)
+            </div>
+            <div class="commandDescription">Causes the target to jump a height relative to the target itself. If the target jumps a height of 200%, the height will be 200% of the target’s height. If no ‘%’ sign is used, the target will jump that many pixels rather than a percentage of the target’s height. The frame count is how long the target will be in the air. You can use this with the ‘Move’ action sequence to make the target appear like it is jumping a distance.</div>
+            <div class="commandExample">
+                jump user: 150% <br>
+                jump target: 300, 60
+            </div>
+
+            <div class="commandTitle">
+                MOTION <span class="motionType">type</span>: <span class="target">target</span>, (no weapon)
+            </div>
+            <div class="commandDescription">Forces the target to perform the specific type of action in sideview. If you issue an action sequence command for the target to perform ‘attack’, the target will automatically determine based on the weapon it has equipped to use either a thrust, swing, or missile motion. Attack, thrust, swing, and missile will also display the target’s weapon if the target has one.<br><br>
+
+                If ‘no weapon’ is used after the target, no weapons will be displayed. This effect will only work with the Thrust, Swing, and Missile motions.</div>
+            <div class="commandExample">
+                motion walk: user
+                motion thrust: user, no weapon
+            </div>
+
+            <div class="commandTitle">
+                MOVE <span class="target">target1</span>: HOME, (frames) <br>
+                MOVE <span class="target">target1</span>: RETURN, (frames) <br>
+                MOVE <span class="target">target1</span>: FORWARD, (distance), (frames) <br>
+                MOVE <span class="target">target1</span>: BACKWARD, (distance), (frames) <br>
+                MOVE <span class="target">target1</span>: POINT, x coordinate, y coordinate, (frames) <br>
+                MOVE <span class="target">target1</span>: <span class="target">target2</span>, BASE, (frames) <br>
+                MOVE <span class="target">target1</span>: <span class="target">target2</span>, CENTER, (frames) <br>
+                MOVE <span class="target">target1</span>: <span class="target">target2</span>, HEAD, (frames) <br>
+                MOVE <span class="target">target1</span>: <span class="target">target2</span>, FRONT BASE, (frames) <br>
+                MOVE <span class="target">target1</span>: <span class="target">target2</span>, FRONT CENTER, (frames) <br>
+                MOVE <span class="target">target1</span>: <span class="target">target2</span>, FRONT HEAD, (frames) <br>
+                MOVE <span class="target">target1</span>: <span class="target">target2</span>, BACK BASE, (frames) <br>
+                MOVE <span class="target">target1</span>: <span class="target">target2</span>, BACK CENTER, (frames) <br>
+                MOVE <span class="target">target1</span>: <span class="target">target2</span>, BACK HEAD, (frames)
+            </div>
+            <div class="commandDescription">This is a move command. Arguments can be used in the above formats. This action sequence command will move target1 to any of those locations listed in the arguments. If it’s towards target2, you must include what location relative to target2 for target1 to travel to.</div>
+            <div class="commandExample">
+                move user: home, 20 <br>
+                move target: forward, 48, 12 <br>
+                move enemy 1: point, 400, 300 <br>
+                move actor 2: front base, 20
+            </div>
+
+            <div class="commandTitle">
+                OPACITY <span class="target">target</span>: x, (frames) <br>
+                OPACITY <span class="target">target</span>: x%, (frames)
+            </div>
+            <div class="commandDescription">Changes the opacity of the target to x (0-255) or x% (0% to 100%). If you use ‘frames’, that will be the frame duration for the change in opacity for the target.</div>
+            <div class="commandExample">
+                opacity user: 50%, 30 <br>
+                opacity not focus: 0
+            </div>
+
+            <div class="commandTitle">
+                SHOW BATTLE HUD
+            </div>
+            <div class="commandDescription">If the battle hud was hidden using ‘hide battle hud’, use this to show the battle hud back within the player’s screen.</div>
+            <div class="commandExample">
+                show battle hud
+            </div>
+
+            <div class="commandTitle">
+                SHAKE SCREEN: (power), (speed), (frames)
+            </div>
+            <div class="commandDescription">Causes the game screen to shake. Adjust the power from 0-9, speed from 0-9, and the frames to alter the duration of the screen shaking. If those values are omitted, they will default to 5 power, 5 speed, and 60 frames.</div>
+            <div class="commandExample">
+                shake screen <br>
+                shake screen: 9 <br>
+                shake screen: 3, 9, 30
+            </div>
+
+            <div class="commandTitle">
+                TINT SCREEN: NORMAL, (frames) <br>
+                TINT SCREEN: DARK, (frames) <br>
+                TINT SCREEN: SEPIA, (frames) <br>
+                TINT SCREEN: SUNSET, (frames) <br>
+                TINT SCREEN: NIGHT, (frames) <br>
+                TINT SCREEN: (red), (green), (blue), (gray), (frames)
+            </div>
+            <div class="commandDescription">Tints the battle screen. If using the arguments ‘normal’, ‘dark’, ‘sepia’, ‘sunset’, or ‘night’ the screen will be be given a premade tint. If not, then the arguments for red, green, blue, and gray values must be inputted for the tint. Red, green, and blue can range from -255 to 255 while gray will range from 0 to 255. If frames are used, that will be the duration for which the screen will change to the tint. If omitted, the default amount of frames used will be 60 frames.</div>
+            <div class="commandExample">
+                tint screen: normal <br>
+                tint screen: sepia, 30 <br>
+                tint screen: 68, -34, -34, 0 <br>
+                tint screen: 68, -68, 0, 68, 45
+            </div>
+
+            <div class="commandTitle">
+                WAIT FOR FLOAT
+            </div>
+            <div class="commandDescription">Waits for all battler float changes to finish before going on to the next action in the action sequence.</div>
+            <div class="commandExample">
+                wait for float
+            </div>
+
+            <div class="commandTitle">
+                WAIT FOR JUMP
+            </div>
+            <div class="commandDescription">Waits for all battler jumps to finish before going on to the next action in the action sequence.</div>
+            <div class="commandExample">
+                wait for jump
+            </div>
+
+            <div class="commandTitle">
+                WAIT FOR OPACITY
+            </div>
+            <div class="commandDescription">Waits for all battlers to finish changing opacity before going on to the next action in the action sequence.</div>
+            <div class="commandExample">
+                wait for opacity
+            </div>
+            <div style="height: 100px;"></div>
+        </div>
+
+        <div class="infoPanes hidden" id="ActionSequencePack3">
+            <div class="paneTitle">Action Sequence Pack 3</div>
+
+            <div class="commandTitle">
+                CAMERA CLAMP ON <br>
+                CAMERA CLAMP OFF
+            </div>
+            <div class="commandDescription">By default, the camera clamp is on, which forces the camera to never pan outside of the battlefield’s boundaries. However, in the event you wish to turn this off, use ‘camera clamp off’ to shut off the clamp. The clamp, however, will be turned back on at the end of each ‘perform finish’ action.</div>
+            <div class="commandExample">
+                camera clamp on <br>
+                camera clamp off
+            </div>
+
+            <div class="commandTitle">
+                CAMERA FOCUS: <span class="target">target</span>, (location), (frames)
+            </div>
+            <div class="commandDescription">This will focus on a target(s) (refer to target typing) and a location. If the location is omitted, the camera will focus on the target(s)’s center. Note: The camera will not shift past screen boundaries.</div>
+            <div class="commandExample">
+                camera focus: user <br>
+                camera focus: target, front, 40 <br>
+                camera focus: enemies, center, 30
+            </div>
+
+            <div class="commandTitle">
+                CAMERA OFFSET: direction, distance
+            </div>
+            <div class="commandDescription">Offsets the camera a direction by (distance) amount.</div>
+            <div class="commandExample">
+                camera offset: left, 200 <br>
+                camera offset: right, Graphics.boxWidth / 4 <br>
+                camera offset: up, 300 <br>
+                camera offset: down, $gameVariables.value(3);
+            </div>
+
+            <div class="commandTitle">
+                CAMERA PAN: direction, distance, (frames)
+            </div>
+            <div class="commandDescription">Offsets the camera a direction by (distance) amount.</div>
+            <div class="commandExample">
+                camera pan: left, 200 <br>
+                camera pan: up, 250 <br>
+                camera pan: right, 500, 60 <br>
+                camera pan: down: 300, 60
+            </div>
+
+            <div class="commandTitle">
+                CAMERA SCREEN: TOP LEFT, (frames) <br>
+                CAMERA SCREEN: FAR LEFT, (frames) <br>
+                CAMERA SCREEN: BOTTOM LEFT, (frames) <br>
+                CAMERA SCREEN: TOP CENTER, (frames) <br>
+                CAMERA SCREEN: CENTER, (frames) <br>
+                CAMERA SCREEN: BOTTOM CENTER, (frames) <br>
+                CAMERA SCREEN: TOP RIGHT, (frames) <br>
+                CAMERA SCREEN: FAR RIGHT, (frames) <br>
+                CAMERA SCREEN: BOTTOM RIGHT, (frames) <br>
+                CAMERA SCREEN: POINT, x, y, (frames) <br>
+                CAMERA SCREEN: target, FRONT, (frames) <br>
+                CAMERA SCREEN: target, BASE, (frames) <br>
+                CAMERA SCREEN: target, BACK, (frames) <br>
+                CAMERA SCREEN: target, FRONT CENTER, (frames) <br>
+                CAMERA SCREEN: target, CENTER, (frames) <br>
+                CAMERA SCREEN: target, BACK CENTER, (frames) <br>
+                CAMERA SCREEN: target, FRONT TOP, (frames) <br>
+                CAMERA SCREEN: target, TOP, (frames) <br>
+                CAMERA SCREEN: target, BACK TOP, (frames)
+            </div>
+            <div class="commandDescription">Moves the camera to a certain part of the screen. If you choose a target, the camera will lock to that part of the target. Using (frames) will determine the duration of the time the camera will move over to the target location. Omitting (frames) will set the camera pan duration to 30 frames. Note: The camera will not shift past screen boundaries.</div>
+            <div class="commandExample">
+                camera screen: top left <br>
+                camera screen: far right, 30 <br>
+                camera screen: point, 400, 300, 60 <br>
+                camera screen: user, base <br>
+                camera screen: targets, base, 60
+            </div>
+
+            <div class="commandTitle">
+                RESET CAMERA: (frames)
+            </div>
+            <div class="commandDescription">Resets the camera location back to default location, which is the center of the battlefield. Using (frames) will allow you to adjust the duration in which the camera resets. Omitting ‘frames’ will set the camera to reset in 30 frames. <br>
+                Note: The camera will not shift past screen boundaries.</div>
+            <div class="commandExample">
+                reset camera <br>
+                reset camera: 30
+            </div>
+
+            <div class="commandTitle">
+                RESET ZOOM: (frames)
+            </div>
+            <div class="commandDescription">Resets the camera zoom back to default zoom, which is 100%. Using (frames) will allow you to adjust the duration in which the zoom resets. Omitting ‘frames’ will set the zoom to reset in 30 frames. Note: The camera will not shift past screen boundaries.</div>
+            <div class="commandExample">
+                reset zoom <br>
+                reset zoom: 30
+            </div>
+
+            <div class="commandTitle">
+                WAIT FOR CAMERA
+            </div>
+            <div class="commandDescription">Waits for the camera to finish panning before going on to the next action in the action sequence.</div>
+            <div class="commandExample">
+                wait for camera
+            </div>
+
+            <div class="commandTitle">
+                WAIT FOR ZOOM
+            </div>
+            <div class="commandDescription">Waits for the zoom to finish panning before going on to the next action in the action sequence.</div>
+            <div class="commandExample">
+                wait for zoom
+            </div>
+
+
+            <div class="commandTitle">
+                ZOOM: x%, (frames) <br>
+                ZOOM: x.y, (frames)
+            </div>
+            <div class="commandDescription">Zooms to x% or x.y rate. Using (frames) will allow you to adjust the duration in which the zooming occurs. Omitting ‘frames’ will set the zoom duration to 30 frames.</div>
+            <div class="commandExample">
+                zoom: 200% <br>
+                zoom: 1.5, 45
+            </div>
+
+
+            <div style="height: 100px;"></div>
+
+        </div>
 
         <div id="targetsPane" class="hidden">
-            user; This will select the active battler.
-            target, targets; These will select the active targets in question.
-            actors, existing actors; These will select all living actors.
-            all actors; This will select all actors including dead ones.
-            dead actors: This will select only dead actors.
-            actors not user; This will select all living actors except for the user.
-            actor x; This will select the actor in slot x.
-            character x; This will select the specific character with actor ID x.
-            enemies, existing enemies; This will select all living enemies.
-            all enemies; This will select all enemies, even dead.
-            dead enemies: This will select only dead enemies.
-            enemies not user; This will select all enemies except for the user.
-            enemy x; This will select the enemy in slot x.
-            friends; This will select the battler’s alive allies.
-            all friends; This will select the all of battler’s allies, even dead.
-            dead friends; This will select the battler’s dead allies.
-            friends not user; This will select the battler’s allies except itself.
-            friend x: This will select the battler’s ally in slot x.
-            opponents; This will select the battler’s alive opponents.
-            all opponents; This will select the all of the battler’s opponents.
-            dead opponents; This will select the battler’s dead opponents.
-            opponent x: This will select the battler’s opponent in slot x.
-            all alive; Selects all living actors and enemies.
-            all members; Selects all living and dead actors and enemies.
-            all dead; Selects all dead actors and enemies.
-            all not user; This will select all living battlers except user.
-            focus; Selects the active battler and its targets.
-            not focus; Selects everything but the active battler and its targets.
+            <span class="boldTarget">user;</span> This will select the active battler.<br>
+            <span class="boldTarget">target, targets;</span> These will select the active targets in question.<br>
+            <span class="boldTarget">actors, existing actors;</span> These will select all living actors.<br>
+            <span class="boldTarget">all actors;</span> This will select all actors including dead ones.<br>
+            <span class="boldTarget">dead actors;</span> This will select only dead actors.<br>
+            <span class="boldTarget">actors not user;</span> This will select all living actors except for the user.<br>
+            <span class="boldTarget">actor x;</span> This will select the actor in slot x.<br>
+            <span class="boldTarget">character x;</span> This will select the specific character with actor ID x.<br>
+            <span class="boldTarget">enemies, existing enemies;</span> This will select all living enemies.<br>
+            <span class="boldTarget">all enemies;</span> This will select all enemies, even dead.<br>
+            <span class="boldTarget">dead enemies;</span> This will select only dead enemies.<br>
+            <span class="boldTarget">enemies not user;</span> This will select all enemies except for the user.<br>
+            <span class="boldTarget">enemy x;</span> This will select the enemy in slot x.<br>
+            <span class="boldTarget">friends;</span> This will select the battler’s alive allies.<br>
+            <span class="boldTarget">all friends;</span> This will select the all of battler’s allies, even dead.<br>
+            <span class="boldTarget">dead friends;</span> This will select the battler’s dead allies.<br>
+            <span class="boldTarget">friends not user;</span> This will select the battler’s allies except itself.<br>
+            <span class="boldTarget">friend x;</span> This will select the battler’s ally in slot x.<br>
+            <span class="boldTarget">opponents;</span> This will select the battler’s alive opponents.<br>
+            <span class="boldTarget">all opponents;</span> This will select the all of the battler’s opponents.<br>
+            <span class="boldTarget">dead opponents;</span> This will select the battler’s dead opponents.<br>
+            <span class="boldTarget">opponent x;</span> This will select the battler’s opponent in slot x.<br>
+            <span class="boldTarget">all alive;</span> Selects all living actors and enemies.<br>
+            <span class="boldTarget">all members;</span> Selects all living and dead actors and enemies.<br>
+            <span class="boldTarget">all dead;</span> Selects all dead actors and enemies.<br>
+            <span class="boldTarget">all not user;</span> This will select all living battlers except user.<br>
+            <span class="boldTarget">focus;</span> Selects the active battler and its targets.<br>
+            <span class="boldTarget">not focus;</span> Selects everything but the active battler and its targets.
 
         </div>
-
 
         <script type="text/javascript" src="reference.js"></script>
     </body>

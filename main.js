@@ -476,12 +476,16 @@ var createCORSRequest = function(method, url) {
 
 function openNav() 
 {
-    document.getElementById("sideNav").style.width = "50%";
+    document.getElementById("sideNav").style.width = "40%";
+    document.getElementById("openNavButton").style.display = "none";
+    document.getElementById("closeNavButton").removeAttribute("style");
 }
 
 function closeNav() 
 {
     document.getElementById("sideNav").style.width = "0";
+    document.getElementById("closeNavButton").style.display = "none";
+    document.getElementById("openNavButton").removeAttribute("style");
 }
 
 
