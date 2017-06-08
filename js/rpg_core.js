@@ -1681,7 +1681,7 @@ Graphics.playVideo = function(src) {
         waitForLoading = true;
         if (!register) {
             register = true;
-            document.addEventListener('touchstart', handleiOSTouch);
+            document.getElementById("previewHolder").addEventListener('touchstart', handleiOSTouch);
         }
     }
 };
@@ -2342,8 +2342,8 @@ Graphics._isVideoVisible = function() {
  * @private
  */
 Graphics._setupEventHandlers = function() {
-    window.addEventListener('resize', this._onWindowResize.bind(this));
-    /*document.addEventListener('keydown', this._onKeyDown.bind(this));*/
+    document.getElementById("previewHolder").addEventListener('resize', this._onWindowResize.bind(this));
+    document.getElementById("previewHolder").addEventListener('keydown', this._onKeyDown.bind(this));
 };
 
 /**
@@ -2739,8 +2739,8 @@ Input._wrapNwjsAlert = function() {
  * @private
  */
 Input._setupEventHandlers = function() {
-    /*document.addEventListener('keydown', this._onKeyDown.bind(this));
-    document.addEventListener('keyup', this._onKeyUp.bind(this));*/
+    document.getElementById("previewHolder").addEventListener('keydown', this._onKeyDown.bind(this));
+    document.getElementById("previewHolder").addEventListener('keyup', this._onKeyUp.bind(this));
     window.addEventListener('blur', this._onLostFocus.bind(this));
 };
 
@@ -3202,15 +3202,15 @@ Object.defineProperty(TouchInput, 'date', {
  * @private
  */
 TouchInput._setupEventHandlers = function() {
-    /*document.addEventListener('mousedown', this._onMouseDown.bind(this));
-    document.addEventListener('mousemove', this._onMouseMove.bind(this));
-    document.addEventListener('mouseup', this._onMouseUp.bind(this));
-    document.addEventListener('wheel', this._onWheel.bind(this));
-    document.addEventListener('touchstart', this._onTouchStart.bind(this));
-    document.addEventListener('touchmove', this._onTouchMove.bind(this));
-    document.addEventListener('touchend', this._onTouchEnd.bind(this));
-    document.addEventListener('touchcancel', this._onTouchCancel.bind(this));
-    document.addEventListener('pointerdown', this._onPointerDown.bind(this));*/
+    document.getElementById("previewHolder").addEventListener('mousedown', this._onMouseDown.bind(this));
+    document.getElementById("previewHolder").addEventListener('mousemove', this._onMouseMove.bind(this));
+    document.getElementById("previewHolder").addEventListener('mouseup', this._onMouseUp.bind(this));
+    document.getElementById("previewHolder").addEventListener('wheel', this._onWheel.bind(this));
+    document.getElementById("previewHolder").addEventListener('touchstart', this._onTouchStart.bind(this));
+    document.getElementById("previewHolder").addEventListener('touchmove', this._onTouchMove.bind(this));
+    document.getElementById("previewHolder").addEventListener('touchend', this._onTouchEnd.bind(this));
+    document.getElementById("previewHolder").addEventListener('touchcancel', this._onTouchCancel.bind(this));
+    document.getElementById("previewHolder").addEventListener('pointerdown', this._onPointerDown.bind(this));
 };
 
 /**
@@ -7278,7 +7278,7 @@ WebAudio._createMasterGainNode = function() {
  * @private
  */
 WebAudio._setupEventHandlers = function() {
-    /*document.addEventListener("touchend", function() {
+    document.getElementById("previewHolder").addEventListener("touchend", function() {
         var context = WebAudio._context;
         if (context && context.state === "suspended" && typeof context.resume === "function") {
             context.resume().then(function() {
@@ -7288,7 +7288,7 @@ WebAudio._setupEventHandlers = function() {
             WebAudio._onTouchStart();
         }
     });
-    document.addEventListener('touchstart', this._onTouchStart.bind(this));*/
+    document.getElementById("previewHolder").addEventListener('touchstart', this._onTouchStart.bind(this));
     document.addEventListener('visibilitychange', this._onVisibilityChange.bind(this));
 };
 
@@ -8003,7 +8003,7 @@ Html5Audio.initialize = function () {
  * @private
  */
 Html5Audio._setupEventHandlers = function () {
-    /*document.addEventListener('touchstart', this._onTouchStart.bind(this));*/
+    document.getElementById("previewHolder").addEventListener('touchstart', this._onTouchStart.bind(this));
     document.addEventListener('visibilitychange', this._onVisibilityChange.bind(this));
     this._audioElement.addEventListener("loadeddata", this._onLoadedData.bind(this));
     this._audioElement.addEventListener("error", this._onError.bind(this));
