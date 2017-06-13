@@ -305,13 +305,14 @@ function setCurrentProject(curProj)
     if (curProj == "")
     {
         projectName.innerHTML = "New Sequence";
+        preHolder.contentWindow.$dataSkills[11].battleDisplayText = "Action Sequence";
     }
     else
     {
         firebase.database().ref(currentUser.uid + "/sequences/" + curProj).once("value", function(project){
-            projectName.innerHTML = "Current Sequence: " + project.val().name;   
+            projectName.innerHTML = "Current Sequence: " + project.val().name; 
+            preHolder.contentWindow.$dataSkills[11].battleDisplayText = project.val().name;
         });
-
     }
 }
 
