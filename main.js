@@ -481,3 +481,11 @@ document.getElementById("dragMe").addEventListener('mouseup', function(event){
 document.getElementById("dragMe").addEventListener('mousedown', function(event){
     preHolder.contentWindow.document.dispatchEvent(new MouseEvent('mousedown'));
 });
+
+document.getElementById("dragMe").addEventListener('touchstart', function(event){
+    preHolder.contentWindow.document.dispatchEvent(new TouchEvent('touchstart'));
+});
+
+document.getElementById("dragMe").addEventListener('touchend', function(event){
+    preHolder.contentWindow.document.dispatchEvent(new TouchEvent('touchend'));
+});
