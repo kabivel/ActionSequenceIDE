@@ -1,266 +1,277 @@
 /*
  * @author https://twitter.com/blurspline / https://github.com/zz85
  * See post @ http://www.lab4games.net/zz85/blog/2014/11/15/resizing-moving-snapping-windows-with-js-css/
+ * converted to a class by SergeofBIBEK
  */
+
+new MOVER(document.getElementById("dragMe"), document.getElementById("ghostpane"));
+new MOVER(document.getElementById("codeMirrorHolder"), document.getElementById("ghostpane2"), 30);
+
 
 "use strict";
 
-// Minimum resizable area
-var minWidth = 203;
-var minHeight = 153;
+function MOVER(pane1, ghostpane1, headerHeight) {
 
-// Thresholds
-var FULLSCREEN_MARGINS = -3000;
-var MARGINS = 10;
+    this.headerHeight = headerHeight;
+    // Minimum resizable area
+    this.minWidth = 203;
+    this.minHeight = 153;
 
-// End of what's configurable.
-var clicked = null;
-var onRightEdge, onBottomEdge, onLeftEdge, onTopEdge;
+    // Thresholds
+    this.FULLSCREEN_MARGINS = -3000;
+    this.MARGINS = 10;
 
-var rightScreenEdge, bottomScreenEdge;
+    // End of what's configurable.
+    this.clicked = null;
+    this.onRightEdge; 
+    this.onBottomEdge; 
+    this.onLeftEdge; 
+    this.onTopEdge;
 
-var preSnapped;
+    this.rightScreenEdge; 
+    this.bottomScreenEdge;
 
-var b, x, y;
+    this.preSnapped;
 
-var redraw = false;
+    this.b; 
+    this.x; 
+    this.y;
 
-var pane = document.getElementById('dragMe');
-var ghostpane = document.getElementById('ghostpane');
+    this.redraw = false;
 
-function setBounds(element, x, y, w, h) {
-	element.style.left = x + 'px';
-	element.style.top = y + 'px';
-	element.style.width = w + 'px';
-	element.style.height = h + 'px';
-}
+    this.pane = pane1;
+    this.ghostpane = ghostpane1;
 
-function hintHide() {
-  setBounds(ghostpane, b.left, b.top, b.width, b.height);
-  ghostpane.style.opacity = 0;
-
-  // var b = ghostpane.getBoundingClientRect();
-  // ghostpane.style.top = b.top + b.height / 2;
-  // ghostpane.style.left = b.left + b.width / 2;
-  // ghostpane.style.width = 0;
-  // ghostpane.style.height = 0;
-}
-
-
-// Mouse events
-pane.addEventListener('mousedown', onMouseDown);
-document.addEventListener('mousemove', onMove);
-document.addEventListener('mouseup', onUp);
-
-// Touch events	
-pane.addEventListener('touchstart', onTouchDown);
-document.addEventListener('touchmove', onTouchMove);
-document.addEventListener('touchend', onTouchEnd);
-
-
-function onTouchDown(e) {
-  onDown(e.touches[0]);
-  e.preventDefault();
-}
-
-function onTouchMove(e) {
-  onMove(e.touches[0]);		
-}
-
-function onTouchEnd(e) {
-  if (e.touches.length ==0) onUp(e.changedTouches[0]);
-}
-
-function onMouseDown(e) {
-  onDown(e);
-  e.preventDefault();
-}
-
-function onDown(e) {
-  calc(e);
-
-  var isResizing = onRightEdge || onBottomEdge || onTopEdge || onLeftEdge;
-
-  clicked = {
-    x: x,
-    y: y,
-    cx: e.clientX,
-    cy: e.clientY,
-    w: b.width,
-    h: b.height,
-    isResizing: isResizing,
-    isMoving: !isResizing && canMove(),
-    onTopEdge: onTopEdge,
-    onLeftEdge: onLeftEdge,
-    onRightEdge: onRightEdge,
-    onBottomEdge: onBottomEdge
-  };
-}
-
-function canMove() {
-  return x > 0 && x < b.width && y > 0 && y < b.height;
-}
-
-function calc(e) {
-  b = pane.getBoundingClientRect();
-  x = e.clientX - b.left;
-  y = e.clientY - b.top;
-
-  onTopEdge = y < MARGINS;
-  onLeftEdge = x < MARGINS;
-  onRightEdge = x >= b.width - MARGINS;
-  onBottomEdge = y >= b.height - MARGINS;
-
-  rightScreenEdge = window.innerWidth - MARGINS;
-  bottomScreenEdge = window.innerHeight - MARGINS;
-}
-
-var e;
-
-function onMove(ee) {
-  calc(ee);
-
-  e = ee;
-
-  redraw = true;
-
-}
-
-function animate() {
-
-  requestAnimationFrame(animate);
-
-  if (!redraw) return;
-
-  redraw = false;
-
-  if (clicked && clicked.isResizing) {
-
-    if (clicked.onRightEdge) pane.style.width = Math.max(x, minWidth) + 'px';
-    if (clicked.onBottomEdge) pane.style.height = Math.max(y, minHeight) + 'px';
-
-    if (clicked.onLeftEdge) {
-      var currentWidth = Math.max(clicked.cx - e.clientX  + clicked.w, minWidth);
-      if (currentWidth > minWidth) {
-        pane.style.width = currentWidth + 'px';
-        pane.style.left = e.clientX + 'px';	
-      }
+    this.setBounds = function(element, x, y, w, h) {
+        element.style.left = x + 'px';
+        element.style.top = y + 'px';
+        element.style.width = w + 'px';
+        element.style.height = h + 'px';
     }
 
-    if (clicked.onTopEdge) {
-      var currentHeight = Math.max(clicked.cy - e.clientY  + clicked.h, minHeight);
-      if (currentHeight > minHeight) {
-        pane.style.height = currentHeight + 'px';
-        pane.style.top = e.clientY + 'px';	
-      }
+    this.hintHide = function() {
+        this.setBounds(this.ghostpane, this.b.left, this.b.top, this.b.width, this.b.height);
+        this.ghostpane.style.opacity = 0;
+
     }
 
-    hintHide();
+    this.setListeners = function(){
 
-    return;
-  }
+        var self = this;
+        // Mouse events
+        this.pane.addEventListener('mousedown', function(e){self.onMouseDown(e);});
+        document.addEventListener('mousemove', function(e){self.onMove(e);});
+        document.addEventListener('mouseup', function(e){self.onUp(e);});
 
-  if (clicked && clicked.isMoving) {
-
-    if (b.top < FULLSCREEN_MARGINS || b.left < FULLSCREEN_MARGINS || b.right > window.innerWidth - FULLSCREEN_MARGINS || b.bottom > window.innerHeight - FULLSCREEN_MARGINS) {
-      // hintFull();
-      setBounds(ghostpane, 0, 0, window.innerWidth, window.innerHeight);
-      ghostpane.style.opacity = 0.2;
-    } else if (b.top < MARGINS) {
-      // hintTop();
-      setBounds(ghostpane, 0, 0, window.innerWidth, window.innerHeight / 2);
-      ghostpane.style.opacity = 0.2;
-    } else if (b.left < MARGINS) {
-      // hintLeft();
-      setBounds(ghostpane, 0, 0, window.innerWidth / 2, window.innerHeight);
-      ghostpane.style.opacity = 0.2;
-    } else if (b.right > rightScreenEdge) {
-      // hintRight();
-      setBounds(ghostpane, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerHeight);
-      ghostpane.style.opacity = 0.2;
-    } else if (b.bottom > bottomScreenEdge) {
-      // hintBottom();
-      setBounds(ghostpane, 0, window.innerHeight / 2, window.innerWidth, window.innerWidth / 2);
-      ghostpane.style.opacity = 0.2;
-    } else {
-      hintHide();
+        // Touch events	
+        this.pane.addEventListener('touchstart', function(e){self.onTouchDown(e);});
+        document.addEventListener('touchmove', function(e){self.onTouchMove(e);});
+        document.addEventListener('touchend', function(e){self.onTouchEnd(e);});
     }
 
-    if (preSnapped) {
-      setBounds(pane,
-      	e.clientX - preSnapped.width / 2,
-      	e.clientY - Math.min(clicked.y, preSnapped.height),
-      	preSnapped.width,
-      	preSnapped.height
-      );
-      return;
+    this.setListeners();
+
+    this.onTouchDown = function(e) {
+        this.onDown(e.touches[0]);
+        e.preventDefault();
     }
 
-    // moving
-    pane.style.top = (e.clientY - clicked.y) + 'px';
-    pane.style.left = (e.clientX - clicked.x) + 'px';
-
-    return;
-  }
-
-  // This code executes when mouse moves without clicking
-
-  // style cursor
-  if (onRightEdge && onBottomEdge || onLeftEdge && onTopEdge) {
-    pane.style.cursor = 'nwse-resize';
-  } else if (onRightEdge && onTopEdge || onBottomEdge && onLeftEdge) {
-    pane.style.cursor = 'nesw-resize';
-  } else if (onRightEdge || onLeftEdge) {
-    pane.style.cursor = 'ew-resize';
-  } else if (onBottomEdge || onTopEdge) {
-    pane.style.cursor = 'ns-resize';
-  } else if (canMove()) {
-    pane.style.cursor = 'move';
-  } else {
-    pane.style.cursor = 'default';
-  }
-}
-
-animate();
-
-function onUp(e) {
-  calc(e);
-
-  if (clicked && clicked.isMoving) {
-    // Snap
-    var snapped = {
-      width: b.width,
-      height: b.height
-    };
-
-    if (b.top < FULLSCREEN_MARGINS || b.left < FULLSCREEN_MARGINS || b.right > window.innerWidth - FULLSCREEN_MARGINS || b.bottom > window.innerHeight - FULLSCREEN_MARGINS) {
-      // hintFull();
-      setBounds(pane, 0, 0, window.innerWidth, window.innerHeight);
-      preSnapped = snapped;
-    } else if (b.top < MARGINS) {
-      // hintTop();
-      setBounds(pane, 0, 0, window.innerWidth, window.innerHeight / 2);
-      preSnapped = snapped;
-    } else if (b.left < MARGINS) {
-      // hintLeft();
-      setBounds(pane, 0, 0, window.innerWidth / 2, window.innerHeight);
-      preSnapped = snapped;
-    } else if (b.right > rightScreenEdge) {
-      // hintRight();
-      setBounds(pane, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerHeight);
-      preSnapped = snapped;
-    } else if (b.bottom > bottomScreenEdge) {
-      // hintBottom();
-      setBounds(pane, 0, window.innerHeight / 2, window.innerWidth, window.innerWidth / 2);
-      preSnapped = snapped;
-    } else {
-      preSnapped = null;
+    this.onTouchMove = function(e) {
+        this.onMove(e.touches[0]);		
     }
 
-    hintHide();
+    this.onTouchEnd = function(e) {
+        if (e.touches.length ==0) this.onUp(e.changedTouches[0]);
+    }
 
-  }
+    this.onMouseDown = function(e) {
+        this.onDown(e);
+        e.preventDefault();
+    }
 
-  clicked = null;
+    this.onDown = function(e) {
+        this.calc(e);
+
+        var isResizing = this.onRightEdge || this.onBottomEdge || this.onTopEdge || this.onLeftEdge;
+
+        this.clicked = {
+            x: this.x,
+            y: this.y,
+            cx: e.clientX,
+            cy: e.clientY,
+            w: this.b.width,
+            h: this.b.height,
+            isResizing: isResizing,
+            isMoving: !isResizing && this.canMove(),
+            onTopEdge: this.onTopEdge,
+            onLeftEdge: this.onLeftEdge,
+            onRightEdge: this.onRightEdge,
+            onBottomEdge: this.onBottomEdge
+        };
+    }
+
+    this.canMove = function() {
+        if(!this.headerHeight)
+        {
+            return this.x > 0 && this.x < this.b.width && this.y > 0 && this.y < this.b.height;
+        }
+        else
+        {
+            return this.x > 0 && this.x < this.b.width && this.y > 0 && this.y < this.b.height && this.y < this.headerHeight;
+        }
+    }
+
+    this.calc = function(e) {
+        this.b = this.pane.getBoundingClientRect();
+        this.x = e.clientX - this.b.left;
+        this.y = e.clientY - this.b.top;
+
+        this.onTopEdge = this.y < this.MARGINS;
+        this.onLeftEdge = this.x < this.MARGINS;
+        this.onRightEdge = this.x >= this.b.width - this.MARGINS;
+        this.onBottomEdge = this.y >= this.b.height - this.MARGINS;
+
+        this.rightScreenEdge = window.innerWidth;
+        this.bottomScreenEdge = window.innerHeight;
+    }
+
+    this.e;
+
+    this.onMove = function(ee) {
+        this.calc(ee);
+
+        this.e = ee;
+
+        this.redraw = true;
+    }
+
+    this.animate = function() {
+
+        requestAnimationFrame(this.animate.bind(this));
+
+        if (!this.redraw) return;
+
+        this.redraw = false;
+
+        if (this.clicked && this.clicked.isResizing) {
+
+            if (this.clicked.onRightEdge) this.pane.style.width = Math.max(this.x, this.minWidth) + 'px';
+            if (this.clicked.onBottomEdge) this.pane.style.height = Math.max(this.y, this.minHeight) + 'px';
+
+            if (this.clicked.onLeftEdge) {
+                var currentWidth = Math.max(this.clicked.cx - this.e.clientX  + this.clicked.w, this.minWidth);
+                if (currentWidth > this.minWidth) {
+                    this.pane.style.width = currentWidth + 'px';
+                    this.pane.style.left = this.e.clientX + 'px';	
+                }
+            }
+
+            if (this.clicked.onTopEdge) {
+                var currentHeight = Math.max(this.clicked.cy - this.e.clientY  + this.clicked.h, this.minHeight);
+                if (currentHeight > this.minHeight) {
+                    this.pane.style.height = currentHeight + 'px';
+                    this.pane.style.top = this.e.clientY + 'px';	
+                }
+            }
+
+            this.hintHide();
+
+            return;
+        }
+
+        if (this.clicked && this.clicked.isMoving) {
+
+            if (this.b.top < this.FULLSCREEN_MARGINS || this.b.left < this.FULLSCREEN_MARGINS || this.b.right > window.innerWidth - this.FULLSCREEN_MARGINS || this.b.bottom > window.innerHeight - this.FULLSCREEN_MARGINS) {
+                this.setBounds(this.ghostpane, 0, 0, window.innerWidth, window.innerHeight);
+                this.ghostpane.style.opacity = 0.2;
+            } else if (this.b.top < this.MARGINS) {
+                this.setBounds(this.ghostpane, 0, 0, window.innerWidth, window.innerHeight / 2);
+                this.ghostpane.style.opacity = 0.2;
+            } else if (this.b.left < this.MARGINS) {
+                this.setBounds(this.ghostpane, 0, 0, window.innerWidth / 2, window.innerHeight);
+                this.ghostpane.style.opacity = 0.2;
+            } else if (this.b.right > this.rightScreenEdge) {
+                this.setBounds(this.ghostpane, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerHeight);
+                this.ghostpane.style.opacity = 0.2;
+            } else if (this.b.bottom > this.bottomScreenEdge) {
+                this.setBounds(this.ghostpane, 0, window.innerHeight / 2, window.innerWidth, window.innerWidth / 2);
+                this.ghostpane.style.opacity = 0.2;
+            } else {
+                this.hintHide();
+            }
+
+            if (this.preSnapped) {
+                this.setBounds(this.pane,
+                               this.e.clientX - this.preSnapped.width / 2,
+                               this.e.clientY - Math.min(this.clicked.y, this.preSnapped.height),
+                               this.preSnapped.width,
+                               this.preSnapped.height
+                              );
+                return;
+            }
+
+            // moving
+            this.pane.style.top = (this.e.clientY - this.clicked.y) + 'px';
+            this.pane.style.left = (this.e.clientX - this.clicked.x) + 'px';
+
+            return;
+        }
+
+        // This code executes when mouse moves without clicking
+
+        // style cursor
+        if (this.onRightEdge && this.onBottomEdge || this.onLeftEdge && this.onTopEdge) {
+            this.pane.style.cursor = 'nwse-resize';
+        } else if (this.onRightEdge && this.onTopEdge || this.onBottomEdge && this.onLeftEdge) {
+            this.pane.style.cursor = 'nesw-resize';
+        } else if (this.onRightEdge || this.onLeftEdge) {
+            this.pane.style.cursor = 'ew-resize';
+        } else if (this.onBottomEdge || this.onTopEdge) {
+            this.pane.style.cursor = 'ns-resize';
+        } else if (this.canMove()) {
+            this.pane.style.cursor = 'move';
+        } else {
+            this.pane.style.cursor = 'default';
+        }
+    }
+
+    this.animate();
+
+    this.onUp = function(e) {
+        this.calc(e);
+
+        if (this.clicked && this.clicked.isMoving) {
+            // Snap
+            var snapped = {
+                width: this.b.width,
+                height: this.b.height
+            };
+
+            if (this.b.top < this.FULLSCREEN_MARGINS || this.b.left < this.FULLSCREEN_MARGINS || this.b.right > window.innerWidth - this.FULLSCREEN_MARGINS || this.b.bottom > window.innerHeight - this.FULLSCREEN_MARGINS) {
+                this.setBounds(this.pane, 0, 20, window.innerWidth, (window.innerHeight + 20));
+                this.preSnapped = snapped;
+            } else if (this.b.top < this.MARGINS) {
+                this.setBounds(this.pane, 0, 20, window.innerWidth, (window.innerHeight + 20) / 2);
+                this.preSnapped = snapped;
+            } else if (this.b.left < this.MARGINS) {
+                this.setBounds(this.pane, 0, 20, window.innerWidth / 2, (window.innerHeight + 20));
+                this.preSnapped = snapped;
+            } else if (this.b.right > this.rightScreenEdge) {
+                this.setBounds(this.pane, window.innerWidth / 2, 20, window.innerWidth / 2, (window.innerHeight + 20));
+                this.preSnapped = snapped;
+            } else if (this.b.bottom > this.bottomScreenEdge) {
+                this.setBounds(this.pane, 0, (window.innerHeight + 20) / 2, window.innerWidth, window.innerWidth / 2);
+                this.preSnapped = snapped;
+            } else {
+                this.preSnapped = null;
+            }
+
+            this.hintHide();
+
+        }
+
+        this.clicked = null;
+
+    }
 
 }

@@ -203,6 +203,9 @@
                         </select>
                     </label>
                     <div class="dropdown-item" onclick="toggleFullscreen();">Fullscreen</div>
+                    <div class="dropdown-item" onclick="resetEditor();">Reset Position</div>
+                    <div class="dropdown-item" onclick="clearEditor();">Clear Content</div>
+                    <div class="dropdown-item" onclick="toggleAutoComplete(this);">Turn Auto Complete Off</div>
                 </div>
             </div>
             <div class="dropdown">
@@ -293,7 +296,7 @@
             <h2 id="projectName" style="position: absolute; top: 60px">New Sequence</h2>
 
 
-            <div id="codeMirrorHolder" style="height: 77vh; border: 1px solid black;"></div>
+            <div id="codeMirrorHolder"><p id="description">Text Editor</p></div>
 
             <div id="supportTheDeveloper">
                 <p style="text-align: center;">Support The Developer?</p>
@@ -309,8 +312,9 @@
 
             <div id="shareModal" style="display: none;"><input type="button" value="Close" style="position: absolute; top:15px; right: 25px; font-size: 25px;" onclick="document.getElementById('shareModal').style.display = 'none';"><div id="shareContent"></div> </div>
 
-            <div id="dragMe" style="display:none;"><p id="description">Drag, Resize, Snap!</p><div style="position: absolute; height: 100%; width: 100%; z-index: 2000;"></div><iframe src="" id="previewHolder" ondrag="console.log(event);"></iframe></div>
+            <div id="dragMe" style="display:none;"><p id="description2">Drag, Resize, Snap!</p><div style="position: absolute; height: 100%; width: 100%; z-index: 2000;"></div><iframe src="" id="previewHolder" ondrag="console.log(event);"></iframe></div>
             <div id="ghostpane" style="display: none;"></div>
+            <div id="ghostpane2"></div>
 
         </div>
         <script src="main.js"></script>

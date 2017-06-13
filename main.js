@@ -1,4 +1,5 @@
 var preHolder = document.getElementById("previewHolder");
+var autoComplete = true;
 var defaultCode = "<setup action>\n" +
     "  clear battle log\n" +
     "  display action\n" +
@@ -73,6 +74,7 @@ var editor = CodeMirror(document.getElementById("codeMirrorHolder"), {
 function toggleFullscreen()
 {
     editor.setOption("fullScreen", !editor.getOption("fullScreen"));
+    document.getElementById("description").classList.toggle("hidden");
 }
 
 function changeTheme()
@@ -91,10 +93,13 @@ function changeTheme()
 
 editor.on("inputRead", function(event){
     setDirty(true);
-    editor.showHint({
-        hint: CodeMirror.hint.anyword,
-        completeSingle: false,
-    });
+    if (autoComplete)
+    {
+        editor.showHint({
+            hint: CodeMirror.hint.anyword,
+            completeSingle: false,
+        });
+    }
 });
 
 function saveHandler()
@@ -373,10 +378,17 @@ function volumeHandler()
 
 function adjustVolume()
 {
-    preHolder.contentWindow.ConfigManager.bgmVolume = parseInt(document.getElementById("bgmVol").value);
-    preHolder.contentWindow.ConfigManager.bgsVolume = parseInt(document.getElementById("bgsVol").value);
-    preHolder.contentWindow.ConfigManager.seVolume = parseInt(document.getElementById("seVol").value);
-    preHolder.contentWindow.ConfigManager.meVolume = parseInt(document.getElementById("meVol").value);
+    try
+    {
+        preHolder.contentWindow.ConfigManager.bgmVolume = parseInt(document.getElementById("bgmVol").value);
+        preHolder.contentWindow.ConfigManager.bgsVolume = parseInt(document.getElementById("bgsVol").value);
+        preHolder.contentWindow.ConfigManager.seVolume = parseInt(document.getElementById("seVol").value);
+        preHolder.contentWindow.ConfigManager.meVolume = parseInt(document.getElementById("meVol").value);
+    }
+    catch(e)
+    {
+
+    }
 }
 
 function updateSkillSettings(dirty)
@@ -472,6 +484,31 @@ function closeNav()
     document.getElementById("sideNav").style.width = "0";
     document.getElementById("closeNavButton").style.display = "none";
     document.getElementById("openNavButton").removeAttribute("style");
+}
+
+function resetEditor()
+{
+    document.getElementById("codeMirrorHolder").removeAttribute("style");
+    editor.setOption("fullScreen", false);
+    document.getElementById("description").classList.remove("hidden");
+}
+
+function clearEditor()
+{
+    editor.setValue("");
+}
+
+function toggleAutoComplete(element)
+{
+    autoComplete = !autoComplete;
+    if (autoComplete)
+        {
+            element.textContent = "Turn Auto Complete Off";
+        }
+    else
+        {
+            element.textContent = "Turn Auto Complete On";
+        }
 }
 
 document.getElementById("dragMe").addEventListener('mouseup', function(event){
