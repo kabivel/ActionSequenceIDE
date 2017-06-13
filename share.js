@@ -186,3 +186,11 @@ var createCORSRequest = function(method, url) {
   }
   return xhr;
 };
+
+document.getElementById("dragMe").addEventListener('mouseup', function(event){
+    preHolder.contentWindow.document.dispatchEvent(new MouseEvent('mouseup'));
+});
+
+document.getElementById("dragMe").addEventListener('mousedown', function(event){
+    preHolder.contentWindow.document.dispatchEvent(new MouseEvent('mousedown'));
+});
