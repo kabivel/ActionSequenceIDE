@@ -76,11 +76,10 @@
 #dragMe
 {
     position: absolute;
-    top: 200px;
-    right: 20px;
-    height: 276px;
-    width: 408px;
     z-index: 200;
+    left: calc(50vw + 20px);
+    height: calc(34vw - 25px);
+    width: calc(50vw - 25px);
 }
 
 #previewHolder
@@ -157,10 +156,9 @@
     background: #999;
     opacity: 0.2;
 
-    top: 200px;
-    right: 20px;
-    height: 306px;
-    width: 408px;
+    left: calc(50vw + 20px);
+    height: calc(34vw - 25px);
+    width: calc(50vw - 25px);
 
     position: absolute;
     margin: 0;
