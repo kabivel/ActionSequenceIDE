@@ -1,5 +1,5 @@
 //=============================================================================
-// rpg_managers.js v1.4.1
+// rpg_managers.js v1.5.0
 //=============================================================================
 
 //-----------------------------------------------------------------------------
@@ -76,12 +76,11 @@ DataManager.loadDatabase = function() {
 };
 
 DataManager.loadDataFile = function(name, src) {
-
     var xhr = new XMLHttpRequest();
     var url = 'data/' + src;
     if (src.slice(0,7) == "http://" || src.slice(0,8) == "https://")
     {
-        var xhr2 = createCORSRequest("GET", src);
+        var xhr2 = window.parent.createCORSRequest("GET", src);
         xhr2.onload = function() {
             if (xhr2.status < 400) {
                 window[name] = JSON.parse(xhr2.responseText);
@@ -126,6 +125,7 @@ DataManager.isDatabaseLoaded = function() {
 DataManager.loadMapData = function(mapId) {
     if (mapId > 0) {
         var filename = 'Map%1.json'.format(mapId.padZero(3));
+        this._mapLoader = ResourceHandler.createLoader('data/' + filename, this.loadDataFile.bind(this, '$dataMap', filename));
         this.loadDataFile('$dataMap', filename);
     } else {
         this.makeEmptyMap();
@@ -237,7 +237,7 @@ DataManager.setupNewGame = function() {
     this.selectSavefileForNewGame();
     $gameParty.setupStartingMembers();
     $gamePlayer.reserveTransfer($dataSystem.startMapId,
-                                $dataSystem.startX, $dataSystem.startY);
+        $dataSystem.startX, $dataSystem.startY);
     Graphics.frameCount = 0;
 };
 
@@ -339,12 +339,12 @@ DataManager.loadAllSavefileImages = function() {
 DataManager.loadSavefileImages = function(info) {
     if (info.characters) {
         for (var i = 0; i < info.characters.length; i++) {
-            ImageManager.loadCharacter(info.characters[i][0]);
+            ImageManager.reserveCharacter(info.characters[i][0]);
         }
     }
     if (info.faces) {
         for (var j = 0; j < info.faces.length; j++) {
-            ImageManager.loadFace(info.faces[j][0]);
+            ImageManager.reserveFace(info.faces[j][0]);
         }
     }
 };
@@ -649,17 +649,17 @@ StorageManager.backupExists = function(savefileId) {
 };
 
 StorageManager.cleanBackup = function(savefileId) {
-    if (this.backupExists(savefileId)) {
-        if (this.isLocalMode()) {
-            var fs = require('fs');
+	if (this.backupExists(savefileId)) {
+		if (this.isLocalMode()) {
+			var fs = require('fs');
             var dirPath = this.localFileDirectoryPath();
             var filePath = this.localFilePath(savefileId);
             fs.unlinkSync(filePath + ".bak");
-        } else {
-            var key = this.webStorageKey(savefileId);
-            localStorage.removeItem(key + "bak");
-        }
-    }
+		} else {
+		    var key = this.webStorageKey(savefileId);
+			localStorage.removeItem(key + "bak");
+		}
+	}
 };
 
 StorageManager.restoreBackup = function(savefileId) {
@@ -811,6 +811,14 @@ function ImageManager() {
 
 ImageManager.cache = new CacheMap(ImageManager);
 
+ImageManager._imageCache = new ImageCache();
+ImageManager._requestQueue = new RequestQueue();
+ImageManager._systemReservationId = Utils.generateRuntimeId();
+
+ImageManager._generateCacheKey = function(path, hue){
+    return  path + ':' + hue;
+};
+
 ImageManager.loadAnimation = function(filename, hue) {
     return this.loadBitmap('img/animations/', filename, hue, true);
 };
@@ -870,7 +878,6 @@ ImageManager.loadTitle2 = function(filename, hue) {
 ImageManager.loadBitmap = function(folder, filename, hue, smooth) {
     if (filename) {
         var path = folder + encodeURIComponent(filename) + '.png';
-
         var bitmap = this.loadNormalBitmap(path, hue || 0);
         bitmap.smooth = smooth;
         return bitmap;
@@ -880,42 +887,38 @@ ImageManager.loadBitmap = function(folder, filename, hue, smooth) {
 };
 
 ImageManager.loadEmptyBitmap = function() {
-    var empty = this.cache.getItem('empty');
-    if (!empty) {
+    var empty = this._imageCache.get('empty');
+    if(!empty){
         empty = new Bitmap();
-        this.cache.setItem('empty', empty);
+        this._imageCache.add('empty', empty);
+        this._imageCache.reserve('empty', empty, this._systemReservationId);
     }
+
     return empty;
 };
 
 ImageManager.loadNormalBitmap = function(path, hue) {
-    var key = path + ':' + hue;
-    var bitmap = this.cache.getItem(key);
+    var key = this._generateCacheKey(path, hue);
+    var bitmap = this._imageCache.get(key);
     if (!bitmap) {
         bitmap = Bitmap.load(path);
         bitmap.addLoadListener(function() {
             bitmap.rotateHue(hue);
         });
-        this.cache.setItem(key, bitmap);
+        this._imageCache.add(key, bitmap);
+    }else if(!bitmap.isReady()){
+        bitmap.decode();
     }
+
     return bitmap;
 };
 
 ImageManager.clear = function() {
-    this.cache.clear();
+    this._imageCache = new ImageCache();
 };
 
 ImageManager.isReady = function() {
-    for (var key in this.cache._inner) {
-        var bitmap = this.cache._inner[key].item;
-        if (bitmap.isError()) {
-            throw new Error('Failed to load: ' + bitmap.url);
-        }
-        if (!bitmap.isReady()) {
-            return false;
-        }
-    }
-    return true;
+    return this._imageCache.isReady();
 };
 
 ImageManager.isObjectCharacter = function(filename) {
@@ -932,6 +935,182 @@ ImageManager.isZeroParallax = function(filename) {
     return filename.charAt(0) === '!';
 };
 
+
+ImageManager.reserveAnimation = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/animations/', filename, hue, true, reservationId);
+};
+
+ImageManager.reserveBattleback1 = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/battlebacks1/', filename, hue, true, reservationId);
+};
+
+ImageManager.reserveBattleback2 = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/battlebacks2/', filename, hue, true, reservationId);
+};
+
+ImageManager.reserveEnemy = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/enemies/', filename, hue, true, reservationId);
+};
+
+ImageManager.reserveCharacter = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/characters/', filename, hue, false, reservationId);
+};
+
+ImageManager.reserveFace = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/faces/', filename, hue, true, reservationId);
+};
+
+ImageManager.reserveParallax = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/parallaxes/', filename, hue, true, reservationId);
+};
+
+ImageManager.reservePicture = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/pictures/', filename, hue, true, reservationId);
+};
+
+ImageManager.reserveSvActor = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/sv_actors/', filename, hue, false, reservationId);
+};
+
+ImageManager.reserveSvEnemy = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/sv_enemies/', filename, hue, true, reservationId);
+};
+
+ImageManager.reserveSystem = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/system/', filename, hue, false, reservationId || this._systemReservationId);
+};
+
+ImageManager.reserveTileset = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/tilesets/', filename, hue, false, reservationId);
+};
+
+ImageManager.reserveTitle1 = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/titles1/', filename, hue, true, reservationId);
+};
+
+ImageManager.reserveTitle2 = function(filename, hue, reservationId) {
+    return this.reserveBitmap('img/titles2/', filename, hue, true, reservationId);
+};
+
+ImageManager.reserveBitmap = function(folder, filename, hue, smooth, reservationId) {
+    if (filename) {
+        var path = folder + encodeURIComponent(filename) + '.png';
+        var bitmap = this.reserveNormalBitmap(path, hue || 0, reservationId || this._defaultReservationId);
+        bitmap.smooth = smooth;
+        return bitmap;
+    } else {
+        return this.loadEmptyBitmap();
+    }
+};
+
+ImageManager.reserveNormalBitmap = function(path, hue, reservationId){
+    var bitmap = this.loadNormalBitmap(path, hue);
+    this._imageCache.reserve(this._generateCacheKey(path, hue), bitmap, reservationId);
+
+    return bitmap;
+};
+
+ImageManager.releaseReservation = function(reservationId){
+    this._imageCache.releaseReservation(reservationId);
+};
+
+ImageManager.setDefaultReservationId = function(reservationId){
+    this._defaultReservationId = reservationId;
+};
+
+
+ImageManager.requestAnimation = function(filename, hue) {
+    return this.requestBitmap('img/animations/', filename, hue, true);
+};
+
+ImageManager.requestBattleback1 = function(filename, hue) {
+    return this.requestBitmap('img/battlebacks1/', filename, hue, true);
+};
+
+ImageManager.requestBattleback2 = function(filename, hue) {
+    return this.requestBitmap('img/battlebacks2/', filename, hue, true);
+};
+
+ImageManager.requestEnemy = function(filename, hue) {
+    return this.requestBitmap('img/enemies/', filename, hue, true);
+};
+
+ImageManager.requestCharacter = function(filename, hue) {
+    return this.requestBitmap('img/characters/', filename, hue, false);
+};
+
+ImageManager.requestFace = function(filename, hue) {
+    return this.requestBitmap('img/faces/', filename, hue, true);
+};
+
+ImageManager.requestParallax = function(filename, hue) {
+    return this.requestBitmap('img/parallaxes/', filename, hue, true);
+};
+
+ImageManager.requestPicture = function(filename, hue) {
+    return this.requestBitmap('img/pictures/', filename, hue, true);
+};
+
+ImageManager.requestSvActor = function(filename, hue) {
+    return this.requestBitmap('img/sv_actors/', filename, hue, false);
+};
+
+ImageManager.requestSvEnemy = function(filename, hue) {
+    return this.requestBitmap('img/sv_enemies/', filename, hue, true);
+};
+
+ImageManager.requestSystem = function(filename, hue) {
+    return this.requestBitmap('img/system/', filename, hue, false);
+};
+
+ImageManager.requestTileset = function(filename, hue) {
+    return this.requestBitmap('img/tilesets/', filename, hue, false);
+};
+
+ImageManager.requestTitle1 = function(filename, hue) {
+    return this.requestBitmap('img/titles1/', filename, hue, true);
+};
+
+ImageManager.requestTitle2 = function(filename, hue) {
+    return this.requestBitmap('img/titles2/', filename, hue, true);
+};
+
+ImageManager.requestBitmap = function(folder, filename, hue, smooth) {
+    if (filename) {
+        var path = folder + encodeURIComponent(filename) + '.png';
+        var bitmap = this.requestNormalBitmap(path, hue || 0);
+        bitmap.smooth = smooth;
+        return bitmap;
+    } else {
+        return this.loadEmptyBitmap();
+    }
+};
+
+ImageManager.requestNormalBitmap = function(path, hue){
+    var key = this._generateCacheKey(path, hue);
+    var bitmap = this._imageCache.get(key);
+    if(!bitmap){
+        bitmap = Bitmap.request(path);
+        bitmap.addLoadListener(function(){
+            bitmap.rotateHue(hue);
+        });
+        this._imageCache.add(key, bitmap);
+        this._requestQueue.enqueue(key, bitmap);
+    }else{
+        this._requestQueue.raisePriority(key);
+    }
+
+    return bitmap;
+};
+
+ImageManager.update = function(){
+    this._requestQueue.update();
+};
+
+ImageManager.clearRequest = function(){
+    this._requestQueue.clear();
+};
+
 //-----------------------------------------------------------------------------
 // AudioManager
 //
@@ -941,10 +1120,11 @@ function AudioManager() {
     throw new Error('This is a static class');
 }
 
-AudioManager._bgmVolume      = 30;
-AudioManager._bgsVolume      = 30;
-AudioManager._meVolume       = 30;
-AudioManager._seVolume       = 30;
+AudioManager._masterVolume   = 1;   // (min: 0, max: 1)
+AudioManager._bgmVolume      = 100;
+AudioManager._bgsVolume      = 100;
+AudioManager._meVolume       = 100;
+AudioManager._seVolume       = 100;
 AudioManager._currentBgm     = null;
 AudioManager._currentBgs     = null;
 AudioManager._bgmBuffer      = null;
@@ -955,6 +1135,18 @@ AudioManager._staticBuffers  = [];
 AudioManager._replayFadeTime = 0.5;
 AudioManager._path           = 'audio/';
 AudioManager._blobUrl        = null;
+
+Object.defineProperty(AudioManager, 'masterVolume', {
+    get: function() {
+        return this._masterVolume;
+    },
+    set: function(value) {
+        this._masterVolume = value;
+        WebAudio.setMasterVolume(this._masterVolume);
+        Graphics.setVideoVolume(this._masterVolume);
+    },
+    configurable: true
+});
 
 Object.defineProperty(AudioManager, 'bgmVolume', {
     get: function() {
@@ -1319,7 +1511,7 @@ AudioManager.audioFileExt = function() {
 AudioManager.shouldUseHtml5Audio = function() {
     // The only case where we wanted html5audio was android/ no encrypt
     // Atsuma-ru asked to force webaudio there too, so just return false for ALL    // return Utils.isAndroidChrome() && !Decrypter.hasEncryptedAudio;
-    return false;
+ return false;
 };
 
 AudioManager.checkErrors = function() {
@@ -1601,10 +1793,10 @@ function SceneManager() {
 }
 
 /*
- * Gets the current time in ms.
+ * Gets the current time in ms without on iOS Safari.
  * @private
  */
-SceneManager._getTimeInMs = function() {
+SceneManager._getTimeInMsWithoutMobileSafari = function() {
     return performance.now();
 };
 
@@ -1621,7 +1813,7 @@ SceneManager._screenHeight      = 624;
 SceneManager._boxWidth          = 816;
 SceneManager._boxHeight         = 624;
 SceneManager._deltaTime = 1.0 / 60.0;
-SceneManager._currentTime = SceneManager._getTimeInMs();
+if (!Utils.isMobileSafari()) SceneManager._currentTime = SceneManager._getTimeInMsWithoutMobileSafari();
 SceneManager._accumulator = 0.0;
 
 SceneManager.run = function(sceneClass) {
@@ -1663,8 +1855,6 @@ SceneManager.preferableRendererType = function() {
         return 'canvas';
     } else if (Utils.isOptionValid('webgl')) {
         return 'webgl';
-    } else if (this.shouldUseCanvasRenderer()) {
-        return 'canvas';
     } else {
         return 'auto';
     }
@@ -1732,6 +1922,7 @@ SceneManager.update = function() {
         if (Utils.isMobileSafari()) {
             this.updateInputData();
         }
+        this.updateManagers();
         this.updateMain();
         this.tickEnd();
     } catch (e) {
@@ -1757,17 +1948,17 @@ SceneManager.onError = function(e) {
 SceneManager.onKeyDown = function(event) {
     if (!event.ctrlKey && !event.altKey) {
         switch (event.keyCode) {
-            case 116:   // F5
-                if (Utils.isNwjs()) {
-                    location.reload();
-                }
-                break;
-            case 119:   // F8
-                if (Utils.isNwjs() && Utils.isOptionValid('test')) {
-                    require('nw.gui').Window.get().showDevTools();
-                }
-                break;
-                             }
+        case 116:   // F5
+            if (Utils.isNwjs()) {
+                location.reload();
+            }
+            break;
+        case 119:   // F8
+            if (Utils.isNwjs() && Utils.isOptionValid('test')) {
+                require('nw.gui').Window.get().showDevTools();
+            }
+            break;
+        }
     }
 };
 
@@ -1800,7 +1991,7 @@ SceneManager.updateMain = function() {
         this.changeScene();
         this.updateScene();
     } else {
-        var newTime = this._getTimeInMs();
+        var newTime = this._getTimeInMsWithoutMobileSafari();
         var fTime = (newTime - this._currentTime) / 1000;
         if (fTime > 0.25) fTime = 0.25;
         this._currentTime = newTime;
@@ -1816,18 +2007,20 @@ SceneManager.updateMain = function() {
     this.requestUpdate();
 };
 
-SceneManager.updateManagers = function(ticks, delta) {
-    ImageManager.cache.update(ticks, delta);
+SceneManager.updateManagers = function() {
+    ImageManager.update();
 };
 
 SceneManager.changeScene = function() {
     if (this.isSceneChanging() && !this.isCurrentSceneBusy()) {
         if (this._scene) {
             this._scene.terminate();
+            this._scene.detachReservation();
             this._previousClass = this._scene.constructor;
         }
         this._scene = this._nextScene;
         if (this._scene) {
+            this._scene.attachReservation();
             this._scene.create();
             this._nextScene = null;
             this._sceneStarted = false;
@@ -1942,6 +2135,15 @@ SceneManager.snapForBackground = function() {
 
 SceneManager.backgroundBitmap = function() {
     return this._backgroundBitmap;
+};
+
+SceneManager.resume = function() {
+    this._stopped = false;
+    this.requestUpdate();
+    if (!Utils.isMobileSafari()) {
+        this._currentTime = this._getTimeInMsWithoutMobileSafari();
+        this._accumulator = 0;
+    }
 };
 
 //-----------------------------------------------------------------------------
@@ -2059,22 +2261,22 @@ BattleManager.makeEscapeRatio = function() {
 BattleManager.update = function() {
     if (!this.isBusy() && !this.updateEvent()) {
         switch (this._phase) {
-            case 'start':
-                this.startInput();
-                break;
-            case 'turn':
-                this.updateTurn();
-                break;
-            case 'action':
-                this.updateAction();
-                break;
-            case 'turnEnd':
-                this.updateTurnEnd();
-                break;
-            case 'battleEnd':
-                this.updateBattleEnd();
-                break;
-                           }
+        case 'start':
+            this.startInput();
+            break;
+        case 'turn':
+            this.updateTurn();
+            break;
+        case 'action':
+            this.updateAction();
+            break;
+        case 'turnEnd':
+            this.updateTurnEnd();
+            break;
+        case 'battleEnd':
+            this.updateBattleEnd();
+            break;
+        }
     }
 };
 
@@ -2089,7 +2291,7 @@ BattleManager.updateEvent = function() {
             } else {
                 return this.updateEventMain();
             }
-                       }
+    }
     return this.checkAbort2();
 };
 
@@ -2368,7 +2570,7 @@ BattleManager.invokeCounterAttack = function(subject, target) {
 };
 
 BattleManager.invokeMagicReflection = function(subject, target) {
-    this._action._reflectionTarget = target;
+	this._action._reflectionTarget = target;
     this._logWindow.displayReflection(target);
     this._action.apply(subject);
     this._logWindow.displayActionResults(target, subject);

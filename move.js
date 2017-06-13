@@ -11,7 +11,7 @@ var minHeight = 153;
 
 // Thresholds
 var FULLSCREEN_MARGINS = -3000;
-var MARGINS = 4;
+var MARGINS = 10;
 
 // End of what's configurable.
 var clicked = null;
@@ -25,7 +25,7 @@ var b, x, y;
 
 var redraw = false;
 
-var pane = document.getElementById('previewHolder');
+var pane = document.getElementById('dragMe');
 var ghostpane = document.getElementById('ghostpane');
 
 function setBounds(element, x, y, w, h) {

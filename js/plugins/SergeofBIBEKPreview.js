@@ -46,7 +46,7 @@ BattleManager.SergeofBIBEKPreview = function()
     var inFollow = false;
     var inFinish = false;
 
-    var SequenceData = editor.getValue().split(/[\r\n]+/);
+    var SequenceData = window.parent.editor.getValue().split(/[\r\n]+/);
 
     for (var i = 0; i < SequenceData.length; i++)
     {

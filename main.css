@@ -73,14 +73,23 @@
     background-color: white;
 }
 
-#previewHolder
+#dragMe
 {
     position: absolute;
     top: 200px;
     right: 20px;
     height: 306px;
     width: 408px;
+    z-index: 200;
+}
+
+#previewHolder
+{
+    position: absolute;
+    height: 100%;
+    width: 100%;
     z-index: 100;
+    border: none;
 }
 
 #closePreview
