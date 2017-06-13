@@ -1,3 +1,4 @@
+var preHolder = document.getElementById("previewHolder");
 var editor = CodeMirror(document.getElementById("codeMirrorHolder"), {
     readOnly: true,
     mode: "simplemode",
@@ -105,34 +106,20 @@ var firstClick = true;
 
 function previewHandler()
 {
-    if (firstClick)
-    {
-        document.getElementById("previewHolder").removeAttribute("style");
-        document.getElementById("ghostpane").removeAttribute("style");
-        SceneManager.run(Scene_Boot);
-        firstClick = false;
-    }
-    else
-    {
-        document.getElementById("previewHolder").removeAttribute("style");
-        document.getElementById("ghostpane").removeAttribute("style");
-        SceneManager.goto(Scene_Map);
-    }
-
+    document.getElementById("dragMe").removeAttribute("style");
+    document.getElementById("ghostpane").removeAttribute("style");
     document.getElementById("openPreviewButton").style.display = "none";
     document.getElementById("closePreviewButton").removeAttribute("style");
+    preHolder.src = "game.html";
 }
 
 function closePreview()
 {
-    setTimeout(function(){
-        SceneManager.goto(Scene_Pause);
-        document.getElementById("previewHolder").style.display = "none";
-        document.getElementById("ghostpane").style.display = "none";
-        document.getElementById("closePreviewButton").style.display = "none";
-        document.getElementById("openPreviewButton").removeAttribute("style");
-        BattleManager._processingForcedAction = false
-    }, 1000);
+    preHolder.src = "";
+    document.getElementById("dragMe").style.display = "none";
+    document.getElementById("ghostpane").style.display = "none";
+    document.getElementById("closePreviewButton").style.display = "none";
+    document.getElementById("openPreviewButton").removeAttribute("style");
 }
 
 function volumeHandler()
@@ -142,17 +129,17 @@ function volumeHandler()
 
 function adjustVolume()
 {
-    ConfigManager.bgmVolume = parseInt(document.getElementById("bgmVol").value);
-    ConfigManager.bgsVolume = parseInt(document.getElementById("bgsVol").value);
-    ConfigManager.seVolume = parseInt(document.getElementById("seVol").value);
-    ConfigManager.meVolume = parseInt(document.getElementById("meVol").value);
+    preHolder.contentWindow.ConfigManager.bgmVolume = parseInt(document.getElementById("bgmVol").value);
+    preHolder.contentWindow.ConfigManager.bgsVolume = parseInt(document.getElementById("bgsVol").value);
+    preHolder.contentWindow.ConfigManager.seVolume = parseInt(document.getElementById("seVol").value);
+    preHolder.contentWindow.ConfigManager.meVolume = parseInt(document.getElementById("meVol").value);
 }
 
 function updateSkillSettings(dirty)
 {
     try
     {
-        var skill = $dataSkills[11];
+        var skill = preHolder.contentWindow.$dataSkills[11];
         skill.scope = parseInt(document.getElementById("skillScope").value);
         skill.damage.type = parseInt(document.getElementById("skillDamageType").value);
         skill.animationId = parseInt(document.getElementById("skillAnimation").value);
@@ -166,7 +153,7 @@ function updateSkillSettings(dirty)
 
 function setSkillOptions()
 {
-    var skill = $dataSkills[11];
+    var skill = preHolder.contentWindow.$dataSkills[11];
     document.getElementById("skillScope").value = skill.scope;
     document.getElementById("skillDamageType").value = skill.damage.type;
     document.getElementById("skillAnimation").value = skill.animationId;
@@ -180,7 +167,7 @@ function loadCustomData()
 {
     if (externalAssetPath != "" && externalAssetPath != undefined && externalAssetPath != null)
     {
-        DataManager.loadDataFile("$dataAnimations", externalAssetPath + "/data/Animations.json");
+        preHolder.contentWindow.DataManager.loadDataFile("$dataAnimations", externalAssetPath + "/data/Animations.json");
     }
 }
 
