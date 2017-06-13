@@ -502,13 +502,13 @@ function toggleAutoComplete(element)
 {
     autoComplete = !autoComplete;
     if (autoComplete)
-        {
-            element.textContent = "Turn Auto Complete Off";
-        }
+    {
+        element.textContent = "Turn Auto Complete Off";
+    }
     else
-        {
-            element.textContent = "Turn Auto Complete On";
-        }
+    {
+        element.textContent = "Turn Auto Complete On";
+    }
 }
 
 document.getElementById("dragMe").addEventListener('mouseup', function(event){
