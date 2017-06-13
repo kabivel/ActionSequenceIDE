@@ -474,4 +474,10 @@ function closeNav()
     document.getElementById("openNavButton").removeAttribute("style");
 }
 
+document.getElementById("dragMe").addEventListener('mouseup', function(event){
+    preHolder.contentWindow.document.dispatchEvent(new MouseEvent('mouseup'));
+});
 
+document.getElementById("dragMe").addEventListener('mousedown', function(event){
+    preHolder.contentWindow.document.dispatchEvent(new MouseEvent('mousedown'));
+});
